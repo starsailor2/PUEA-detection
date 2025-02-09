@@ -1,4 +1,0 @@
-model,detection_rate,false_detection_rate,true_positives,true_negatives,false_positives,false_negatives,silhouette_score,calinski_harabasz_score,davies_bouldin_score
-KMeans,0.4275,0.9725,855,11,389,1145,-0.0040331051245663,14.448971162194692,1.8459256482052475
-DBSCAN,0.0,0.0,0,400,0,2000,,,
-Hierarchical,0.0,0.02,0,392,8,2000,0.994740886163158,12461.513817541603,0.3202867466853943
