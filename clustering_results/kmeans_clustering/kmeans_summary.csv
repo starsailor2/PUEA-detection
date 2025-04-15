@@ -1,0 +1,16 @@
+Case,Scenario,Attacker,Primary User
+A,10percent,5,4
+A,20percent,5,4
+A,30percent,2,7
+A,40percent,1,8
+A,50percent,1,8
+B,10percent,5,4
+B,20percent,4,5
+B,30percent,5,4
+B,40percent,2,7
+B,50percent,2,7
+C,10percent,4,5
+C,20percent,5,4
+C,30percent,4,5
+C,40percent,6,3
+C,50percent,5,4
