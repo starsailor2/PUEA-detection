@@ -1,0 +1,4 @@
+Algorithm,Total_Cases,Detection_Rate_Matches,False_Detection_Rate_Matches,Detection_Rate_Match_Percent,False_Detection_Rate_Match_Percent
+Agglomerative,15,15,15,100.0,100.0
+DBSCAN,15,15,15,100.0,100.0
+KMeans,15,15,15,100.0,100.0

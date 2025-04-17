@@ -1,31 +1,34 @@
 Case,Scenario,Sample_Index,Label,Category
-A,10percent,0,1,Attacker
-A,10percent,1,0,Primary User
-A,10percent,2,1,Attacker
-A,10percent,3,0,Primary User
-A,10percent,4,1,Attacker
+A,10percent,0,0,Primary User
+A,10percent,1,1,Attacker
+A,10percent,2,0,Primary User
+A,10percent,3,1,Attacker
+A,10percent,4,0,Primary User
 A,10percent,5,1,Attacker
-A,10percent,6,0,Primary User
+A,10percent,6,1,Attacker
 A,10percent,7,0,Primary User
-A,10percent,8,1,Attacker
+A,10percent,8,0,Primary User
+A,10percent,9,1,Attacker
 A,20percent,0,1,Attacker
-A,20percent,1,0,Primary User
+A,20percent,1,1,Attacker
 A,20percent,2,0,Primary User
 A,20percent,3,0,Primary User
 A,20percent,4,0,Primary User
-A,20percent,5,1,Attacker
+A,20percent,5,0,Primary User
 A,20percent,6,1,Attacker
 A,20percent,7,1,Attacker
-A,20percent,8,0,Primary User
-A,30percent,0,0,Primary User
-A,30percent,1,1,Attacker
-A,30percent,2,0,Primary User
-A,30percent,3,1,Attacker
-A,30percent,4,0,Primary User
-A,30percent,5,1,Attacker
+A,20percent,8,1,Attacker
+A,20percent,9,0,Primary User
+A,30percent,0,1,Attacker
+A,30percent,1,0,Primary User
+A,30percent,2,1,Attacker
+A,30percent,3,0,Primary User
+A,30percent,4,1,Attacker
+A,30percent,5,0,Primary User
 A,30percent,6,1,Attacker
-A,30percent,7,0,Primary User
-A,30percent,8,1,Attacker
+A,30percent,7,1,Attacker
+A,30percent,8,0,Primary User
+A,30percent,9,1,Attacker
 A,40percent,0,0,Primary User
 A,40percent,1,0,Primary User
 A,40percent,2,0,Primary User
@@ -33,104 +36,116 @@ A,40percent,3,0,Primary User
 A,40percent,4,0,Primary User
 A,40percent,5,0,Primary User
 A,40percent,6,0,Primary User
-A,40percent,7,1,Attacker
-A,40percent,8,0,Primary User
+A,40percent,7,0,Primary User
+A,40percent,8,1,Attacker
+A,40percent,9,0,Primary User
 A,50percent,0,0,Primary User
 A,50percent,1,0,Primary User
 A,50percent,2,0,Primary User
 A,50percent,3,0,Primary User
-A,50percent,4,1,Attacker
-A,50percent,5,0,Primary User
+A,50percent,4,0,Primary User
+A,50percent,5,1,Attacker
 A,50percent,6,0,Primary User
 A,50percent,7,0,Primary User
 A,50percent,8,0,Primary User
+A,50percent,9,0,Primary User
 B,10percent,0,0,Primary User
-B,10percent,1,1,Attacker
+B,10percent,1,0,Primary User
 B,10percent,2,1,Attacker
 B,10percent,3,1,Attacker
-B,10percent,4,0,Primary User
+B,10percent,4,1,Attacker
 B,10percent,5,0,Primary User
 B,10percent,6,0,Primary User
 B,10percent,7,0,Primary User
-B,10percent,8,1,Attacker
-B,20percent,0,0,Primary User
+B,10percent,8,0,Primary User
+B,10percent,9,1,Attacker
+B,20percent,0,1,Attacker
 B,20percent,1,0,Primary User
 B,20percent,2,0,Primary User
-B,20percent,3,1,Attacker
-B,20percent,4,0,Primary User
-B,20percent,5,1,Attacker
+B,20percent,3,0,Primary User
+B,20percent,4,1,Attacker
+B,20percent,5,0,Primary User
 B,20percent,6,1,Attacker
-B,20percent,7,0,Primary User
+B,20percent,7,1,Attacker
 B,20percent,8,0,Primary User
+B,20percent,9,0,Primary User
 B,30percent,0,0,Primary User
 B,30percent,1,0,Primary User
 B,30percent,2,0,Primary User
-B,30percent,3,1,Attacker
+B,30percent,3,0,Primary User
 B,30percent,4,1,Attacker
-B,30percent,5,0,Primary User
+B,30percent,5,1,Attacker
 B,30percent,6,0,Primary User
 B,30percent,7,0,Primary User
 B,30percent,8,0,Primary User
-B,40percent,0,1,Attacker
-B,40percent,1,0,Primary User
+B,30percent,9,0,Primary User
+B,40percent,0,0,Primary User
+B,40percent,1,1,Attacker
 B,40percent,2,0,Primary User
 B,40percent,3,0,Primary User
 B,40percent,4,0,Primary User
-B,40percent,5,1,Attacker
-B,40percent,6,0,Primary User
+B,40percent,5,0,Primary User
+B,40percent,6,1,Attacker
 B,40percent,7,0,Primary User
 B,40percent,8,0,Primary User
+B,40percent,9,0,Primary User
 B,50percent,0,0,Primary User
 B,50percent,1,0,Primary User
 B,50percent,2,0,Primary User
 B,50percent,3,0,Primary User
 B,50percent,4,0,Primary User
 B,50percent,5,0,Primary User
-B,50percent,6,1,Attacker
+B,50percent,6,0,Primary User
 B,50percent,7,1,Attacker
-B,50percent,8,0,Primary User
-C,10percent,0,1,Attacker
-C,10percent,1,0,Primary User
-C,10percent,2,1,Attacker
-C,10percent,3,0,Primary User
-C,10percent,4,1,Attacker
-C,10percent,5,0,Primary User
+B,50percent,8,1,Attacker
+B,50percent,9,0,Primary User
+C,10percent,0,0,Primary User
+C,10percent,1,1,Attacker
+C,10percent,2,0,Primary User
+C,10percent,3,1,Attacker
+C,10percent,4,0,Primary User
+C,10percent,5,1,Attacker
 C,10percent,6,0,Primary User
 C,10percent,7,0,Primary User
-C,10percent,8,1,Attacker
+C,10percent,8,0,Primary User
+C,10percent,9,1,Attacker
 C,20percent,0,0,Primary User
-C,20percent,1,1,Attacker
-C,20percent,2,0,Primary User
-C,20percent,3,1,Attacker
-C,20percent,4,0,Primary User
+C,20percent,1,0,Primary User
+C,20percent,2,1,Attacker
+C,20percent,3,0,Primary User
+C,20percent,4,1,Attacker
 C,20percent,5,0,Primary User
-C,20percent,6,1,Attacker
-C,20percent,7,0,Primary User
-C,20percent,8,1,Attacker
-C,30percent,0,1,Attacker
+C,20percent,6,0,Primary User
+C,20percent,7,1,Attacker
+C,20percent,8,0,Primary User
+C,20percent,9,1,Attacker
+C,30percent,0,0,Primary User
 C,30percent,1,1,Attacker
-C,30percent,2,0,Primary User
+C,30percent,2,1,Attacker
 C,30percent,3,0,Primary User
-C,30percent,4,1,Attacker
-C,30percent,5,0,Primary User
-C,30percent,6,1,Attacker
-C,30percent,7,0,Primary User
+C,30percent,4,0,Primary User
+C,30percent,5,1,Attacker
+C,30percent,6,0,Primary User
+C,30percent,7,1,Attacker
 C,30percent,8,0,Primary User
-C,40percent,0,1,Attacker
-C,40percent,1,0,Primary User
+C,30percent,9,0,Primary User
+C,40percent,0,0,Primary User
+C,40percent,1,1,Attacker
 C,40percent,2,0,Primary User
-C,40percent,3,1,Attacker
-C,40percent,4,0,Primary User
+C,40percent,3,0,Primary User
+C,40percent,4,1,Attacker
 C,40percent,5,0,Primary User
 C,40percent,6,0,Primary User
 C,40percent,7,0,Primary User
-C,40percent,8,1,Attacker
+C,40percent,8,0,Primary User
+C,40percent,9,1,Attacker
 C,50percent,0,0,Primary User
-C,50percent,1,1,Attacker
-C,50percent,2,0,Primary User
-C,50percent,3,1,Attacker
-C,50percent,4,0,Primary User
+C,50percent,1,0,Primary User
+C,50percent,2,1,Attacker
+C,50percent,3,0,Primary User
+C,50percent,4,1,Attacker
 C,50percent,5,0,Primary User
-C,50percent,6,1,Attacker
+C,50percent,6,0,Primary User
 C,50percent,7,1,Attacker
-C,50percent,8,0,Primary User
+C,50percent,8,1,Attacker
+C,50percent,9,0,Primary User

@@ -8,6 +8,7 @@ A,10percent,5,-1,Noise
 A,10percent,6,-1,Noise
 A,10percent,7,-1,Noise
 A,10percent,8,-1,Noise
+A,10percent,9,-1,Noise
 A,20percent,0,-1,Noise
 A,20percent,1,-1,Noise
 A,20percent,2,-1,Noise
@@ -17,15 +18,17 @@ A,20percent,5,-1,Noise
 A,20percent,6,-1,Noise
 A,20percent,7,-1,Noise
 A,20percent,8,-1,Noise
-A,30percent,0,-1,Noise
+A,20percent,9,-1,Noise
+A,30percent,0,0,Primary User
 A,30percent,1,-1,Noise
-A,30percent,2,-1,Noise
+A,30percent,2,0,Primary User
 A,30percent,3,-1,Noise
-A,30percent,4,-1,Noise
+A,30percent,4,0,Primary User
 A,30percent,5,-1,Noise
-A,30percent,6,-1,Noise
+A,30percent,6,0,Primary User
 A,30percent,7,-1,Noise
 A,30percent,8,-1,Noise
+A,30percent,9,0,Primary User
 A,40percent,0,-1,Noise
 A,40percent,1,-1,Noise
 A,40percent,2,-1,Noise
@@ -35,15 +38,17 @@ A,40percent,5,-1,Noise
 A,40percent,6,-1,Noise
 A,40percent,7,-1,Noise
 A,40percent,8,-1,Noise
+A,40percent,9,-1,Noise
 A,50percent,0,-1,Noise
-A,50percent,1,-1,Noise
-A,50percent,2,-1,Noise
-A,50percent,3,-1,Noise
-A,50percent,4,-1,Noise
+A,50percent,1,0,Primary User
+A,50percent,2,0,Primary User
+A,50percent,3,0,Primary User
+A,50percent,4,0,Primary User
 A,50percent,5,-1,Noise
 A,50percent,6,-1,Noise
 A,50percent,7,-1,Noise
-A,50percent,8,-1,Noise
+A,50percent,8,0,Primary User
+A,50percent,9,-1,Noise
 B,10percent,0,-1,Noise
 B,10percent,1,-1,Noise
 B,10percent,2,-1,Noise
@@ -53,6 +58,7 @@ B,10percent,5,-1,Noise
 B,10percent,6,-1,Noise
 B,10percent,7,-1,Noise
 B,10percent,8,-1,Noise
+B,10percent,9,-1,Noise
 B,20percent,0,-1,Noise
 B,20percent,1,-1,Noise
 B,20percent,2,-1,Noise
@@ -62,6 +68,7 @@ B,20percent,5,-1,Noise
 B,20percent,6,-1,Noise
 B,20percent,7,-1,Noise
 B,20percent,8,-1,Noise
+B,20percent,9,-1,Noise
 B,30percent,0,-1,Noise
 B,30percent,1,-1,Noise
 B,30percent,2,-1,Noise
@@ -71,6 +78,7 @@ B,30percent,5,-1,Noise
 B,30percent,6,-1,Noise
 B,30percent,7,-1,Noise
 B,30percent,8,-1,Noise
+B,30percent,9,-1,Noise
 B,40percent,0,-1,Noise
 B,40percent,1,-1,Noise
 B,40percent,2,-1,Noise
@@ -80,6 +88,7 @@ B,40percent,5,-1,Noise
 B,40percent,6,-1,Noise
 B,40percent,7,-1,Noise
 B,40percent,8,-1,Noise
+B,40percent,9,-1,Noise
 B,50percent,0,-1,Noise
 B,50percent,1,-1,Noise
 B,50percent,2,-1,Noise
@@ -89,6 +98,7 @@ B,50percent,5,-1,Noise
 B,50percent,6,-1,Noise
 B,50percent,7,-1,Noise
 B,50percent,8,-1,Noise
+B,50percent,9,-1,Noise
 C,10percent,0,-1,Noise
 C,10percent,1,-1,Noise
 C,10percent,2,-1,Noise
@@ -98,6 +108,7 @@ C,10percent,5,-1,Noise
 C,10percent,6,-1,Noise
 C,10percent,7,-1,Noise
 C,10percent,8,-1,Noise
+C,10percent,9,-1,Noise
 C,20percent,0,-1,Noise
 C,20percent,1,-1,Noise
 C,20percent,2,-1,Noise
@@ -107,6 +118,7 @@ C,20percent,5,-1,Noise
 C,20percent,6,-1,Noise
 C,20percent,7,-1,Noise
 C,20percent,8,-1,Noise
+C,20percent,9,-1,Noise
 C,30percent,0,-1,Noise
 C,30percent,1,-1,Noise
 C,30percent,2,-1,Noise
@@ -116,6 +128,7 @@ C,30percent,5,-1,Noise
 C,30percent,6,-1,Noise
 C,30percent,7,-1,Noise
 C,30percent,8,-1,Noise
+C,30percent,9,-1,Noise
 C,40percent,0,-1,Noise
 C,40percent,1,-1,Noise
 C,40percent,2,-1,Noise
@@ -125,6 +138,7 @@ C,40percent,5,-1,Noise
 C,40percent,6,-1,Noise
 C,40percent,7,-1,Noise
 C,40percent,8,-1,Noise
+C,40percent,9,-1,Noise
 C,50percent,0,-1,Noise
 C,50percent,1,-1,Noise
 C,50percent,2,-1,Noise
@@ -134,3 +148,4 @@ C,50percent,5,-1,Noise
 C,50percent,6,-1,Noise
 C,50percent,7,-1,Noise
 C,50percent,8,-1,Noise
+C,50percent,9,-1,Noise
