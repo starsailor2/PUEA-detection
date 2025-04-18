@@ -1,16 +1,16 @@
-Case,Scenario,Primary User
-A,10percent,500
-A,20percent,500
-A,30percent,500
-A,40percent,500
-A,50percent,500
-B,10percent,500
-B,20percent,500
-B,30percent,500
-B,40percent,500
-B,50percent,500
-C,10percent,10
-C,20percent,10
-C,30percent,10
-C,40percent,10
-C,50percent,10
+Case,Scenario,Attacker,Noise,Primary User
+A,10percent,2,2,496
+A,20percent,2,4,494
+A,30percent,2,3,495
+A,40percent,3,8,489
+A,50percent,3,12,485
+B,10percent,3,15,482
+B,20percent,3,13,484
+B,30percent,9,10,481
+B,40percent,312,185,3
+B,50percent,20,10,470
+C,10percent,2,6,2
+C,20percent,0,8,2
+C,30percent,2,5,3
+C,40percent,2,4,4
+C,50percent,0,8,2

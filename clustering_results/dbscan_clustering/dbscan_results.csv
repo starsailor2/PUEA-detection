@@ -81,7 +81,7 @@ A,10percent,78,0,Primary User
 A,10percent,79,0,Primary User
 A,10percent,80,0,Primary User
 A,10percent,81,0,Primary User
-A,10percent,82,0,Primary User
+A,10percent,82,-1,Noise
 A,10percent,83,0,Primary User
 A,10percent,84,0,Primary User
 A,10percent,85,0,Primary User
@@ -353,7 +353,7 @@ A,10percent,350,0,Primary User
 A,10percent,351,0,Primary User
 A,10percent,352,0,Primary User
 A,10percent,353,0,Primary User
-A,10percent,354,0,Primary User
+A,10percent,354,1,Attacker
 A,10percent,355,0,Primary User
 A,10percent,356,0,Primary User
 A,10percent,357,0,Primary User
@@ -469,14 +469,14 @@ A,10percent,466,0,Primary User
 A,10percent,467,0,Primary User
 A,10percent,468,0,Primary User
 A,10percent,469,0,Primary User
-A,10percent,470,0,Primary User
+A,10percent,470,-1,Noise
 A,10percent,471,0,Primary User
 A,10percent,472,0,Primary User
 A,10percent,473,0,Primary User
 A,10percent,474,0,Primary User
 A,10percent,475,0,Primary User
 A,10percent,476,0,Primary User
-A,10percent,477,0,Primary User
+A,10percent,477,1,Attacker
 A,10percent,478,0,Primary User
 A,10percent,479,0,Primary User
 A,10percent,480,0,Primary User
@@ -529,7 +529,7 @@ A,20percent,26,0,Primary User
 A,20percent,27,0,Primary User
 A,20percent,28,0,Primary User
 A,20percent,29,0,Primary User
-A,20percent,30,0,Primary User
+A,20percent,30,-1,Noise
 A,20percent,31,0,Primary User
 A,20percent,32,0,Primary User
 A,20percent,33,0,Primary User
@@ -538,7 +538,7 @@ A,20percent,35,0,Primary User
 A,20percent,36,0,Primary User
 A,20percent,37,0,Primary User
 A,20percent,38,0,Primary User
-A,20percent,39,0,Primary User
+A,20percent,39,1,Attacker
 A,20percent,40,0,Primary User
 A,20percent,41,0,Primary User
 A,20percent,42,0,Primary User
@@ -661,7 +661,7 @@ A,20percent,158,0,Primary User
 A,20percent,159,0,Primary User
 A,20percent,160,0,Primary User
 A,20percent,161,0,Primary User
-A,20percent,162,0,Primary User
+A,20percent,162,-1,Noise
 A,20percent,163,0,Primary User
 A,20percent,164,0,Primary User
 A,20percent,165,0,Primary User
@@ -711,7 +711,7 @@ A,20percent,208,0,Primary User
 A,20percent,209,0,Primary User
 A,20percent,210,0,Primary User
 A,20percent,211,0,Primary User
-A,20percent,212,0,Primary User
+A,20percent,212,1,Attacker
 A,20percent,213,0,Primary User
 A,20percent,214,0,Primary User
 A,20percent,215,0,Primary User
@@ -833,7 +833,7 @@ A,20percent,330,0,Primary User
 A,20percent,331,0,Primary User
 A,20percent,332,0,Primary User
 A,20percent,333,0,Primary User
-A,20percent,334,0,Primary User
+A,20percent,334,-1,Noise
 A,20percent,335,0,Primary User
 A,20percent,336,0,Primary User
 A,20percent,337,0,Primary User
@@ -893,7 +893,7 @@ A,20percent,390,0,Primary User
 A,20percent,391,0,Primary User
 A,20percent,392,0,Primary User
 A,20percent,393,0,Primary User
-A,20percent,394,0,Primary User
+A,20percent,394,-1,Noise
 A,20percent,395,0,Primary User
 A,20percent,396,0,Primary User
 A,20percent,397,0,Primary User
@@ -1018,7 +1018,7 @@ A,30percent,15,0,Primary User
 A,30percent,16,0,Primary User
 A,30percent,17,0,Primary User
 A,30percent,18,0,Primary User
-A,30percent,19,0,Primary User
+A,30percent,19,1,Attacker
 A,30percent,20,0,Primary User
 A,30percent,21,0,Primary User
 A,30percent,22,0,Primary User
@@ -1055,7 +1055,7 @@ A,30percent,52,0,Primary User
 A,30percent,53,0,Primary User
 A,30percent,54,0,Primary User
 A,30percent,55,0,Primary User
-A,30percent,56,0,Primary User
+A,30percent,56,-1,Noise
 A,30percent,57,0,Primary User
 A,30percent,58,0,Primary User
 A,30percent,59,0,Primary User
@@ -1350,7 +1350,7 @@ A,30percent,347,0,Primary User
 A,30percent,348,0,Primary User
 A,30percent,349,0,Primary User
 A,30percent,350,0,Primary User
-A,30percent,351,0,Primary User
+A,30percent,351,-1,Noise
 A,30percent,352,0,Primary User
 A,30percent,353,0,Primary User
 A,30percent,354,0,Primary User
@@ -1395,7 +1395,7 @@ A,30percent,392,0,Primary User
 A,30percent,393,0,Primary User
 A,30percent,394,0,Primary User
 A,30percent,395,0,Primary User
-A,30percent,396,0,Primary User
+A,30percent,396,-1,Noise
 A,30percent,397,0,Primary User
 A,30percent,398,0,Primary User
 A,30percent,399,0,Primary User
@@ -1405,7 +1405,7 @@ A,30percent,402,0,Primary User
 A,30percent,403,0,Primary User
 A,30percent,404,0,Primary User
 A,30percent,405,0,Primary User
-A,30percent,406,0,Primary User
+A,30percent,406,1,Attacker
 A,30percent,407,0,Primary User
 A,30percent,408,0,Primary User
 A,30percent,409,0,Primary User
@@ -1509,7 +1509,7 @@ A,40percent,6,0,Primary User
 A,40percent,7,0,Primary User
 A,40percent,8,0,Primary User
 A,40percent,9,0,Primary User
-A,40percent,10,0,Primary User
+A,40percent,10,-1,Noise
 A,40percent,11,0,Primary User
 A,40percent,12,0,Primary User
 A,40percent,13,0,Primary User
@@ -1540,7 +1540,7 @@ A,40percent,37,0,Primary User
 A,40percent,38,0,Primary User
 A,40percent,39,0,Primary User
 A,40percent,40,0,Primary User
-A,40percent,41,0,Primary User
+A,40percent,41,1,Attacker
 A,40percent,42,0,Primary User
 A,40percent,43,0,Primary User
 A,40percent,44,0,Primary User
@@ -1580,7 +1580,7 @@ A,40percent,77,0,Primary User
 A,40percent,78,0,Primary User
 A,40percent,79,0,Primary User
 A,40percent,80,0,Primary User
-A,40percent,81,0,Primary User
+A,40percent,81,1,Attacker
 A,40percent,82,0,Primary User
 A,40percent,83,0,Primary User
 A,40percent,84,0,Primary User
@@ -1621,7 +1621,7 @@ A,40percent,118,0,Primary User
 A,40percent,119,0,Primary User
 A,40percent,120,0,Primary User
 A,40percent,121,0,Primary User
-A,40percent,122,0,Primary User
+A,40percent,122,-1,Noise
 A,40percent,123,0,Primary User
 A,40percent,124,0,Primary User
 A,40percent,125,0,Primary User
@@ -1648,17 +1648,17 @@ A,40percent,145,0,Primary User
 A,40percent,146,0,Primary User
 A,40percent,147,0,Primary User
 A,40percent,148,0,Primary User
-A,40percent,149,0,Primary User
+A,40percent,149,1,Attacker
 A,40percent,150,0,Primary User
 A,40percent,151,0,Primary User
 A,40percent,152,0,Primary User
 A,40percent,153,0,Primary User
-A,40percent,154,0,Primary User
+A,40percent,154,-1,Noise
 A,40percent,155,0,Primary User
 A,40percent,156,0,Primary User
 A,40percent,157,0,Primary User
 A,40percent,158,0,Primary User
-A,40percent,159,0,Primary User
+A,40percent,159,-1,Noise
 A,40percent,160,0,Primary User
 A,40percent,161,0,Primary User
 A,40percent,162,0,Primary User
@@ -1709,7 +1709,7 @@ A,40percent,206,0,Primary User
 A,40percent,207,0,Primary User
 A,40percent,208,0,Primary User
 A,40percent,209,0,Primary User
-A,40percent,210,0,Primary User
+A,40percent,210,-1,Noise
 A,40percent,211,0,Primary User
 A,40percent,212,0,Primary User
 A,40percent,213,0,Primary User
@@ -1754,10 +1754,10 @@ A,40percent,251,0,Primary User
 A,40percent,252,0,Primary User
 A,40percent,253,0,Primary User
 A,40percent,254,0,Primary User
-A,40percent,255,0,Primary User
+A,40percent,255,-1,Noise
 A,40percent,256,0,Primary User
 A,40percent,257,0,Primary User
-A,40percent,258,0,Primary User
+A,40percent,258,-1,Noise
 A,40percent,259,0,Primary User
 A,40percent,260,0,Primary User
 A,40percent,261,0,Primary User
@@ -1859,7 +1859,7 @@ A,40percent,356,0,Primary User
 A,40percent,357,0,Primary User
 A,40percent,358,0,Primary User
 A,40percent,359,0,Primary User
-A,40percent,360,0,Primary User
+A,40percent,360,-1,Noise
 A,40percent,361,0,Primary User
 A,40percent,362,0,Primary User
 A,40percent,363,0,Primary User
@@ -2034,7 +2034,7 @@ A,50percent,31,0,Primary User
 A,50percent,32,0,Primary User
 A,50percent,33,0,Primary User
 A,50percent,34,0,Primary User
-A,50percent,35,0,Primary User
+A,50percent,35,1,Attacker
 A,50percent,36,0,Primary User
 A,50percent,37,0,Primary User
 A,50percent,38,0,Primary User
@@ -2055,10 +2055,10 @@ A,50percent,52,0,Primary User
 A,50percent,53,0,Primary User
 A,50percent,54,0,Primary User
 A,50percent,55,0,Primary User
-A,50percent,56,0,Primary User
+A,50percent,56,1,Attacker
 A,50percent,57,0,Primary User
 A,50percent,58,0,Primary User
-A,50percent,59,0,Primary User
+A,50percent,59,-1,Noise
 A,50percent,60,0,Primary User
 A,50percent,61,0,Primary User
 A,50percent,62,0,Primary User
@@ -2083,7 +2083,7 @@ A,50percent,80,0,Primary User
 A,50percent,81,0,Primary User
 A,50percent,82,0,Primary User
 A,50percent,83,0,Primary User
-A,50percent,84,0,Primary User
+A,50percent,84,-1,Noise
 A,50percent,85,0,Primary User
 A,50percent,86,0,Primary User
 A,50percent,87,0,Primary User
@@ -2144,7 +2144,7 @@ A,50percent,141,0,Primary User
 A,50percent,142,0,Primary User
 A,50percent,143,0,Primary User
 A,50percent,144,0,Primary User
-A,50percent,145,0,Primary User
+A,50percent,145,-1,Noise
 A,50percent,146,0,Primary User
 A,50percent,147,0,Primary User
 A,50percent,148,0,Primary User
@@ -2168,7 +2168,7 @@ A,50percent,165,0,Primary User
 A,50percent,166,0,Primary User
 A,50percent,167,0,Primary User
 A,50percent,168,0,Primary User
-A,50percent,169,0,Primary User
+A,50percent,169,-1,Noise
 A,50percent,170,0,Primary User
 A,50percent,171,0,Primary User
 A,50percent,172,0,Primary User
@@ -2200,13 +2200,13 @@ A,50percent,197,0,Primary User
 A,50percent,198,0,Primary User
 A,50percent,199,0,Primary User
 A,50percent,200,0,Primary User
-A,50percent,201,0,Primary User
+A,50percent,201,-1,Noise
 A,50percent,202,0,Primary User
 A,50percent,203,0,Primary User
 A,50percent,204,0,Primary User
 A,50percent,205,0,Primary User
 A,50percent,206,0,Primary User
-A,50percent,207,0,Primary User
+A,50percent,207,-1,Noise
 A,50percent,208,0,Primary User
 A,50percent,209,0,Primary User
 A,50percent,210,0,Primary User
@@ -2228,7 +2228,7 @@ A,50percent,225,0,Primary User
 A,50percent,226,0,Primary User
 A,50percent,227,0,Primary User
 A,50percent,228,0,Primary User
-A,50percent,229,0,Primary User
+A,50percent,229,-1,Noise
 A,50percent,230,0,Primary User
 A,50percent,231,0,Primary User
 A,50percent,232,0,Primary User
@@ -2378,7 +2378,7 @@ A,50percent,375,0,Primary User
 A,50percent,376,0,Primary User
 A,50percent,377,0,Primary User
 A,50percent,378,0,Primary User
-A,50percent,379,0,Primary User
+A,50percent,379,-1,Noise
 A,50percent,380,0,Primary User
 A,50percent,381,0,Primary User
 A,50percent,382,0,Primary User
@@ -2430,9 +2430,9 @@ A,50percent,427,0,Primary User
 A,50percent,428,0,Primary User
 A,50percent,429,0,Primary User
 A,50percent,430,0,Primary User
-A,50percent,431,0,Primary User
+A,50percent,431,-1,Noise
 A,50percent,432,0,Primary User
-A,50percent,433,0,Primary User
+A,50percent,433,-1,Noise
 A,50percent,434,0,Primary User
 A,50percent,435,0,Primary User
 A,50percent,436,0,Primary User
@@ -2461,7 +2461,7 @@ A,50percent,458,0,Primary User
 A,50percent,459,0,Primary User
 A,50percent,460,0,Primary User
 A,50percent,461,0,Primary User
-A,50percent,462,0,Primary User
+A,50percent,462,-1,Noise
 A,50percent,463,0,Primary User
 A,50percent,464,0,Primary User
 A,50percent,465,0,Primary User
@@ -2481,7 +2481,7 @@ A,50percent,478,0,Primary User
 A,50percent,479,0,Primary User
 A,50percent,480,0,Primary User
 A,50percent,481,0,Primary User
-A,50percent,482,0,Primary User
+A,50percent,482,1,Attacker
 A,50percent,483,0,Primary User
 A,50percent,484,0,Primary User
 A,50percent,485,0,Primary User
@@ -2494,7 +2494,7 @@ A,50percent,491,0,Primary User
 A,50percent,492,0,Primary User
 A,50percent,493,0,Primary User
 A,50percent,494,0,Primary User
-A,50percent,495,0,Primary User
+A,50percent,495,-1,Noise
 A,50percent,496,0,Primary User
 A,50percent,497,0,Primary User
 A,50percent,498,0,Primary User
@@ -2526,8 +2526,8 @@ B,10percent,23,0,Primary User
 B,10percent,24,0,Primary User
 B,10percent,25,0,Primary User
 B,10percent,26,0,Primary User
-B,10percent,27,0,Primary User
-B,10percent,28,0,Primary User
+B,10percent,27,-1,Noise
+B,10percent,28,1,Attacker
 B,10percent,29,0,Primary User
 B,10percent,30,0,Primary User
 B,10percent,31,0,Primary User
@@ -2622,7 +2622,7 @@ B,10percent,119,0,Primary User
 B,10percent,120,0,Primary User
 B,10percent,121,0,Primary User
 B,10percent,122,0,Primary User
-B,10percent,123,0,Primary User
+B,10percent,123,-1,Noise
 B,10percent,124,0,Primary User
 B,10percent,125,0,Primary User
 B,10percent,126,0,Primary User
@@ -2693,8 +2693,8 @@ B,10percent,190,0,Primary User
 B,10percent,191,0,Primary User
 B,10percent,192,0,Primary User
 B,10percent,193,0,Primary User
-B,10percent,194,0,Primary User
-B,10percent,195,0,Primary User
+B,10percent,194,-1,Noise
+B,10percent,195,-1,Noise
 B,10percent,196,0,Primary User
 B,10percent,197,0,Primary User
 B,10percent,198,0,Primary User
@@ -2706,7 +2706,7 @@ B,10percent,203,0,Primary User
 B,10percent,204,0,Primary User
 B,10percent,205,0,Primary User
 B,10percent,206,0,Primary User
-B,10percent,207,0,Primary User
+B,10percent,207,-1,Noise
 B,10percent,208,0,Primary User
 B,10percent,209,0,Primary User
 B,10percent,210,0,Primary User
@@ -2821,7 +2821,7 @@ B,10percent,318,0,Primary User
 B,10percent,319,0,Primary User
 B,10percent,320,0,Primary User
 B,10percent,321,0,Primary User
-B,10percent,322,0,Primary User
+B,10percent,322,-1,Noise
 B,10percent,323,0,Primary User
 B,10percent,324,0,Primary User
 B,10percent,325,0,Primary User
@@ -2841,14 +2841,14 @@ B,10percent,338,0,Primary User
 B,10percent,339,0,Primary User
 B,10percent,340,0,Primary User
 B,10percent,341,0,Primary User
-B,10percent,342,0,Primary User
+B,10percent,342,-1,Noise
 B,10percent,343,0,Primary User
 B,10percent,344,0,Primary User
 B,10percent,345,0,Primary User
 B,10percent,346,0,Primary User
 B,10percent,347,0,Primary User
 B,10percent,348,0,Primary User
-B,10percent,349,0,Primary User
+B,10percent,349,-1,Noise
 B,10percent,350,0,Primary User
 B,10percent,351,0,Primary User
 B,10percent,352,0,Primary User
@@ -2868,7 +2868,7 @@ B,10percent,365,0,Primary User
 B,10percent,366,0,Primary User
 B,10percent,367,0,Primary User
 B,10percent,368,0,Primary User
-B,10percent,369,0,Primary User
+B,10percent,369,-1,Noise
 B,10percent,370,0,Primary User
 B,10percent,371,0,Primary User
 B,10percent,372,0,Primary User
@@ -2876,7 +2876,7 @@ B,10percent,373,0,Primary User
 B,10percent,374,0,Primary User
 B,10percent,375,0,Primary User
 B,10percent,376,0,Primary User
-B,10percent,377,0,Primary User
+B,10percent,377,-1,Noise
 B,10percent,378,0,Primary User
 B,10percent,379,0,Primary User
 B,10percent,380,0,Primary User
@@ -2893,7 +2893,7 @@ B,10percent,390,0,Primary User
 B,10percent,391,0,Primary User
 B,10percent,392,0,Primary User
 B,10percent,393,0,Primary User
-B,10percent,394,0,Primary User
+B,10percent,394,-1,Noise
 B,10percent,395,0,Primary User
 B,10percent,396,0,Primary User
 B,10percent,397,0,Primary User
@@ -2904,7 +2904,7 @@ B,10percent,401,0,Primary User
 B,10percent,402,0,Primary User
 B,10percent,403,0,Primary User
 B,10percent,404,0,Primary User
-B,10percent,405,0,Primary User
+B,10percent,405,1,Attacker
 B,10percent,406,0,Primary User
 B,10percent,407,0,Primary User
 B,10percent,408,0,Primary User
@@ -2935,7 +2935,7 @@ B,10percent,432,0,Primary User
 B,10percent,433,0,Primary User
 B,10percent,434,0,Primary User
 B,10percent,435,0,Primary User
-B,10percent,436,0,Primary User
+B,10percent,436,1,Attacker
 B,10percent,437,0,Primary User
 B,10percent,438,0,Primary User
 B,10percent,439,0,Primary User
@@ -2947,12 +2947,12 @@ B,10percent,444,0,Primary User
 B,10percent,445,0,Primary User
 B,10percent,446,0,Primary User
 B,10percent,447,0,Primary User
-B,10percent,448,0,Primary User
+B,10percent,448,-1,Noise
 B,10percent,449,0,Primary User
-B,10percent,450,0,Primary User
+B,10percent,450,-1,Noise
 B,10percent,451,0,Primary User
 B,10percent,452,0,Primary User
-B,10percent,453,0,Primary User
+B,10percent,453,-1,Noise
 B,10percent,454,0,Primary User
 B,10percent,455,0,Primary User
 B,10percent,456,0,Primary User
@@ -2976,7 +2976,7 @@ B,10percent,473,0,Primary User
 B,10percent,474,0,Primary User
 B,10percent,475,0,Primary User
 B,10percent,476,0,Primary User
-B,10percent,477,0,Primary User
+B,10percent,477,-1,Noise
 B,10percent,478,0,Primary User
 B,10percent,479,0,Primary User
 B,10percent,480,0,Primary User
@@ -3009,7 +3009,7 @@ B,20percent,6,0,Primary User
 B,20percent,7,0,Primary User
 B,20percent,8,0,Primary User
 B,20percent,9,0,Primary User
-B,20percent,10,0,Primary User
+B,20percent,10,1,Attacker
 B,20percent,11,0,Primary User
 B,20percent,12,0,Primary User
 B,20percent,13,0,Primary User
@@ -3048,7 +3048,7 @@ B,20percent,45,0,Primary User
 B,20percent,46,0,Primary User
 B,20percent,47,0,Primary User
 B,20percent,48,0,Primary User
-B,20percent,49,0,Primary User
+B,20percent,49,1,Attacker
 B,20percent,50,0,Primary User
 B,20percent,51,0,Primary User
 B,20percent,52,0,Primary User
@@ -3082,7 +3082,7 @@ B,20percent,79,0,Primary User
 B,20percent,80,0,Primary User
 B,20percent,81,0,Primary User
 B,20percent,82,0,Primary User
-B,20percent,83,0,Primary User
+B,20percent,83,-1,Noise
 B,20percent,84,0,Primary User
 B,20percent,85,0,Primary User
 B,20percent,86,0,Primary User
@@ -3105,7 +3105,7 @@ B,20percent,102,0,Primary User
 B,20percent,103,0,Primary User
 B,20percent,104,0,Primary User
 B,20percent,105,0,Primary User
-B,20percent,106,0,Primary User
+B,20percent,106,-1,Noise
 B,20percent,107,0,Primary User
 B,20percent,108,0,Primary User
 B,20percent,109,0,Primary User
@@ -3117,7 +3117,7 @@ B,20percent,114,0,Primary User
 B,20percent,115,0,Primary User
 B,20percent,116,0,Primary User
 B,20percent,117,0,Primary User
-B,20percent,118,0,Primary User
+B,20percent,118,-1,Noise
 B,20percent,119,0,Primary User
 B,20percent,120,0,Primary User
 B,20percent,121,0,Primary User
@@ -3127,7 +3127,7 @@ B,20percent,124,0,Primary User
 B,20percent,125,0,Primary User
 B,20percent,126,0,Primary User
 B,20percent,127,0,Primary User
-B,20percent,128,0,Primary User
+B,20percent,128,-1,Noise
 B,20percent,129,0,Primary User
 B,20percent,130,0,Primary User
 B,20percent,131,0,Primary User
@@ -3167,7 +3167,7 @@ B,20percent,164,0,Primary User
 B,20percent,165,0,Primary User
 B,20percent,166,0,Primary User
 B,20percent,167,0,Primary User
-B,20percent,168,0,Primary User
+B,20percent,168,-1,Noise
 B,20percent,169,0,Primary User
 B,20percent,170,0,Primary User
 B,20percent,171,0,Primary User
@@ -3212,7 +3212,7 @@ B,20percent,209,0,Primary User
 B,20percent,210,0,Primary User
 B,20percent,211,0,Primary User
 B,20percent,212,0,Primary User
-B,20percent,213,0,Primary User
+B,20percent,213,-1,Noise
 B,20percent,214,0,Primary User
 B,20percent,215,0,Primary User
 B,20percent,216,0,Primary User
@@ -3220,7 +3220,7 @@ B,20percent,217,0,Primary User
 B,20percent,218,0,Primary User
 B,20percent,219,0,Primary User
 B,20percent,220,0,Primary User
-B,20percent,221,0,Primary User
+B,20percent,221,-1,Noise
 B,20percent,222,0,Primary User
 B,20percent,223,0,Primary User
 B,20percent,224,0,Primary User
@@ -3261,7 +3261,7 @@ B,20percent,258,0,Primary User
 B,20percent,259,0,Primary User
 B,20percent,260,0,Primary User
 B,20percent,261,0,Primary User
-B,20percent,262,0,Primary User
+B,20percent,262,1,Attacker
 B,20percent,263,0,Primary User
 B,20percent,264,0,Primary User
 B,20percent,265,0,Primary User
@@ -3319,7 +3319,7 @@ B,20percent,316,0,Primary User
 B,20percent,317,0,Primary User
 B,20percent,318,0,Primary User
 B,20percent,319,0,Primary User
-B,20percent,320,0,Primary User
+B,20percent,320,-1,Noise
 B,20percent,321,0,Primary User
 B,20percent,322,0,Primary User
 B,20percent,323,0,Primary User
@@ -3368,7 +3368,7 @@ B,20percent,365,0,Primary User
 B,20percent,366,0,Primary User
 B,20percent,367,0,Primary User
 B,20percent,368,0,Primary User
-B,20percent,369,0,Primary User
+B,20percent,369,-1,Noise
 B,20percent,370,0,Primary User
 B,20percent,371,0,Primary User
 B,20percent,372,0,Primary User
@@ -3395,7 +3395,7 @@ B,20percent,392,0,Primary User
 B,20percent,393,0,Primary User
 B,20percent,394,0,Primary User
 B,20percent,395,0,Primary User
-B,20percent,396,0,Primary User
+B,20percent,396,-1,Noise
 B,20percent,397,0,Primary User
 B,20percent,398,0,Primary User
 B,20percent,399,0,Primary User
@@ -3427,7 +3427,7 @@ B,20percent,424,0,Primary User
 B,20percent,425,0,Primary User
 B,20percent,426,0,Primary User
 B,20percent,427,0,Primary User
-B,20percent,428,0,Primary User
+B,20percent,428,-1,Noise
 B,20percent,429,0,Primary User
 B,20percent,430,0,Primary User
 B,20percent,431,0,Primary User
@@ -3449,7 +3449,7 @@ B,20percent,446,0,Primary User
 B,20percent,447,0,Primary User
 B,20percent,448,0,Primary User
 B,20percent,449,0,Primary User
-B,20percent,450,0,Primary User
+B,20percent,450,-1,Noise
 B,20percent,451,0,Primary User
 B,20percent,452,0,Primary User
 B,20percent,453,0,Primary User
@@ -3481,7 +3481,7 @@ B,20percent,478,0,Primary User
 B,20percent,479,0,Primary User
 B,20percent,480,0,Primary User
 B,20percent,481,0,Primary User
-B,20percent,482,0,Primary User
+B,20percent,482,-1,Noise
 B,20percent,483,0,Primary User
 B,20percent,484,0,Primary User
 B,20percent,485,0,Primary User
@@ -3512,7 +3512,7 @@ B,30percent,9,0,Primary User
 B,30percent,10,0,Primary User
 B,30percent,11,0,Primary User
 B,30percent,12,0,Primary User
-B,30percent,13,0,Primary User
+B,30percent,13,-1,Noise
 B,30percent,14,0,Primary User
 B,30percent,15,0,Primary User
 B,30percent,16,0,Primary User
@@ -3541,10 +3541,10 @@ B,30percent,38,0,Primary User
 B,30percent,39,0,Primary User
 B,30percent,40,0,Primary User
 B,30percent,41,0,Primary User
-B,30percent,42,0,Primary User
+B,30percent,42,-1,Noise
 B,30percent,43,0,Primary User
 B,30percent,44,0,Primary User
-B,30percent,45,0,Primary User
+B,30percent,45,1,Attacker
 B,30percent,46,0,Primary User
 B,30percent,47,0,Primary User
 B,30percent,48,0,Primary User
@@ -3635,7 +3635,7 @@ B,30percent,132,0,Primary User
 B,30percent,133,0,Primary User
 B,30percent,134,0,Primary User
 B,30percent,135,0,Primary User
-B,30percent,136,0,Primary User
+B,30percent,136,-1,Noise
 B,30percent,137,0,Primary User
 B,30percent,138,0,Primary User
 B,30percent,139,0,Primary User
@@ -3670,7 +3670,7 @@ B,30percent,167,0,Primary User
 B,30percent,168,0,Primary User
 B,30percent,169,0,Primary User
 B,30percent,170,0,Primary User
-B,30percent,171,0,Primary User
+B,30percent,171,1,Attacker
 B,30percent,172,0,Primary User
 B,30percent,173,0,Primary User
 B,30percent,174,0,Primary User
@@ -3711,7 +3711,7 @@ B,30percent,208,0,Primary User
 B,30percent,209,0,Primary User
 B,30percent,210,0,Primary User
 B,30percent,211,0,Primary User
-B,30percent,212,0,Primary User
+B,30percent,212,-1,Noise
 B,30percent,213,0,Primary User
 B,30percent,214,0,Primary User
 B,30percent,215,0,Primary User
@@ -3766,7 +3766,7 @@ B,30percent,263,0,Primary User
 B,30percent,264,0,Primary User
 B,30percent,265,0,Primary User
 B,30percent,266,0,Primary User
-B,30percent,267,0,Primary User
+B,30percent,267,-1,Noise
 B,30percent,268,0,Primary User
 B,30percent,269,0,Primary User
 B,30percent,270,0,Primary User
@@ -3780,7 +3780,7 @@ B,30percent,277,0,Primary User
 B,30percent,278,0,Primary User
 B,30percent,279,0,Primary User
 B,30percent,280,0,Primary User
-B,30percent,281,0,Primary User
+B,30percent,281,-1,Noise
 B,30percent,282,0,Primary User
 B,30percent,283,0,Primary User
 B,30percent,284,0,Primary User
@@ -3830,7 +3830,7 @@ B,30percent,327,0,Primary User
 B,30percent,328,0,Primary User
 B,30percent,329,0,Primary User
 B,30percent,330,0,Primary User
-B,30percent,331,0,Primary User
+B,30percent,331,-1,Noise
 B,30percent,332,0,Primary User
 B,30percent,333,0,Primary User
 B,30percent,334,0,Primary User
@@ -3844,7 +3844,7 @@ B,30percent,341,0,Primary User
 B,30percent,342,0,Primary User
 B,30percent,343,0,Primary User
 B,30percent,344,0,Primary User
-B,30percent,345,0,Primary User
+B,30percent,345,-1,Noise
 B,30percent,346,0,Primary User
 B,30percent,347,0,Primary User
 B,30percent,348,0,Primary User
@@ -3894,7 +3894,7 @@ B,30percent,391,0,Primary User
 B,30percent,392,0,Primary User
 B,30percent,393,0,Primary User
 B,30percent,394,0,Primary User
-B,30percent,395,0,Primary User
+B,30percent,395,1,Attacker
 B,30percent,396,0,Primary User
 B,30percent,397,0,Primary User
 B,30percent,398,0,Primary User
@@ -3904,11 +3904,11 @@ B,30percent,401,0,Primary User
 B,30percent,402,0,Primary User
 B,30percent,403,0,Primary User
 B,30percent,404,0,Primary User
-B,30percent,405,0,Primary User
+B,30percent,405,1,Attacker
 B,30percent,406,0,Primary User
 B,30percent,407,0,Primary User
 B,30percent,408,0,Primary User
-B,30percent,409,0,Primary User
+B,30percent,409,1,Attacker
 B,30percent,410,0,Primary User
 B,30percent,411,0,Primary User
 B,30percent,412,0,Primary User
@@ -3929,7 +3929,7 @@ B,30percent,426,0,Primary User
 B,30percent,427,0,Primary User
 B,30percent,428,0,Primary User
 B,30percent,429,0,Primary User
-B,30percent,430,0,Primary User
+B,30percent,430,1,Attacker
 B,30percent,431,0,Primary User
 B,30percent,432,0,Primary User
 B,30percent,433,0,Primary User
@@ -3952,11 +3952,11 @@ B,30percent,449,0,Primary User
 B,30percent,450,0,Primary User
 B,30percent,451,0,Primary User
 B,30percent,452,0,Primary User
-B,30percent,453,0,Primary User
+B,30percent,453,-1,Noise
 B,30percent,454,0,Primary User
 B,30percent,455,0,Primary User
 B,30percent,456,0,Primary User
-B,30percent,457,0,Primary User
+B,30percent,457,1,Attacker
 B,30percent,458,0,Primary User
 B,30percent,459,0,Primary User
 B,30percent,460,0,Primary User
@@ -3974,14 +3974,14 @@ B,30percent,471,0,Primary User
 B,30percent,472,0,Primary User
 B,30percent,473,0,Primary User
 B,30percent,474,0,Primary User
-B,30percent,475,0,Primary User
+B,30percent,475,1,Attacker
 B,30percent,476,0,Primary User
 B,30percent,477,0,Primary User
 B,30percent,478,0,Primary User
 B,30percent,479,0,Primary User
 B,30percent,480,0,Primary User
-B,30percent,481,0,Primary User
-B,30percent,482,0,Primary User
+B,30percent,481,1,Attacker
+B,30percent,482,-1,Noise
 B,30percent,483,0,Primary User
 B,30percent,484,0,Primary User
 B,30percent,485,0,Primary User
@@ -3999,506 +3999,506 @@ B,30percent,496,0,Primary User
 B,30percent,497,0,Primary User
 B,30percent,498,0,Primary User
 B,30percent,499,0,Primary User
-B,40percent,0,0,Primary User
+B,40percent,0,-1,Noise
 B,40percent,1,0,Primary User
-B,40percent,2,0,Primary User
-B,40percent,3,0,Primary User
-B,40percent,4,0,Primary User
-B,40percent,5,0,Primary User
-B,40percent,6,0,Primary User
-B,40percent,7,0,Primary User
-B,40percent,8,0,Primary User
-B,40percent,9,0,Primary User
-B,40percent,10,0,Primary User
-B,40percent,11,0,Primary User
-B,40percent,12,0,Primary User
-B,40percent,13,0,Primary User
-B,40percent,14,0,Primary User
-B,40percent,15,0,Primary User
-B,40percent,16,0,Primary User
-B,40percent,17,0,Primary User
-B,40percent,18,0,Primary User
-B,40percent,19,0,Primary User
-B,40percent,20,0,Primary User
-B,40percent,21,0,Primary User
-B,40percent,22,0,Primary User
-B,40percent,23,0,Primary User
-B,40percent,24,0,Primary User
-B,40percent,25,0,Primary User
-B,40percent,26,0,Primary User
-B,40percent,27,0,Primary User
-B,40percent,28,0,Primary User
-B,40percent,29,0,Primary User
-B,40percent,30,0,Primary User
-B,40percent,31,0,Primary User
-B,40percent,32,0,Primary User
-B,40percent,33,0,Primary User
-B,40percent,34,0,Primary User
-B,40percent,35,0,Primary User
-B,40percent,36,0,Primary User
-B,40percent,37,0,Primary User
-B,40percent,38,0,Primary User
-B,40percent,39,0,Primary User
-B,40percent,40,0,Primary User
-B,40percent,41,0,Primary User
-B,40percent,42,0,Primary User
-B,40percent,43,0,Primary User
-B,40percent,44,0,Primary User
-B,40percent,45,0,Primary User
-B,40percent,46,0,Primary User
-B,40percent,47,0,Primary User
-B,40percent,48,0,Primary User
-B,40percent,49,0,Primary User
-B,40percent,50,0,Primary User
-B,40percent,51,0,Primary User
-B,40percent,52,0,Primary User
-B,40percent,53,0,Primary User
-B,40percent,54,0,Primary User
-B,40percent,55,0,Primary User
-B,40percent,56,0,Primary User
-B,40percent,57,0,Primary User
-B,40percent,58,0,Primary User
-B,40percent,59,0,Primary User
-B,40percent,60,0,Primary User
-B,40percent,61,0,Primary User
-B,40percent,62,0,Primary User
-B,40percent,63,0,Primary User
-B,40percent,64,0,Primary User
-B,40percent,65,0,Primary User
-B,40percent,66,0,Primary User
-B,40percent,67,0,Primary User
-B,40percent,68,0,Primary User
-B,40percent,69,0,Primary User
-B,40percent,70,0,Primary User
-B,40percent,71,0,Primary User
-B,40percent,72,0,Primary User
-B,40percent,73,0,Primary User
-B,40percent,74,0,Primary User
-B,40percent,75,0,Primary User
-B,40percent,76,0,Primary User
-B,40percent,77,0,Primary User
-B,40percent,78,0,Primary User
-B,40percent,79,0,Primary User
-B,40percent,80,0,Primary User
-B,40percent,81,0,Primary User
-B,40percent,82,0,Primary User
-B,40percent,83,0,Primary User
-B,40percent,84,0,Primary User
-B,40percent,85,0,Primary User
-B,40percent,86,0,Primary User
-B,40percent,87,0,Primary User
-B,40percent,88,0,Primary User
-B,40percent,89,0,Primary User
-B,40percent,90,0,Primary User
-B,40percent,91,0,Primary User
-B,40percent,92,0,Primary User
-B,40percent,93,0,Primary User
-B,40percent,94,0,Primary User
-B,40percent,95,0,Primary User
-B,40percent,96,0,Primary User
-B,40percent,97,0,Primary User
-B,40percent,98,0,Primary User
-B,40percent,99,0,Primary User
-B,40percent,100,0,Primary User
-B,40percent,101,0,Primary User
-B,40percent,102,0,Primary User
-B,40percent,103,0,Primary User
-B,40percent,104,0,Primary User
-B,40percent,105,0,Primary User
-B,40percent,106,0,Primary User
-B,40percent,107,0,Primary User
-B,40percent,108,0,Primary User
-B,40percent,109,0,Primary User
-B,40percent,110,0,Primary User
-B,40percent,111,0,Primary User
-B,40percent,112,0,Primary User
-B,40percent,113,0,Primary User
-B,40percent,114,0,Primary User
-B,40percent,115,0,Primary User
-B,40percent,116,0,Primary User
-B,40percent,117,0,Primary User
-B,40percent,118,0,Primary User
-B,40percent,119,0,Primary User
-B,40percent,120,0,Primary User
-B,40percent,121,0,Primary User
-B,40percent,122,0,Primary User
-B,40percent,123,0,Primary User
-B,40percent,124,0,Primary User
-B,40percent,125,0,Primary User
-B,40percent,126,0,Primary User
-B,40percent,127,0,Primary User
-B,40percent,128,0,Primary User
-B,40percent,129,0,Primary User
-B,40percent,130,0,Primary User
-B,40percent,131,0,Primary User
-B,40percent,132,0,Primary User
-B,40percent,133,0,Primary User
-B,40percent,134,0,Primary User
-B,40percent,135,0,Primary User
-B,40percent,136,0,Primary User
-B,40percent,137,0,Primary User
-B,40percent,138,0,Primary User
-B,40percent,139,0,Primary User
-B,40percent,140,0,Primary User
-B,40percent,141,0,Primary User
-B,40percent,142,0,Primary User
-B,40percent,143,0,Primary User
-B,40percent,144,0,Primary User
-B,40percent,145,0,Primary User
-B,40percent,146,0,Primary User
-B,40percent,147,0,Primary User
-B,40percent,148,0,Primary User
-B,40percent,149,0,Primary User
-B,40percent,150,0,Primary User
-B,40percent,151,0,Primary User
-B,40percent,152,0,Primary User
-B,40percent,153,0,Primary User
-B,40percent,154,0,Primary User
-B,40percent,155,0,Primary User
-B,40percent,156,0,Primary User
-B,40percent,157,0,Primary User
-B,40percent,158,0,Primary User
-B,40percent,159,0,Primary User
-B,40percent,160,0,Primary User
-B,40percent,161,0,Primary User
-B,40percent,162,0,Primary User
-B,40percent,163,0,Primary User
-B,40percent,164,0,Primary User
-B,40percent,165,0,Primary User
-B,40percent,166,0,Primary User
-B,40percent,167,0,Primary User
-B,40percent,168,0,Primary User
-B,40percent,169,0,Primary User
-B,40percent,170,0,Primary User
-B,40percent,171,0,Primary User
-B,40percent,172,0,Primary User
-B,40percent,173,0,Primary User
-B,40percent,174,0,Primary User
-B,40percent,175,0,Primary User
-B,40percent,176,0,Primary User
-B,40percent,177,0,Primary User
-B,40percent,178,0,Primary User
-B,40percent,179,0,Primary User
-B,40percent,180,0,Primary User
-B,40percent,181,0,Primary User
-B,40percent,182,0,Primary User
-B,40percent,183,0,Primary User
-B,40percent,184,0,Primary User
-B,40percent,185,0,Primary User
-B,40percent,186,0,Primary User
-B,40percent,187,0,Primary User
-B,40percent,188,0,Primary User
-B,40percent,189,0,Primary User
-B,40percent,190,0,Primary User
-B,40percent,191,0,Primary User
-B,40percent,192,0,Primary User
-B,40percent,193,0,Primary User
-B,40percent,194,0,Primary User
-B,40percent,195,0,Primary User
-B,40percent,196,0,Primary User
-B,40percent,197,0,Primary User
-B,40percent,198,0,Primary User
-B,40percent,199,0,Primary User
-B,40percent,200,0,Primary User
-B,40percent,201,0,Primary User
-B,40percent,202,0,Primary User
-B,40percent,203,0,Primary User
-B,40percent,204,0,Primary User
-B,40percent,205,0,Primary User
-B,40percent,206,0,Primary User
-B,40percent,207,0,Primary User
-B,40percent,208,0,Primary User
-B,40percent,209,0,Primary User
-B,40percent,210,0,Primary User
-B,40percent,211,0,Primary User
-B,40percent,212,0,Primary User
-B,40percent,213,0,Primary User
-B,40percent,214,0,Primary User
-B,40percent,215,0,Primary User
-B,40percent,216,0,Primary User
-B,40percent,217,0,Primary User
-B,40percent,218,0,Primary User
-B,40percent,219,0,Primary User
-B,40percent,220,0,Primary User
-B,40percent,221,0,Primary User
-B,40percent,222,0,Primary User
-B,40percent,223,0,Primary User
-B,40percent,224,0,Primary User
-B,40percent,225,0,Primary User
-B,40percent,226,0,Primary User
-B,40percent,227,0,Primary User
-B,40percent,228,0,Primary User
-B,40percent,229,0,Primary User
-B,40percent,230,0,Primary User
-B,40percent,231,0,Primary User
-B,40percent,232,0,Primary User
-B,40percent,233,0,Primary User
-B,40percent,234,0,Primary User
-B,40percent,235,0,Primary User
-B,40percent,236,0,Primary User
-B,40percent,237,0,Primary User
-B,40percent,238,0,Primary User
-B,40percent,239,0,Primary User
-B,40percent,240,0,Primary User
-B,40percent,241,0,Primary User
-B,40percent,242,0,Primary User
-B,40percent,243,0,Primary User
-B,40percent,244,0,Primary User
-B,40percent,245,0,Primary User
-B,40percent,246,0,Primary User
-B,40percent,247,0,Primary User
-B,40percent,248,0,Primary User
-B,40percent,249,0,Primary User
-B,40percent,250,0,Primary User
-B,40percent,251,0,Primary User
-B,40percent,252,0,Primary User
-B,40percent,253,0,Primary User
-B,40percent,254,0,Primary User
-B,40percent,255,0,Primary User
-B,40percent,256,0,Primary User
-B,40percent,257,0,Primary User
-B,40percent,258,0,Primary User
-B,40percent,259,0,Primary User
-B,40percent,260,0,Primary User
-B,40percent,261,0,Primary User
-B,40percent,262,0,Primary User
-B,40percent,263,0,Primary User
-B,40percent,264,0,Primary User
-B,40percent,265,0,Primary User
-B,40percent,266,0,Primary User
-B,40percent,267,0,Primary User
-B,40percent,268,0,Primary User
-B,40percent,269,0,Primary User
-B,40percent,270,0,Primary User
-B,40percent,271,0,Primary User
-B,40percent,272,0,Primary User
-B,40percent,273,0,Primary User
-B,40percent,274,0,Primary User
-B,40percent,275,0,Primary User
-B,40percent,276,0,Primary User
-B,40percent,277,0,Primary User
-B,40percent,278,0,Primary User
-B,40percent,279,0,Primary User
-B,40percent,280,0,Primary User
-B,40percent,281,0,Primary User
-B,40percent,282,0,Primary User
-B,40percent,283,0,Primary User
-B,40percent,284,0,Primary User
-B,40percent,285,0,Primary User
-B,40percent,286,0,Primary User
-B,40percent,287,0,Primary User
-B,40percent,288,0,Primary User
-B,40percent,289,0,Primary User
-B,40percent,290,0,Primary User
-B,40percent,291,0,Primary User
-B,40percent,292,0,Primary User
-B,40percent,293,0,Primary User
-B,40percent,294,0,Primary User
-B,40percent,295,0,Primary User
-B,40percent,296,0,Primary User
-B,40percent,297,0,Primary User
-B,40percent,298,0,Primary User
-B,40percent,299,0,Primary User
-B,40percent,300,0,Primary User
-B,40percent,301,0,Primary User
-B,40percent,302,0,Primary User
-B,40percent,303,0,Primary User
-B,40percent,304,0,Primary User
-B,40percent,305,0,Primary User
-B,40percent,306,0,Primary User
-B,40percent,307,0,Primary User
-B,40percent,308,0,Primary User
-B,40percent,309,0,Primary User
-B,40percent,310,0,Primary User
-B,40percent,311,0,Primary User
-B,40percent,312,0,Primary User
-B,40percent,313,0,Primary User
-B,40percent,314,0,Primary User
-B,40percent,315,0,Primary User
-B,40percent,316,0,Primary User
-B,40percent,317,0,Primary User
-B,40percent,318,0,Primary User
-B,40percent,319,0,Primary User
-B,40percent,320,0,Primary User
-B,40percent,321,0,Primary User
-B,40percent,322,0,Primary User
-B,40percent,323,0,Primary User
-B,40percent,324,0,Primary User
-B,40percent,325,0,Primary User
-B,40percent,326,0,Primary User
-B,40percent,327,0,Primary User
-B,40percent,328,0,Primary User
-B,40percent,329,0,Primary User
-B,40percent,330,0,Primary User
-B,40percent,331,0,Primary User
-B,40percent,332,0,Primary User
-B,40percent,333,0,Primary User
-B,40percent,334,0,Primary User
-B,40percent,335,0,Primary User
+B,40percent,2,1,Attacker
+B,40percent,3,2,Attacker
+B,40percent,4,3,Attacker
+B,40percent,5,-1,Noise
+B,40percent,6,4,Attacker
+B,40percent,7,5,Attacker
+B,40percent,8,-1,Noise
+B,40percent,9,6,Attacker
+B,40percent,10,7,Attacker
+B,40percent,11,8,Attacker
+B,40percent,12,9,Attacker
+B,40percent,13,10,Attacker
+B,40percent,14,-1,Noise
+B,40percent,15,-1,Noise
+B,40percent,16,-1,Noise
+B,40percent,17,11,Attacker
+B,40percent,18,-1,Noise
+B,40percent,19,12,Attacker
+B,40percent,20,8,Attacker
+B,40percent,21,-1,Noise
+B,40percent,22,13,Attacker
+B,40percent,23,14,Attacker
+B,40percent,24,14,Attacker
+B,40percent,25,15,Attacker
+B,40percent,26,16,Attacker
+B,40percent,27,-1,Noise
+B,40percent,28,-1,Noise
+B,40percent,29,-1,Noise
+B,40percent,30,-1,Noise
+B,40percent,31,-1,Noise
+B,40percent,32,-1,Noise
+B,40percent,33,-1,Noise
+B,40percent,34,17,Attacker
+B,40percent,35,18,Attacker
+B,40percent,36,19,Attacker
+B,40percent,37,-1,Noise
+B,40percent,38,20,Attacker
+B,40percent,39,-1,Noise
+B,40percent,40,-1,Noise
+B,40percent,41,21,Attacker
+B,40percent,42,22,Attacker
+B,40percent,43,-1,Noise
+B,40percent,44,-1,Noise
+B,40percent,45,23,Attacker
+B,40percent,46,24,Attacker
+B,40percent,47,25,Attacker
+B,40percent,48,26,Attacker
+B,40percent,49,-1,Noise
+B,40percent,50,27,Attacker
+B,40percent,51,28,Attacker
+B,40percent,52,8,Attacker
+B,40percent,53,29,Attacker
+B,40percent,54,27,Attacker
+B,40percent,55,30,Attacker
+B,40percent,56,16,Attacker
+B,40percent,57,31,Attacker
+B,40percent,58,-1,Noise
+B,40percent,59,-1,Noise
+B,40percent,60,-1,Noise
+B,40percent,61,17,Attacker
+B,40percent,62,-1,Noise
+B,40percent,63,32,Attacker
+B,40percent,64,22,Attacker
+B,40percent,65,-1,Noise
+B,40percent,66,-1,Noise
+B,40percent,67,22,Attacker
+B,40percent,68,7,Attacker
+B,40percent,69,31,Attacker
+B,40percent,70,23,Attacker
+B,40percent,71,33,Attacker
+B,40percent,72,34,Attacker
+B,40percent,73,35,Attacker
+B,40percent,74,34,Attacker
+B,40percent,75,-1,Noise
+B,40percent,76,36,Attacker
+B,40percent,77,-1,Noise
+B,40percent,78,21,Attacker
+B,40percent,79,27,Attacker
+B,40percent,80,15,Attacker
+B,40percent,81,-1,Noise
+B,40percent,82,-1,Noise
+B,40percent,83,-1,Noise
+B,40percent,84,-1,Noise
+B,40percent,85,-1,Noise
+B,40percent,86,-1,Noise
+B,40percent,87,6,Attacker
+B,40percent,88,16,Attacker
+B,40percent,89,37,Attacker
+B,40percent,90,21,Attacker
+B,40percent,91,24,Attacker
+B,40percent,92,38,Attacker
+B,40percent,93,-1,Noise
+B,40percent,94,26,Attacker
+B,40percent,95,26,Attacker
+B,40percent,96,38,Attacker
+B,40percent,97,21,Attacker
+B,40percent,98,4,Attacker
+B,40percent,99,39,Attacker
+B,40percent,100,18,Attacker
+B,40percent,101,33,Attacker
+B,40percent,102,40,Attacker
+B,40percent,103,-1,Noise
+B,40percent,104,-1,Noise
+B,40percent,105,8,Attacker
+B,40percent,106,-1,Noise
+B,40percent,107,24,Attacker
+B,40percent,108,14,Attacker
+B,40percent,109,-1,Noise
+B,40percent,110,22,Attacker
+B,40percent,111,18,Attacker
+B,40percent,112,-1,Noise
+B,40percent,113,41,Attacker
+B,40percent,114,36,Attacker
+B,40percent,115,-1,Noise
+B,40percent,116,-1,Noise
+B,40percent,117,19,Attacker
+B,40percent,118,36,Attacker
+B,40percent,119,42,Attacker
+B,40percent,120,-1,Noise
+B,40percent,121,14,Attacker
+B,40percent,122,-1,Noise
+B,40percent,123,27,Attacker
+B,40percent,124,-1,Noise
+B,40percent,125,-1,Noise
+B,40percent,126,9,Attacker
+B,40percent,127,22,Attacker
+B,40percent,128,16,Attacker
+B,40percent,129,-1,Noise
+B,40percent,130,14,Attacker
+B,40percent,131,-1,Noise
+B,40percent,132,43,Attacker
+B,40percent,133,42,Attacker
+B,40percent,134,44,Attacker
+B,40percent,135,45,Attacker
+B,40percent,136,46,Attacker
+B,40percent,137,-1,Noise
+B,40percent,138,14,Attacker
+B,40percent,139,14,Attacker
+B,40percent,140,32,Attacker
+B,40percent,141,-1,Noise
+B,40percent,142,22,Attacker
+B,40percent,143,7,Attacker
+B,40percent,144,36,Attacker
+B,40percent,145,-1,Noise
+B,40percent,146,47,Attacker
+B,40percent,147,-1,Noise
+B,40percent,148,-1,Noise
+B,40percent,149,26,Attacker
+B,40percent,150,28,Attacker
+B,40percent,151,48,Attacker
+B,40percent,152,-1,Noise
+B,40percent,153,-1,Noise
+B,40percent,154,7,Attacker
+B,40percent,155,-1,Noise
+B,40percent,156,-1,Noise
+B,40percent,157,49,Attacker
+B,40percent,158,30,Attacker
+B,40percent,159,-1,Noise
+B,40percent,160,8,Attacker
+B,40percent,161,50,Attacker
+B,40percent,162,44,Attacker
+B,40percent,163,-1,Noise
+B,40percent,164,-1,Noise
+B,40percent,165,16,Attacker
+B,40percent,166,51,Attacker
+B,40percent,167,52,Attacker
+B,40percent,168,-1,Noise
+B,40percent,169,45,Attacker
+B,40percent,170,26,Attacker
+B,40percent,171,51,Attacker
+B,40percent,172,-1,Noise
+B,40percent,173,53,Attacker
+B,40percent,174,-1,Noise
+B,40percent,175,27,Attacker
+B,40percent,176,-1,Noise
+B,40percent,177,-1,Noise
+B,40percent,178,-1,Noise
+B,40percent,179,30,Attacker
+B,40percent,180,-1,Noise
+B,40percent,181,-1,Noise
+B,40percent,182,7,Attacker
+B,40percent,183,42,Attacker
+B,40percent,184,16,Attacker
+B,40percent,185,5,Attacker
+B,40percent,186,6,Attacker
+B,40percent,187,-1,Noise
+B,40percent,188,46,Attacker
+B,40percent,189,-1,Noise
+B,40percent,190,-1,Noise
+B,40percent,191,54,Attacker
+B,40percent,192,-1,Noise
+B,40percent,193,18,Attacker
+B,40percent,194,14,Attacker
+B,40percent,195,-1,Noise
+B,40percent,196,-1,Noise
+B,40percent,197,-1,Noise
+B,40percent,198,8,Attacker
+B,40percent,199,8,Attacker
+B,40percent,200,19,Attacker
+B,40percent,201,9,Attacker
+B,40percent,202,55,Attacker
+B,40percent,203,-1,Noise
+B,40percent,204,56,Attacker
+B,40percent,205,18,Attacker
+B,40percent,206,-1,Noise
+B,40percent,207,-1,Noise
+B,40percent,208,-1,Noise
+B,40percent,209,18,Attacker
+B,40percent,210,7,Attacker
+B,40percent,211,57,Attacker
+B,40percent,212,58,Attacker
+B,40percent,213,9,Attacker
+B,40percent,214,-1,Noise
+B,40percent,215,-1,Noise
+B,40percent,216,-1,Noise
+B,40percent,217,-1,Noise
+B,40percent,218,59,Attacker
+B,40percent,219,60,Attacker
+B,40percent,220,1,Attacker
+B,40percent,221,61,Attacker
+B,40percent,222,5,Attacker
+B,40percent,223,32,Attacker
+B,40percent,224,36,Attacker
+B,40percent,225,-1,Noise
+B,40percent,226,41,Attacker
+B,40percent,227,62,Attacker
+B,40percent,228,63,Attacker
+B,40percent,229,64,Attacker
+B,40percent,230,-1,Noise
+B,40percent,231,36,Attacker
+B,40percent,232,65,Attacker
+B,40percent,233,-1,Noise
+B,40percent,234,-1,Noise
+B,40percent,235,-1,Noise
+B,40percent,236,18,Attacker
+B,40percent,237,30,Attacker
+B,40percent,238,-1,Noise
+B,40percent,239,-1,Noise
+B,40percent,240,66,Attacker
+B,40percent,241,67,Attacker
+B,40percent,242,68,Attacker
+B,40percent,243,-1,Noise
+B,40percent,244,-1,Noise
+B,40percent,245,65,Attacker
+B,40percent,246,64,Attacker
+B,40percent,247,69,Attacker
+B,40percent,248,-1,Noise
+B,40percent,249,26,Attacker
+B,40percent,250,70,Attacker
+B,40percent,251,35,Attacker
+B,40percent,252,16,Attacker
+B,40percent,253,-1,Noise
+B,40percent,254,71,Attacker
+B,40percent,255,26,Attacker
+B,40percent,256,-1,Noise
+B,40percent,257,72,Attacker
+B,40percent,258,29,Attacker
+B,40percent,259,-1,Noise
+B,40percent,260,-1,Noise
+B,40percent,261,25,Attacker
+B,40percent,262,-1,Noise
+B,40percent,263,73,Attacker
+B,40percent,264,74,Attacker
+B,40percent,265,8,Attacker
+B,40percent,266,7,Attacker
+B,40percent,267,54,Attacker
+B,40percent,268,-1,Noise
+B,40percent,269,-1,Noise
+B,40percent,270,14,Attacker
+B,40percent,271,-1,Noise
+B,40percent,272,52,Attacker
+B,40percent,273,51,Attacker
+B,40percent,274,2,Attacker
+B,40percent,275,75,Attacker
+B,40percent,276,76,Attacker
+B,40percent,277,-1,Noise
+B,40percent,278,43,Attacker
+B,40percent,279,-1,Noise
+B,40percent,280,20,Attacker
+B,40percent,281,63,Attacker
+B,40percent,282,7,Attacker
+B,40percent,283,-1,Noise
+B,40percent,284,51,Attacker
+B,40percent,285,-1,Noise
+B,40percent,286,62,Attacker
+B,40percent,287,-1,Noise
+B,40percent,288,16,Attacker
+B,40percent,289,-1,Noise
+B,40percent,290,-1,Noise
+B,40percent,291,48,Attacker
+B,40percent,292,21,Attacker
+B,40percent,293,-1,Noise
+B,40percent,294,77,Attacker
+B,40percent,295,13,Attacker
+B,40percent,296,78,Attacker
+B,40percent,297,-1,Noise
+B,40percent,298,43,Attacker
+B,40percent,299,49,Attacker
+B,40percent,300,-1,Noise
+B,40percent,301,33,Attacker
+B,40percent,302,79,Attacker
+B,40percent,303,-1,Noise
+B,40percent,304,-1,Noise
+B,40percent,305,-1,Noise
+B,40percent,306,57,Attacker
+B,40percent,307,28,Attacker
+B,40percent,308,52,Attacker
+B,40percent,309,12,Attacker
+B,40percent,310,-1,Noise
+B,40percent,311,16,Attacker
+B,40percent,312,72,Attacker
+B,40percent,313,-1,Noise
+B,40percent,314,80,Attacker
+B,40percent,315,26,Attacker
+B,40percent,316,81,Attacker
+B,40percent,317,-1,Noise
+B,40percent,318,-1,Noise
+B,40percent,319,16,Attacker
+B,40percent,320,-1,Noise
+B,40percent,321,-1,Noise
+B,40percent,322,-1,Noise
+B,40percent,323,-1,Noise
+B,40percent,324,82,Attacker
+B,40percent,325,21,Attacker
+B,40percent,326,28,Attacker
+B,40percent,327,76,Attacker
+B,40percent,328,11,Attacker
+B,40percent,329,18,Attacker
+B,40percent,330,72,Attacker
+B,40percent,331,42,Attacker
+B,40percent,332,-1,Noise
+B,40percent,333,-1,Noise
+B,40percent,334,34,Attacker
+B,40percent,335,-1,Noise
 B,40percent,336,0,Primary User
-B,40percent,337,0,Primary User
-B,40percent,338,0,Primary User
-B,40percent,339,0,Primary User
-B,40percent,340,0,Primary User
-B,40percent,341,0,Primary User
-B,40percent,342,0,Primary User
-B,40percent,343,0,Primary User
-B,40percent,344,0,Primary User
-B,40percent,345,0,Primary User
-B,40percent,346,0,Primary User
-B,40percent,347,0,Primary User
-B,40percent,348,0,Primary User
-B,40percent,349,0,Primary User
-B,40percent,350,0,Primary User
-B,40percent,351,0,Primary User
-B,40percent,352,0,Primary User
-B,40percent,353,0,Primary User
-B,40percent,354,0,Primary User
-B,40percent,355,0,Primary User
-B,40percent,356,0,Primary User
-B,40percent,357,0,Primary User
-B,40percent,358,0,Primary User
-B,40percent,359,0,Primary User
-B,40percent,360,0,Primary User
-B,40percent,361,0,Primary User
-B,40percent,362,0,Primary User
-B,40percent,363,0,Primary User
-B,40percent,364,0,Primary User
-B,40percent,365,0,Primary User
-B,40percent,366,0,Primary User
-B,40percent,367,0,Primary User
-B,40percent,368,0,Primary User
-B,40percent,369,0,Primary User
-B,40percent,370,0,Primary User
-B,40percent,371,0,Primary User
-B,40percent,372,0,Primary User
-B,40percent,373,0,Primary User
-B,40percent,374,0,Primary User
-B,40percent,375,0,Primary User
-B,40percent,376,0,Primary User
-B,40percent,377,0,Primary User
-B,40percent,378,0,Primary User
-B,40percent,379,0,Primary User
-B,40percent,380,0,Primary User
-B,40percent,381,0,Primary User
-B,40percent,382,0,Primary User
-B,40percent,383,0,Primary User
-B,40percent,384,0,Primary User
-B,40percent,385,0,Primary User
-B,40percent,386,0,Primary User
-B,40percent,387,0,Primary User
-B,40percent,388,0,Primary User
-B,40percent,389,0,Primary User
-B,40percent,390,0,Primary User
-B,40percent,391,0,Primary User
-B,40percent,392,0,Primary User
-B,40percent,393,0,Primary User
-B,40percent,394,0,Primary User
-B,40percent,395,0,Primary User
-B,40percent,396,0,Primary User
-B,40percent,397,0,Primary User
-B,40percent,398,0,Primary User
-B,40percent,399,0,Primary User
-B,40percent,400,0,Primary User
-B,40percent,401,0,Primary User
-B,40percent,402,0,Primary User
-B,40percent,403,0,Primary User
-B,40percent,404,0,Primary User
-B,40percent,405,0,Primary User
-B,40percent,406,0,Primary User
-B,40percent,407,0,Primary User
-B,40percent,408,0,Primary User
-B,40percent,409,0,Primary User
-B,40percent,410,0,Primary User
-B,40percent,411,0,Primary User
-B,40percent,412,0,Primary User
-B,40percent,413,0,Primary User
-B,40percent,414,0,Primary User
-B,40percent,415,0,Primary User
-B,40percent,416,0,Primary User
-B,40percent,417,0,Primary User
-B,40percent,418,0,Primary User
-B,40percent,419,0,Primary User
-B,40percent,420,0,Primary User
-B,40percent,421,0,Primary User
-B,40percent,422,0,Primary User
-B,40percent,423,0,Primary User
-B,40percent,424,0,Primary User
-B,40percent,425,0,Primary User
-B,40percent,426,0,Primary User
+B,40percent,337,29,Attacker
+B,40percent,338,76,Attacker
+B,40percent,339,28,Attacker
+B,40percent,340,83,Attacker
+B,40percent,341,36,Attacker
+B,40percent,342,-1,Noise
+B,40percent,343,84,Attacker
+B,40percent,344,47,Attacker
+B,40percent,345,-1,Noise
+B,40percent,346,52,Attacker
+B,40percent,347,30,Attacker
+B,40percent,348,85,Attacker
+B,40percent,349,24,Attacker
+B,40percent,350,30,Attacker
+B,40percent,351,-1,Noise
+B,40percent,352,6,Attacker
+B,40percent,353,-1,Noise
+B,40percent,354,42,Attacker
+B,40percent,355,-1,Noise
+B,40percent,356,-1,Noise
+B,40percent,357,80,Attacker
+B,40percent,358,-1,Noise
+B,40percent,359,7,Attacker
+B,40percent,360,-1,Noise
+B,40percent,361,86,Attacker
+B,40percent,362,7,Attacker
+B,40percent,363,-1,Noise
+B,40percent,364,-1,Noise
+B,40percent,365,-1,Noise
+B,40percent,366,55,Attacker
+B,40percent,367,66,Attacker
+B,40percent,368,75,Attacker
+B,40percent,369,75,Attacker
+B,40percent,370,24,Attacker
+B,40percent,371,57,Attacker
+B,40percent,372,-1,Noise
+B,40percent,373,69,Attacker
+B,40percent,374,58,Attacker
+B,40percent,375,-1,Noise
+B,40percent,376,36,Attacker
+B,40percent,377,5,Attacker
+B,40percent,378,42,Attacker
+B,40percent,379,77,Attacker
+B,40percent,380,-1,Noise
+B,40percent,381,44,Attacker
+B,40percent,382,61,Attacker
+B,40percent,383,-1,Noise
+B,40percent,384,-1,Noise
+B,40percent,385,-1,Noise
+B,40percent,386,16,Attacker
+B,40percent,387,7,Attacker
+B,40percent,388,-1,Noise
+B,40percent,389,62,Attacker
+B,40percent,390,86,Attacker
+B,40percent,391,7,Attacker
+B,40percent,392,50,Attacker
+B,40percent,393,-1,Noise
+B,40percent,394,-1,Noise
+B,40percent,395,39,Attacker
+B,40percent,396,87,Attacker
+B,40percent,397,-1,Noise
+B,40percent,398,-1,Noise
+B,40percent,399,22,Attacker
+B,40percent,400,-1,Noise
+B,40percent,401,19,Attacker
+B,40percent,402,-1,Noise
+B,40percent,403,59,Attacker
+B,40percent,404,-1,Noise
+B,40percent,405,21,Attacker
+B,40percent,406,60,Attacker
+B,40percent,407,40,Attacker
+B,40percent,408,18,Attacker
+B,40percent,409,68,Attacker
+B,40percent,410,36,Attacker
+B,40percent,411,85,Attacker
+B,40percent,412,88,Attacker
+B,40percent,413,74,Attacker
+B,40percent,414,33,Attacker
+B,40percent,415,71,Attacker
+B,40percent,416,28,Attacker
+B,40percent,417,-1,Noise
+B,40percent,418,7,Attacker
+B,40percent,419,-1,Noise
+B,40percent,420,21,Attacker
+B,40percent,421,87,Attacker
+B,40percent,422,-1,Noise
+B,40percent,423,21,Attacker
+B,40percent,424,53,Attacker
+B,40percent,425,7,Attacker
+B,40percent,426,14,Attacker
 B,40percent,427,0,Primary User
-B,40percent,428,0,Primary User
-B,40percent,429,0,Primary User
-B,40percent,430,0,Primary User
-B,40percent,431,0,Primary User
-B,40percent,432,0,Primary User
-B,40percent,433,0,Primary User
-B,40percent,434,0,Primary User
-B,40percent,435,0,Primary User
-B,40percent,436,0,Primary User
-B,40percent,437,0,Primary User
-B,40percent,438,0,Primary User
-B,40percent,439,0,Primary User
-B,40percent,440,0,Primary User
-B,40percent,441,0,Primary User
-B,40percent,442,0,Primary User
-B,40percent,443,0,Primary User
-B,40percent,444,0,Primary User
-B,40percent,445,0,Primary User
-B,40percent,446,0,Primary User
-B,40percent,447,0,Primary User
-B,40percent,448,0,Primary User
-B,40percent,449,0,Primary User
-B,40percent,450,0,Primary User
-B,40percent,451,0,Primary User
-B,40percent,452,0,Primary User
-B,40percent,453,0,Primary User
-B,40percent,454,0,Primary User
-B,40percent,455,0,Primary User
-B,40percent,456,0,Primary User
-B,40percent,457,0,Primary User
-B,40percent,458,0,Primary User
-B,40percent,459,0,Primary User
-B,40percent,460,0,Primary User
-B,40percent,461,0,Primary User
-B,40percent,462,0,Primary User
-B,40percent,463,0,Primary User
-B,40percent,464,0,Primary User
-B,40percent,465,0,Primary User
-B,40percent,466,0,Primary User
-B,40percent,467,0,Primary User
-B,40percent,468,0,Primary User
-B,40percent,469,0,Primary User
-B,40percent,470,0,Primary User
-B,40percent,471,0,Primary User
-B,40percent,472,0,Primary User
-B,40percent,473,0,Primary User
-B,40percent,474,0,Primary User
-B,40percent,475,0,Primary User
-B,40percent,476,0,Primary User
-B,40percent,477,0,Primary User
-B,40percent,478,0,Primary User
-B,40percent,479,0,Primary User
-B,40percent,480,0,Primary User
-B,40percent,481,0,Primary User
-B,40percent,482,0,Primary User
-B,40percent,483,0,Primary User
-B,40percent,484,0,Primary User
-B,40percent,485,0,Primary User
-B,40percent,486,0,Primary User
-B,40percent,487,0,Primary User
-B,40percent,488,0,Primary User
-B,40percent,489,0,Primary User
-B,40percent,490,0,Primary User
-B,40percent,491,0,Primary User
-B,40percent,492,0,Primary User
-B,40percent,493,0,Primary User
-B,40percent,494,0,Primary User
-B,40percent,495,0,Primary User
-B,40percent,496,0,Primary User
-B,40percent,497,0,Primary User
-B,40percent,498,0,Primary User
-B,40percent,499,0,Primary User
+B,40percent,428,42,Attacker
+B,40percent,429,-1,Noise
+B,40percent,430,-1,Noise
+B,40percent,431,-1,Noise
+B,40percent,432,-1,Noise
+B,40percent,433,-1,Noise
+B,40percent,434,-1,Noise
+B,40percent,435,89,Attacker
+B,40percent,436,37,Attacker
+B,40percent,437,46,Attacker
+B,40percent,438,64,Attacker
+B,40percent,439,-1,Noise
+B,40percent,440,-1,Noise
+B,40percent,441,-1,Noise
+B,40percent,442,81,Attacker
+B,40percent,443,20,Attacker
+B,40percent,444,83,Attacker
+B,40percent,445,53,Attacker
+B,40percent,446,84,Attacker
+B,40percent,447,36,Attacker
+B,40percent,448,3,Attacker
+B,40percent,449,7,Attacker
+B,40percent,450,56,Attacker
+B,40percent,451,28,Attacker
+B,40percent,452,90,Attacker
+B,40percent,453,90,Attacker
+B,40percent,454,-1,Noise
+B,40percent,455,22,Attacker
+B,40percent,456,-1,Noise
+B,40percent,457,-1,Noise
+B,40percent,458,30,Attacker
+B,40percent,459,42,Attacker
+B,40percent,460,21,Attacker
+B,40percent,461,-1,Noise
+B,40percent,462,-1,Noise
+B,40percent,463,73,Attacker
+B,40percent,464,-1,Noise
+B,40percent,465,-1,Noise
+B,40percent,466,3,Attacker
+B,40percent,467,18,Attacker
+B,40percent,468,14,Attacker
+B,40percent,469,-1,Noise
+B,40percent,470,-1,Noise
+B,40percent,471,-1,Noise
+B,40percent,472,67,Attacker
+B,40percent,473,-1,Noise
+B,40percent,474,8,Attacker
+B,40percent,475,-1,Noise
+B,40percent,476,88,Attacker
+B,40percent,477,49,Attacker
+B,40percent,478,34,Attacker
+B,40percent,479,-1,Noise
+B,40percent,480,-1,Noise
+B,40percent,481,50,Attacker
+B,40percent,482,-1,Noise
+B,40percent,483,10,Attacker
+B,40percent,484,65,Attacker
+B,40percent,485,79,Attacker
+B,40percent,486,-1,Noise
+B,40percent,487,70,Attacker
+B,40percent,488,89,Attacker
+B,40percent,489,16,Attacker
+B,40percent,490,82,Attacker
+B,40percent,491,-1,Noise
+B,40percent,492,78,Attacker
+B,40percent,493,-1,Noise
+B,40percent,494,-1,Noise
+B,40percent,495,61,Attacker
+B,40percent,496,-1,Noise
+B,40percent,497,87,Attacker
+B,40percent,498,-1,Noise
+B,40percent,499,-1,Noise
 B,50percent,0,0,Primary User
 B,50percent,1,0,Primary User
 B,50percent,2,0,Primary User
@@ -4562,13 +4562,13 @@ B,50percent,59,0,Primary User
 B,50percent,60,0,Primary User
 B,50percent,61,0,Primary User
 B,50percent,62,0,Primary User
-B,50percent,63,0,Primary User
+B,50percent,63,-1,Noise
 B,50percent,64,0,Primary User
 B,50percent,65,0,Primary User
-B,50percent,66,0,Primary User
+B,50percent,66,-1,Noise
 B,50percent,67,0,Primary User
 B,50percent,68,0,Primary User
-B,50percent,69,0,Primary User
+B,50percent,69,1,Attacker
 B,50percent,70,0,Primary User
 B,50percent,71,0,Primary User
 B,50percent,72,0,Primary User
@@ -4608,14 +4608,14 @@ B,50percent,105,0,Primary User
 B,50percent,106,0,Primary User
 B,50percent,107,0,Primary User
 B,50percent,108,0,Primary User
-B,50percent,109,0,Primary User
+B,50percent,109,1,Attacker
 B,50percent,110,0,Primary User
 B,50percent,111,0,Primary User
 B,50percent,112,0,Primary User
 B,50percent,113,0,Primary User
 B,50percent,114,0,Primary User
 B,50percent,115,0,Primary User
-B,50percent,116,0,Primary User
+B,50percent,116,2,Attacker
 B,50percent,117,0,Primary User
 B,50percent,118,0,Primary User
 B,50percent,119,0,Primary User
@@ -4666,26 +4666,26 @@ B,50percent,163,0,Primary User
 B,50percent,164,0,Primary User
 B,50percent,165,0,Primary User
 B,50percent,166,0,Primary User
-B,50percent,167,0,Primary User
+B,50percent,167,1,Attacker
 B,50percent,168,0,Primary User
 B,50percent,169,0,Primary User
 B,50percent,170,0,Primary User
 B,50percent,171,0,Primary User
 B,50percent,172,0,Primary User
 B,50percent,173,0,Primary User
-B,50percent,174,0,Primary User
+B,50percent,174,-1,Noise
 B,50percent,175,0,Primary User
 B,50percent,176,0,Primary User
 B,50percent,177,0,Primary User
 B,50percent,178,0,Primary User
 B,50percent,179,0,Primary User
 B,50percent,180,0,Primary User
-B,50percent,181,0,Primary User
+B,50percent,181,1,Attacker
 B,50percent,182,0,Primary User
 B,50percent,183,0,Primary User
 B,50percent,184,0,Primary User
 B,50percent,185,0,Primary User
-B,50percent,186,0,Primary User
+B,50percent,186,-1,Noise
 B,50percent,187,0,Primary User
 B,50percent,188,0,Primary User
 B,50percent,189,0,Primary User
@@ -4697,7 +4697,7 @@ B,50percent,194,0,Primary User
 B,50percent,195,0,Primary User
 B,50percent,196,0,Primary User
 B,50percent,197,0,Primary User
-B,50percent,198,0,Primary User
+B,50percent,198,1,Attacker
 B,50percent,199,0,Primary User
 B,50percent,200,0,Primary User
 B,50percent,201,0,Primary User
@@ -4708,7 +4708,7 @@ B,50percent,205,0,Primary User
 B,50percent,206,0,Primary User
 B,50percent,207,0,Primary User
 B,50percent,208,0,Primary User
-B,50percent,209,0,Primary User
+B,50percent,209,-1,Noise
 B,50percent,210,0,Primary User
 B,50percent,211,0,Primary User
 B,50percent,212,0,Primary User
@@ -4753,13 +4753,13 @@ B,50percent,250,0,Primary User
 B,50percent,251,0,Primary User
 B,50percent,252,0,Primary User
 B,50percent,253,0,Primary User
-B,50percent,254,0,Primary User
+B,50percent,254,-1,Noise
 B,50percent,255,0,Primary User
 B,50percent,256,0,Primary User
 B,50percent,257,0,Primary User
 B,50percent,258,0,Primary User
 B,50percent,259,0,Primary User
-B,50percent,260,0,Primary User
+B,50percent,260,-1,Noise
 B,50percent,261,0,Primary User
 B,50percent,262,0,Primary User
 B,50percent,263,0,Primary User
@@ -4786,9 +4786,9 @@ B,50percent,283,0,Primary User
 B,50percent,284,0,Primary User
 B,50percent,285,0,Primary User
 B,50percent,286,0,Primary User
-B,50percent,287,0,Primary User
+B,50percent,287,2,Attacker
 B,50percent,288,0,Primary User
-B,50percent,289,0,Primary User
+B,50percent,289,2,Attacker
 B,50percent,290,0,Primary User
 B,50percent,291,0,Primary User
 B,50percent,292,0,Primary User
@@ -4805,12 +4805,12 @@ B,50percent,302,0,Primary User
 B,50percent,303,0,Primary User
 B,50percent,304,0,Primary User
 B,50percent,305,0,Primary User
-B,50percent,306,0,Primary User
+B,50percent,306,-1,Noise
 B,50percent,307,0,Primary User
 B,50percent,308,0,Primary User
 B,50percent,309,0,Primary User
 B,50percent,310,0,Primary User
-B,50percent,311,0,Primary User
+B,50percent,311,3,Attacker
 B,50percent,312,0,Primary User
 B,50percent,313,0,Primary User
 B,50percent,314,0,Primary User
@@ -4823,15 +4823,15 @@ B,50percent,320,0,Primary User
 B,50percent,321,0,Primary User
 B,50percent,322,0,Primary User
 B,50percent,323,0,Primary User
-B,50percent,324,0,Primary User
-B,50percent,325,0,Primary User
+B,50percent,324,1,Attacker
+B,50percent,325,2,Attacker
 B,50percent,326,0,Primary User
-B,50percent,327,0,Primary User
+B,50percent,327,1,Attacker
 B,50percent,328,0,Primary User
 B,50percent,329,0,Primary User
 B,50percent,330,0,Primary User
 B,50percent,331,0,Primary User
-B,50percent,332,0,Primary User
+B,50percent,332,-1,Noise
 B,50percent,333,0,Primary User
 B,50percent,334,0,Primary User
 B,50percent,335,0,Primary User
@@ -4840,11 +4840,11 @@ B,50percent,337,0,Primary User
 B,50percent,338,0,Primary User
 B,50percent,339,0,Primary User
 B,50percent,340,0,Primary User
-B,50percent,341,0,Primary User
+B,50percent,341,1,Attacker
 B,50percent,342,0,Primary User
 B,50percent,343,0,Primary User
 B,50percent,344,0,Primary User
-B,50percent,345,0,Primary User
+B,50percent,345,-1,Noise
 B,50percent,346,0,Primary User
 B,50percent,347,0,Primary User
 B,50percent,348,0,Primary User
@@ -4885,7 +4885,7 @@ B,50percent,382,0,Primary User
 B,50percent,383,0,Primary User
 B,50percent,384,0,Primary User
 B,50percent,385,0,Primary User
-B,50percent,386,0,Primary User
+B,50percent,386,1,Attacker
 B,50percent,387,0,Primary User
 B,50percent,388,0,Primary User
 B,50percent,389,0,Primary User
@@ -4909,7 +4909,7 @@ B,50percent,406,0,Primary User
 B,50percent,407,0,Primary User
 B,50percent,408,0,Primary User
 B,50percent,409,0,Primary User
-B,50percent,410,0,Primary User
+B,50percent,410,1,Attacker
 B,50percent,411,0,Primary User
 B,50percent,412,0,Primary User
 B,50percent,413,0,Primary User
@@ -4920,7 +4920,7 @@ B,50percent,417,0,Primary User
 B,50percent,418,0,Primary User
 B,50percent,419,0,Primary User
 B,50percent,420,0,Primary User
-B,50percent,421,0,Primary User
+B,50percent,421,3,Attacker
 B,50percent,422,0,Primary User
 B,50percent,423,0,Primary User
 B,50percent,424,0,Primary User
@@ -4931,10 +4931,10 @@ B,50percent,428,0,Primary User
 B,50percent,429,0,Primary User
 B,50percent,430,0,Primary User
 B,50percent,431,0,Primary User
-B,50percent,432,0,Primary User
+B,50percent,432,1,Attacker
 B,50percent,433,0,Primary User
 B,50percent,434,0,Primary User
-B,50percent,435,0,Primary User
+B,50percent,435,2,Attacker
 B,50percent,436,0,Primary User
 B,50percent,437,0,Primary User
 B,50percent,438,0,Primary User
@@ -4966,7 +4966,7 @@ B,50percent,463,0,Primary User
 B,50percent,464,0,Primary User
 B,50percent,465,0,Primary User
 B,50percent,466,0,Primary User
-B,50percent,467,0,Primary User
+B,50percent,467,2,Attacker
 B,50percent,468,0,Primary User
 B,50percent,469,0,Primary User
 B,50percent,470,0,Primary User
@@ -4983,7 +4983,7 @@ B,50percent,480,0,Primary User
 B,50percent,481,0,Primary User
 B,50percent,482,0,Primary User
 B,50percent,483,0,Primary User
-B,50percent,484,0,Primary User
+B,50percent,484,3,Attacker
 B,50percent,485,0,Primary User
 B,50percent,486,0,Primary User
 B,50percent,487,0,Primary User
@@ -4999,53 +4999,53 @@ B,50percent,496,0,Primary User
 B,50percent,497,0,Primary User
 B,50percent,498,0,Primary User
 B,50percent,499,0,Primary User
-C,10percent,0,0,Primary User
-C,10percent,1,0,Primary User
+C,10percent,0,-1,Noise
+C,10percent,1,-1,Noise
 C,10percent,2,0,Primary User
-C,10percent,3,0,Primary User
-C,10percent,4,0,Primary User
-C,10percent,5,0,Primary User
+C,10percent,3,-1,Noise
+C,10percent,4,1,Attacker
+C,10percent,5,-1,Noise
 C,10percent,6,0,Primary User
-C,10percent,7,0,Primary User
-C,10percent,8,0,Primary User
-C,10percent,9,0,Primary User
-C,20percent,0,0,Primary User
-C,20percent,1,0,Primary User
-C,20percent,2,0,Primary User
-C,20percent,3,0,Primary User
-C,20percent,4,0,Primary User
-C,20percent,5,0,Primary User
+C,10percent,7,-1,Noise
+C,10percent,8,1,Attacker
+C,10percent,9,-1,Noise
+C,20percent,0,-1,Noise
+C,20percent,1,-1,Noise
+C,20percent,2,-1,Noise
+C,20percent,3,-1,Noise
+C,20percent,4,-1,Noise
+C,20percent,5,-1,Noise
 C,20percent,6,0,Primary User
-C,20percent,7,0,Primary User
+C,20percent,7,-1,Noise
 C,20percent,8,0,Primary User
-C,20percent,9,0,Primary User
+C,20percent,9,-1,Noise
 C,30percent,0,0,Primary User
-C,30percent,1,0,Primary User
-C,30percent,2,0,Primary User
-C,30percent,3,0,Primary User
+C,30percent,1,-1,Noise
+C,30percent,2,-1,Noise
+C,30percent,3,1,Attacker
 C,30percent,4,0,Primary User
-C,30percent,5,0,Primary User
-C,30percent,6,0,Primary User
-C,30percent,7,0,Primary User
-C,30percent,8,0,Primary User
+C,30percent,5,-1,Noise
+C,30percent,6,-1,Noise
+C,30percent,7,-1,Noise
+C,30percent,8,1,Attacker
 C,30percent,9,0,Primary User
-C,40percent,0,0,Primary User
-C,40percent,1,0,Primary User
+C,40percent,0,-1,Noise
+C,40percent,1,-1,Noise
 C,40percent,2,0,Primary User
-C,40percent,3,0,Primary User
-C,40percent,4,0,Primary User
-C,40percent,5,0,Primary User
+C,40percent,3,-1,Noise
+C,40percent,4,1,Attacker
+C,40percent,5,-1,Noise
 C,40percent,6,0,Primary User
 C,40percent,7,0,Primary User
 C,40percent,8,0,Primary User
-C,40percent,9,0,Primary User
-C,50percent,0,0,Primary User
-C,50percent,1,0,Primary User
-C,50percent,2,0,Primary User
-C,50percent,3,0,Primary User
-C,50percent,4,0,Primary User
+C,40percent,9,1,Attacker
+C,50percent,0,-1,Noise
+C,50percent,1,-1,Noise
+C,50percent,2,-1,Noise
+C,50percent,3,-1,Noise
+C,50percent,4,-1,Noise
 C,50percent,5,0,Primary User
 C,50percent,6,0,Primary User
-C,50percent,7,0,Primary User
-C,50percent,8,0,Primary User
-C,50percent,9,0,Primary User
+C,50percent,7,-1,Noise
+C,50percent,8,-1,Noise
+C,50percent,9,-1,Noise
