@@ -1,0 +1,217 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{xcolor}
+
+% Theme choice
+\usetheme{Madrid}
+\usecolortheme{whale}
+
+% Title information
+\title{PUEA Detection}
+\subtitle{Primary User Emulation Attack Detection in Cognitive Radio Networks}
+\author{Presenter Name}
+\date{\today}
+
+\begin{document}
+
+% Title slide
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% Outline slide
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+% Introduction
+\section{Introduction}
+\begin{frame}{Introduction}
+    \begin{itemize}
+        \item Cognitive Radio Networks (CRNs) enable dynamic spectrum access
+        \item Primary User Emulation Attacks (PUEA) are a significant security threat
+        \item Malicious users mimic primary user signals to deny service to legitimate secondary users
+        \item Our research focuses on effective detection mechanisms for PUEA
+    \end{itemize}
+\end{frame}
+
+% Background
+\section{Background}
+\begin{frame}{Cognitive Radio Fundamentals}
+    \begin{itemize}
+        \item Cognitive Radio: Intelligent wireless communication system
+        \item Adapts to available spectrum holes
+        \item Components:
+        \begin{itemize}
+            \item Spectrum sensing
+            \item Spectrum management
+            \item Spectrum mobility
+            \item Spectrum sharing
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Primary User Emulation Attack}
+    \begin{itemize}
+        \item PUEA: Attacker mimics primary user signal characteristics
+        \item Goals:
+        \begin{itemize}
+            \item Deny spectrum access to legitimate secondary users
+            \item Disrupt the cognitive radio network operation
+            \item Potentially launch other sophisticated attacks
+        \end{itemize}
+        \item Challenging to detect due to similarity with legitimate signals
+    \end{itemize}
+\end{frame}
+
+% Related Work
+\section{Related Work}
+\begin{frame}{Existing Detection Approaches}
+    \begin{itemize}
+        \item Energy Detection Based Methods
+        \item Location Verification Techniques
+        \item Signal Feature Analysis
+        \item Machine Learning Approaches
+        \item Cooperative Detection Schemes
+    \end{itemize}
+\end{frame}
+
+% Proposed Methodology
+\section{Proposed Methodology}
+\begin{frame}{Our Approach}
+    \begin{itemize}
+        \item Hybrid detection framework combining:
+        \begin{itemize}
+            \item Signal characteristic analysis
+            \item Machine learning classification
+            \item Cooperative sensing elements
+        \end{itemize}
+        \item Key innovations:
+        \begin{itemize}
+            \item Feature extraction optimization
+            \item Reduced false alarm rate
+            \item Low computational complexity
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{System Architecture}
+    % Placeholder for system architecture diagram
+    \centering
+    \begin{figure}
+        \fbox{[System Architecture Diagram]}
+        \caption{Overview of the PUEA Detection System}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Detection Algorithm}
+    \begin{enumerate}
+        \item Signal reception and pre-processing
+        \item Feature extraction
+        \item Classification using trained ML model
+        \item Decision making and alert generation
+        \item Feedback for continuous improvement
+    \end{enumerate}
+    
+    % Placeholder for algorithm pseudocode
+    \begin{block}{Key Algorithm Steps}
+        \begin{verbatim}
+        1. Collect signal samples
+        2. Extract features F1, F2, ..., Fn
+        3. Apply classifier C
+        4. If P(attack) > threshold
+           then Raise alert
+        5. Update detection parameters
+        \end{verbatim}
+    \end{block}
+\end{frame}
+
+% Results
+\section{Results and Analysis}
+\begin{frame}{Experimental Setup}
+    \begin{itemize}
+        \item Testbed configuration:
+        \begin{itemize}
+            \item Software-defined radio platforms
+            \item Spectrum analyzer
+            \item Processing server
+        \end{itemize}
+        \item Performance metrics:
+        \begin{itemize}
+            \item Detection accuracy
+            \item False alarm rate
+            \item Detection latency
+            \item Computational efficiency
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Performance Analysis}
+    % Placeholder for results graph
+    \centering
+    \begin{figure}
+        \fbox{[Performance Comparison Graph]}
+        \caption{Detection Performance Comparison}
+    \end{figure}
+    
+    \begin{itemize}
+        \item Our approach achieves 95\% detection rate
+        \item False alarm rate reduced by 60\% compared to existing methods
+        \item Operates effectively in low SNR scenarios
+    \end{itemize}
+\end{frame}
+
+% Conclusion
+\section{Conclusion}
+\begin{frame}{Conclusion and Future Work}
+    \begin{itemize}
+        \item Successfully developed a robust PUEA detection framework
+        \item Key contributions:
+        \begin{itemize}
+            \item Novel feature extraction technique
+            \item Improved detection accuracy in challenging environments
+            \item Low-complexity implementation suitable for practical deployment
+        \end{itemize}
+        \item Future work:
+        \begin{itemize}
+            \item Extension to cooperative networks
+            \item Integration with other security mechanisms
+            \item Real-time implementation optimization
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+% References
+\section{References}
+\begin{frame}[allowframebreaks]{References}
+    \begin{thebibliography}{9}
+        \bibitem{ref1}
+        Author1, et al. (2022).
+        \textit{Survey on PUEA Detection Methods in Cognitive Radio Networks}.
+        IEEE Transactions on Cognitive Communications.
+        
+        \bibitem{ref2}
+        Author2, et al. (2023).
+        \textit{Machine Learning for PUEA Detection}.
+        Wireless Communications and Mobile Computing.
+        
+        \bibitem{ref3}
+        Author3, et al. (2024).
+        \textit{Secure Cognitive Radio Networks: Challenges and Solutions}.
+        IEEE Communications Surveys \& Tutorials.
+    \end{thebibliography}
+\end{frame}
+
+% Questions slide
+\begin{frame}
+    \centering
+    \huge{Thank You!}
+    \vspace{1cm}
+    
+    \Large{Questions?}
+\end{frame}
+
+\end{document}

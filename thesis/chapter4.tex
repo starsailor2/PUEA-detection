@@ -1,0 +1,947 @@
+\chapter{Implementation and Experimental Setup}
+
+\section{Implementation Overview}
+This chapter describes the implementation details and experimental setup for evaluating our proposed approach for Primary User Emulation Attack (PUEA) detection in Cognitive Radio Networks. We provide a comprehensive description of the software tools, libraries, and the experimental environment used for implementing and testing the proposed clustering-based detection methods.
+
+\section{Software Environment}
+The implementation of our proposed approach is carried out using Python, a widely used programming language for data analysis and machine learning applications. Python offers rich libraries for scientific computing, data processing, and machine learning, making it suitable for our research.
+
+\subsection{Python Libraries}
+The following key libraries were used in our implementation:
+
+\begin{itemize}
+    \item \textbf{NumPy}: For numerical computation and handling multi-dimensional arrays.
+    \item \textbf{Pandas}: For data manipulation and analysis.
+    \item \textbf{Scikit-learn}: For machine learning algorithms implementation, including clustering algorithms and evaluation metrics.
+    \item \textbf{Matplotlib} and \textbf{Seaborn}: For data visualization and plotting.
+    \item \textbf{SciPy}: For scientific computing, especially for hierarchical clustering and additional statistical functions.
+\end{itemize}
+
+\subsection{Development Environment}
+The development and experimentation were performed on the following hardware and software configuration:
+\begin{itemize}
+    \item \textbf{Hardware}: Laptop with Intel Core i7-10750H CPU @ 2.60GHz, 16GB RAM
+    \item \textbf{Operating System}: Windows 10 64-bit
+    \item \textbf{Python Version}: Python 3.8.5
+    \item \textbf{IDE}: Jupyter Notebook and Visual Studio Code
+\end{itemize}
+
+\section{Dataset Generation Implementation}
+As described in the methodology chapter, we implemented a synthetic dataset generation process to create a realistic dataset for evaluating our PUEA detection approach. Here, we provide additional implementation details and the exact configuration parameters used in our experiments.
+
+\subsection{Configuration Parameters}
+The dataset was generated with the following configuration parameters:
+
+\begin{table}[h]
+    \centering
+    \caption{Dataset Configuration Parameters}
+    \label{tab:dataset_params}
+    \begin{tabular}{lcc}
+        \toprule
+        Parameter & Primary User (PU) & PUEA \\
+        \midrule
+        Number of samples & 300 & 150 \\
+        Transmit power mean (dBm) & 30 & 35 \\
+        Transmit power standard deviation (dBm) & 1 & 2 \\
+        Distance mean (meters) & 500 & 450 \\
+        Distance standard deviation (meters) & 100 & 120 \\
+        Path loss exponent mean & 3.0 & 2.8 \\
+        Path loss exponent standard deviation & 0.2 & 0.3 \\
+        Shadowing standard deviation (dB) & 4 & 5 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Implementation Process}
+The dataset generation involves the following steps:
+
+\begin{enumerate}
+    \item Setting random seed for reproducibility
+    \item Defining the signal propagation model based on the log-normal shadowing path loss model
+    \item Generating parameters for PU signals based on the configuration
+    \item Generating parameters for PUEA signals based on the configuration
+    \item Calculating received power using the signal propagation model
+    \item Combining PU and PUEA signals into a single dataset
+    \item Labeling the dataset (0 for PU, 1 for PUEA)
+    \item Shuffling the dataset to ensure random ordering
+    \item Saving the dataset to a CSV file for further processing
+\end{enumerate}
+
+\section{Data Preprocessing Implementation}
+Before applying clustering algorithms, we preprocess the dataset to ensure optimal performance. The preprocessing steps are implemented as follows:
+
+\subsection{Data Loading and Exploration}
+First, we load the dataset from the CSV file and explore its basic statistics to understand the data distribution:
+
+\begin{lstlisting}[language=Python, caption=Data Exploration Code]
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+dataset = pd.read_csv('puea_detection_dataset.csv')
+
+# Display basic statistics
+print(dataset.describe())
+
+# Count of PU and PUEA samples
+print(f"PU samples: {len(dataset[dataset['label'] == 0])}")
+print(f"PUEA samples: {len(dataset[dataset['label'] == 1])}")
+
+# Plot histograms for each feature to visualize distributions
+fig, axes = plt.subplots(2, 3, figsize=(18, 10))
+axes = axes.flatten()
+
+features = ['transmit_power', 'distance', 'path_loss_exponent', 
+            'shadowing_effect', 'received_power']
+
+for i, feature in enumerate(features):
+    sns.histplot(data=dataset, x=feature, hue='label', bins=30, kde=True, ax=axes[i])
+    axes[i].set_title(f'{feature} Distribution')
+    axes[i].legend(['PU', 'PUEA'])
+
+plt.tight_layout()
+plt.savefig('feature_distributions.png', dpi=300, bbox_inches='tight')
+plt.show()
+
+# Plot correlation matrix
+plt.figure(figsize=(10, 8))
+correlation = dataset.corr()
+sns.heatmap(correlation, annot=True, cmap='coolwarm', fmt='.2f')
+plt.title('Feature Correlation Matrix')
+plt.tight_layout()
+plt.savefig('correlation_matrix.png', dpi=300, bbox_inches='tight')
+plt.show()
+\end{lstlisting}
+
+\subsection{Feature Scaling Implementation}
+We implement feature scaling using the StandardScaler from scikit-learn, which transforms features to have zero mean and unit variance:
+
+\begin{lstlisting}[language=Python, caption=Feature Scaling Implementation]
+from sklearn.preprocessing import StandardScaler
+
+# Extract features and labels
+X = dataset.drop('label', axis=1)
+y_true = dataset['label']
+
+# Standardize features
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Convert back to DataFrame for easier handling
+X_scaled_df = pd.DataFrame(X_scaled, columns=X.columns)
+
+# Display basic statistics after scaling
+print(X_scaled_df.describe())
+\end{lstlisting}
+
+\subsection{Feature Selection and Dimensionality Reduction}
+For better visualization and potentially improved clustering performance, we implement PCA to reduce the dimensionality of the data:
+
+\begin{lstlisting}[language=Python, caption=PCA Implementation]
+from sklearn.decomposition import PCA
+
+# Apply PCA for dimensionality reduction
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X_scaled)
+
+# Percentage of variance explained by each component
+explained_variance = pca.explained_variance_ratio_
+print(f"Explained variance ratio: {explained_variance}")
+print(f"Total explained variance: {sum(explained_variance):.2f}")
+
+# Feature importance in principal components
+for i, component in enumerate(pca.components_):
+    print(f"Principal Component {i+1}:")
+    for j, feature in enumerate(X.columns):
+        print(f"{feature}: {component[j]:.3f}")
+    print()
+
+# Plot PCA results
+plt.figure(figsize=(10, 6))
+scatter = plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y_true, alpha=0.6, cmap='viridis')
+plt.colorbar(scatter, label='Class (0: PU, 1: PUEA)')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.title('PCA of PUEA Detection Dataset')
+plt.grid(alpha=0.3)
+plt.savefig('pca_visualization.png', dpi=300, bbox_inches='tight')
+plt.show()
+\end{lstlisting}
+
+\section{Clustering Algorithm Implementation}
+We implement three clustering algorithms for PUEA detection: K-means, DBSCAN, and Agglomerative Hierarchical Clustering. Each algorithm is configured with appropriate parameters based on the nature of our dataset.
+
+\subsection{K-means Implementation}
+For K-means, we set the number of clusters to 2 since we aim to separate PU and PUEA signals:
+
+\begin{lstlisting}[language=Python, caption=K-means Implementation and Parameter Tuning]
+from sklearn.cluster import KMeans
+from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
+
+# Function to evaluate K-means with different parameters
+def evaluate_kmeans(X, y_true, n_init_values=[10, 20, 30], random_states=[42, 100, 200]):
+    results = []
+    
+    for n_init in n_init_values:
+        for rs in random_states:
+            # Apply K-means clustering
+            kmeans = KMeans(n_clusters=2, random_state=rs, n_init=n_init)
+            kmeans_labels = kmeans.fit_predict(X)
+            
+            # Map cluster labels to original classes
+            if (kmeans_labels == y_true).mean() < 0.5:
+                kmeans_labels = 1 - kmeans_labels
+                
+            # Calculate accuracy
+            accuracy = accuracy_score(y_true, kmeans_labels)
+            
+            results.append({
+                'n_init': n_init,
+                'random_state': rs,
+                'accuracy': accuracy
+            })
+    
+    return pd.DataFrame(results)
+
+# Evaluate K-means with different parameters
+kmeans_results = evaluate_kmeans(X_scaled, y_true)
+print(kmeans_results.sort_values('accuracy', ascending=False).head())
+
+# Apply K-means with the best parameters
+best_params = kmeans_results.sort_values('accuracy', ascending=False).iloc[0]
+kmeans = KMeans(n_clusters=2, random_state=int(best_params['random_state']), 
+                n_init=int(best_params['n_init']))
+kmeans_labels = kmeans.fit_predict(X_scaled)
+
+# Map cluster labels to original classes
+if (kmeans_labels == y_true).mean() < 0.5:
+    kmeans_labels = 1 - kmeans_labels
+
+# Evaluate clustering performance
+kmeans_accuracy = accuracy_score(y_true, kmeans_labels)
+kmeans_conf_matrix = confusion_matrix(y_true, kmeans_labels)
+
+print(f"K-means Accuracy: {kmeans_accuracy:.4f}")
+print("K-means Confusion Matrix:")
+print(kmeans_conf_matrix)
+print("K-means Classification Report:")
+print(classification_report(y_true, kmeans_labels))
+
+# Visualize the clustering results
+plt.figure(figsize=(10, 6))
+scatter = plt.scatter(X_pca[:, 0], X_pca[:, 1], c=kmeans_labels, alpha=0.6, cmap='viridis')
+plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], 
+            c='red', marker='X', s=200, label='Cluster Centers')
+plt.colorbar(scatter, label='Cluster Label')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.title('K-means Clustering Results')
+plt.legend()
+plt.grid(alpha=0.3)
+plt.savefig('kmeans_clustering.png', dpi=300, bbox_inches='tight')
+plt.show()
+\end{lstlisting}
+
+\subsection{DBSCAN Implementation}
+For DBSCAN, we need to determine appropriate values for the epsilon (eps) and minimum samples (min\_samples) parameters:
+
+\begin{lstlisting}[language=Python, caption=DBSCAN Implementation and Parameter Tuning]
+from sklearn.cluster import DBSCAN
+from sklearn.neighbors import NearestNeighbors
+
+# Find optimal epsilon value using the k-distance graph
+def find_optimal_eps(X, k=5):
+    neigh = NearestNeighbors(n_neighbors=k)
+    nbrs = neigh.fit(X)
+    distances, indices = nbrs.kneighbors(X)
+    
+    # Sort distances in ascending order
+    distances = np.sort(distances[:, -1])
+    
+    # Plot k-distance graph
+    plt.figure(figsize=(10, 6))
+    plt.plot(distances)
+    plt.xlabel('Data Points (sorted)')
+    plt.ylabel(f'Distance to {k}th Nearest Neighbor')
+    plt.title('K-distance Graph for Determining Optimal Epsilon')
+    plt.grid(True)
+    plt.savefig('k_distance_graph.png', dpi=300, bbox_inches='tight')
+    plt.show()
+    
+    return distances
+
+# Find optimal epsilon
+distances = find_optimal_eps(X_scaled, k=5)
+
+# Function to evaluate DBSCAN with different parameters
+def evaluate_dbscan(X, y_true, eps_values=[0.3, 0.4, 0.5, 0.6], min_samples_values=[3, 5, 7, 10]):
+    results = []
+    
+    for eps in eps_values:
+        for min_samples in min_samples_values:
+            # Apply DBSCAN clustering
+            dbscan = DBSCAN(eps=eps, min_samples=min_samples)
+            dbscan_labels = dbscan.fit_predict(X)
+            
+            # DBSCAN labels outliers as -1, we need to map these properly
+            dbscan_mapped_labels = np.where(dbscan_labels == -1, 1, 0)
+            
+            # Check if we need to invert the labels
+            if (dbscan_mapped_labels == y_true).mean() < 0.5:
+                dbscan_mapped_labels = 1 - dbscan_mapped_labels
+                
+            # Calculate accuracy
+            accuracy = accuracy_score(y_true, dbscan_mapped_labels)
+            
+            # Calculate number of clusters (excluding noise)
+            n_clusters = len(set(dbscan_labels)) - (1 if -1 in dbscan_labels else 0)
+            
+            results.append({
+                'eps': eps,
+                'min_samples': min_samples,
+                'n_clusters': n_clusters,
+                'noise_points': (dbscan_labels == -1).sum(),
+                'accuracy': accuracy
+            })
+    
+    return pd.DataFrame(results)
+
+# Evaluate DBSCAN with different parameters
+dbscan_results = evaluate_dbscan(X_scaled, y_true)
+print(dbscan_results.sort_values('accuracy', ascending=False).head())
+
+# Apply DBSCAN with the best parameters
+best_params = dbscan_results.sort_values('accuracy', ascending=False).iloc[0]
+dbscan = DBSCAN(eps=best_params['eps'], min_samples=int(best_params['min_samples']))
+dbscan_labels = dbscan.fit_predict(X_scaled)
+
+# Map DBSCAN labels
+dbscan_mapped_labels = np.where(dbscan_labels == -1, 1, 0)
+if (dbscan_mapped_labels == y_true).mean() < 0.5:
+    dbscan_mapped_labels = 1 - dbscan_mapped_labels
+
+# Evaluate clustering performance
+dbscan_accuracy = accuracy_score(y_true, dbscan_mapped_labels)
+dbscan_conf_matrix = confusion_matrix(y_true, dbscan_mapped_labels)
+
+print(f"DBSCAN Accuracy: {dbscan_accuracy:.4f}")
+print("DBSCAN Confusion Matrix:")
+print(dbscan_conf_matrix)
+print("DBSCAN Classification Report:")
+print(classification_report(y_true, dbscan_mapped_labels))
+
+# Visualize the clustering results
+plt.figure(figsize=(10, 6))
+scatter = plt.scatter(X_pca[:, 0], X_pca[:, 1], c=dbscan_mapped_labels, alpha=0.6, cmap='viridis')
+plt.colorbar(scatter, label='Cluster Label')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.title('DBSCAN Clustering Results')
+plt.grid(alpha=0.3)
+plt.savefig('dbscan_clustering.png', dpi=300, bbox_inches='tight')
+plt.show()
+\end{lstlisting}
+
+\subsection{Agglomerative Hierarchical Clustering Implementation}
+For Agglomerative Hierarchical Clustering, we experiment with different linkage criteria:
+
+\begin{lstlisting}[language=Python, caption=Agglomerative Clustering Implementation and Parameter Tuning]
+from sklearn.cluster import AgglomerativeClustering
+from scipy.cluster.hierarchy import dendrogram, linkage
+
+# Function to evaluate Agglomerative Clustering with different parameters
+def evaluate_agglomerative(X, y_true, linkage_methods=['ward', 'complete', 'average', 'single']):
+    results = []
+    
+    for method in linkage_methods:
+        # Apply Agglomerative Clustering
+        agg_clustering = AgglomerativeClustering(n_clusters=2, linkage=method)
+        agg_labels = agg_clustering.fit_predict(X)
+        
+        # Check if we need to invert the labels
+        if (agg_labels == y_true).mean() < 0.5:
+            agg_labels = 1 - agg_labels
+            
+        # Calculate accuracy
+        accuracy = accuracy_score(y_true, agg_labels)
+        
+        results.append({
+            'linkage_method': method,
+            'accuracy': accuracy
+        })
+    
+    return pd.DataFrame(results)
+
+# Evaluate Agglomerative Clustering with different parameters
+agg_results = evaluate_agglomerative(X_scaled, y_true)
+print(agg_results.sort_values('accuracy', ascending=False))
+
+# Apply Agglomerative Clustering with the best parameters
+best_method = agg_results.sort_values('accuracy', ascending=False).iloc[0]['linkage_method']
+agg_clustering = AgglomerativeClustering(n_clusters=2, linkage=best_method)
+agg_labels = agg_clustering.fit_predict(X_scaled)
+
+# Check if we need to invert the labels
+if (agg_labels == y_true).mean() < 0.5:
+    agg_labels = 1 - agg_labels
+
+# Evaluate clustering performance
+agg_accuracy = accuracy_score(y_true, agg_labels)
+agg_conf_matrix = confusion_matrix(y_true, agg_labels)
+
+print(f"Agglomerative Clustering Accuracy: {agg_accuracy:.4f}")
+print("Agglomerative Clustering Confusion Matrix:")
+print(agg_conf_matrix)
+print("Agglomerative Clustering Classification Report:")
+print(classification_report(y_true, agg_labels))
+
+# Create linkage matrix for dendrogram visualization
+# We'll use only a subset of data for clearer visualization
+subset_indices = np.random.choice(len(X_scaled), size=100, replace=False)
+X_subset = X_scaled[subset_indices]
+y_subset = y_true.iloc[subset_indices]
+
+# Calculate linkage matrix
+linkage_matrix = linkage(X_subset, method=best_method)
+
+# Plot dendrogram
+plt.figure(figsize=(12, 8))
+dendrogram(linkage_matrix)
+plt.title(f'Hierarchical Clustering Dendrogram ({best_method} Linkage)')
+plt.xlabel('Sample Index')
+plt.ylabel('Distance')
+plt.axhline(y=0.8, c='k', linestyle='--', alpha=0.3)
+plt.text(10, 0.85, 'Cut for 2 clusters', fontsize=12)
+plt.savefig('hierarchical_dendrogram.png', dpi=300, bbox_inches='tight')
+plt.show()
+
+# Visualize the clustering results
+plt.figure(figsize=(10, 6))
+scatter = plt.scatter(X_pca[:, 0], X_pca[:, 1], c=agg_labels, alpha=0.6, cmap='viridis')
+plt.colorbar(scatter, label='Cluster Label')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.title(f'Agglomerative Clustering Results ({best_method} Linkage)')
+plt.grid(alpha=0.3)
+plt.savefig('agglomerative_clustering.png', dpi=300, bbox_inches='tight')
+plt.show()
+\end{lstlisting}
+
+\section{Iterative Clustering Implementation}
+We implement our proposed iterative clustering approach by combining multiple clustering algorithms:
+
+\begin{lstlisting}[language=Python, caption=Iterative Clustering Implementation]
+def iterative_clustering(X, y_true=None, initial_method='kmeans', refinement_method='dbscan'):
+    """
+    Perform iterative clustering for improved PUEA detection
+    
+    Parameters:
+        X (array): Feature matrix
+        y_true (array, optional): True labels for performance evaluation
+        initial_method (str): Initial clustering method ('kmeans', 'dbscan', or 'agglomerative')
+        refinement_method (str): Method for refinement ('kmeans', 'dbscan', or 'agglomerative')
+    
+    Returns:
+        tuple: (final_labels, performance_metrics)
+    """
+    # Step 1: Initial clustering
+    if initial_method == 'kmeans':
+        initial_model = KMeans(n_clusters=2, random_state=42, n_init=10)
+        initial_labels = initial_model.fit_predict(X)
+    elif initial_method == 'dbscan':
+        initial_model = DBSCAN(eps=0.5, min_samples=5)
+        initial_labels = initial_model.fit_predict(X)
+        # Map DBSCAN outliers (-1) to label 1 (assuming outliers are PUEAs)
+        initial_labels = np.where(initial_labels == -1, 1, 0)
+    elif initial_method == 'agglomerative':
+        initial_model = AgglomerativeClustering(n_clusters=2, linkage='ward')
+        initial_labels = initial_model.fit_predict(X)
+    
+    # If y_true is provided, map initial labels to original classes
+    if y_true is not None:
+        if (initial_labels == y_true).mean() < 0.5:
+            initial_labels = 1 - initial_labels
+    
+    # Step 2: Identify potential outliers
+    # Assuming smaller cluster is more likely to be PUEA
+    if np.sum(initial_labels == 0) < np.sum(initial_labels == 1):
+        potential_puea_indices = np.where(initial_labels == 0)[0]
+        potential_pu_indices = np.where(initial_labels == 1)[0]
+    else:
+        potential_puea_indices = np.where(initial_labels == 1)[0]
+        potential_pu_indices = np.where(initial_labels == 0)[0]
+    
+    # Step 3: Refinement using another clustering method
+    final_labels = np.zeros(len(X))
+    
+    # Mark PU cluster from initial clustering
+    final_labels[potential_pu_indices] = 0
+    
+    # Apply refinement clustering only on potential PUEA samples
+    X_potential_puea = X[potential_puea_indices]
+    
+    if len(X_potential_puea) > 1:  # Need at least 2 samples for clustering
+        if refinement_method == 'kmeans':
+            refinement_model = KMeans(n_clusters=2, random_state=42, n_init=10)
+        elif refinement_method == 'dbscan':
+            refinement_model = DBSCAN(eps=0.4, min_samples=3)  # Tighter parameters for refinement
+        elif refinement_method == 'agglomerative':
+            refinement_model = AgglomerativeClustering(n_clusters=2, linkage='ward')
+        
+        refinement_labels = refinement_model.fit_predict(X_potential_puea)
+        
+        # Map refinement labels and assign to final labels
+        if refinement_method == 'dbscan':
+            # DBSCAN outliers (-1) are definitely PUEAs
+            final_labels[potential_puea_indices[refinement_labels == -1]] = 1
+            
+            # For non-outliers, pick the smaller cluster as PUEA (more conservative approach)
+            non_outlier_indices = np.where(refinement_labels != -1)[0]
+            if len(non_outlier_indices) > 0:
+                non_outlier_labels = refinement_labels[non_outlier_indices]
+                if np.sum(non_outlier_labels == 0) < np.sum(non_outlier_labels == 1):
+                    final_labels[potential_puea_indices[non_outlier_indices[non_outlier_labels == 0]]] = 1
+                else:
+                    final_labels[potential_puea_indices[non_outlier_indices[non_outlier_labels == 1]]] = 1
+        else:
+            # For K-means and Agglomerative, pick the smaller cluster as PUEA
+            if np.sum(refinement_labels == 0) < np.sum(refinement_labels == 1):
+                final_labels[potential_puea_indices[refinement_labels == 0]] = 1
+            else:
+                final_labels[potential_puea_indices[refinement_labels == 1]] = 1
+    else:
+        # If there's only one potential PUEA sample, mark it as PUEA
+        final_labels[potential_puea_indices] = 1
+    
+    # Performance metrics
+    metrics = {}
+    if y_true is not None:
+        # Check if we need to invert the labels
+        if (final_labels == y_true).mean() < 0.5:
+            final_labels = 1 - final_labels
+            
+        metrics['accuracy'] = accuracy_score(y_true, final_labels)
+        metrics['precision'] = precision_score(y_true, final_labels)
+        metrics['recall'] = recall_score(y_true, final_labels)
+        metrics['f1'] = f1_score(y_true, final_labels)
+        metrics['confusion_matrix'] = confusion_matrix(y_true, final_labels)
+    
+    return final_labels, metrics
+
+# Test different combinations of initial and refinement methods
+combinations = [
+    ('kmeans', 'dbscan'),
+    ('kmeans', 'agglomerative'),
+    ('dbscan', 'kmeans'),
+    ('dbscan', 'agglomerative'),
+    ('agglomerative', 'kmeans'),
+    ('agglomerative', 'dbscan')
+]
+
+combination_results = []
+
+for init_method, refine_method in combinations:
+    labels, metrics = iterative_clustering(X_scaled, y_true, init_method, refine_method)
+    
+    combination_results.append({
+        'initial_method': init_method,
+        'refinement_method': refine_method,
+        'accuracy': metrics['accuracy'],
+        'precision': metrics['precision'],
+        'recall': metrics['recall'],
+        'f1': metrics['f1']
+    })
+
+# Display results of all combinations
+combination_df = pd.DataFrame(combination_results)
+print(combination_df.sort_values('accuracy', ascending=False))
+
+# Select the best combination
+best_combination = combination_df.sort_values('accuracy', ascending=False).iloc[0]
+best_init_method = best_combination['initial_method']
+best_refine_method = best_combination['refinement_method']
+
+# Apply iterative clustering with the best combination
+iterative_labels, iterative_metrics = iterative_clustering(
+    X_scaled, y_true, best_init_method, best_refine_method
+)
+
+print(f"\nBest Iterative Clustering Combination: {best_init_method} + {best_refine_method}")
+print(f"Accuracy: {iterative_metrics['accuracy']:.4f}")
+print(f"Precision: {iterative_metrics['precision']:.4f}")
+print(f"Recall: {iterative_metrics['recall']:.4f}")
+print(f"F1 Score: {iterative_metrics['f1']:.4f}")
+print("Confusion Matrix:")
+print(iterative_metrics['confusion_matrix'])
+print("Classification Report:")
+print(classification_report(y_true, iterative_labels))
+
+# Visualize the clustering results
+plt.figure(figsize=(10, 6))
+scatter = plt.scatter(X_pca[:, 0], X_pca[:, 1], c=iterative_labels, alpha=0.6, cmap='viridis')
+plt.colorbar(scatter, label='Cluster Label')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.title(f'Iterative Clustering Results ({best_init_method} + {best_refine_method})')
+plt.grid(alpha=0.3)
+plt.savefig('iterative_clustering.png', dpi=300, bbox_inches='tight')
+plt.show()
+\end{lstlisting}
+
+\section{Performance Evaluation Implementation}
+We implement comprehensive performance evaluation metrics to compare different clustering algorithms:
+
+\begin{lstlisting}[language=Python, caption=Performance Evaluation Implementation]
+def compare_clustering_methods(methods, labels, y_true):
+    """
+    Compare different clustering methods using various metrics.
+    
+    Parameters:
+        methods (list): List of method names
+        labels (list): List of cluster labels for each method
+        y_true (array): True labels for comparison
+    
+    Returns:
+        DataFrame: Performance metrics for each method
+    """
+    results = []
+    
+    for method, label in zip(methods, labels):
+        metrics = {
+            'method': method,
+            'accuracy': accuracy_score(y_true, label),
+            'precision': precision_score(y_true, label),
+            'recall': recall_score(y_true, label),
+            'f1': f1_score(y_true, label),
+            'tn': confusion_matrix(y_true, label)[0, 0],
+            'fp': confusion_matrix(y_true, label)[0, 1],
+            'fn': confusion_matrix(y_true, label)[1, 0],
+            'tp': confusion_matrix(y_true, label)[1, 1]
+        }
+        results.append(metrics)
+    
+    return pd.DataFrame(results)
+
+# Compare all clustering methods
+methods = ['K-means', 'DBSCAN', 'Agglomerative', 'Iterative']
+all_labels = [kmeans_labels, dbscan_mapped_labels, agg_labels, iterative_labels]
+
+comparison_results = compare_clustering_methods(methods, all_labels, y_true)
+print(comparison_results)
+
+# Plot performance comparison
+plt.figure(figsize=(14, 8))
+
+# Plot accuracy, precision, recall, f1
+metrics = ['accuracy', 'precision', 'recall', 'f1']
+x = np.arange(len(metrics))
+width = 0.2
+multiplier = 0
+
+for i, method in enumerate(methods):
+    offset = width * multiplier
+    plt.bar(x + offset, comparison_results.loc[i, metrics], width, label=method)
+    multiplier += 1
+
+plt.axhline(y=0.5, color='r', linestyle='--', alpha=0.3, label='Random Classifier')
+plt.ylabel('Score')
+plt.title('Performance Comparison of Clustering Methods')
+plt.xticks(x + width * (len(methods) - 1) / 2, metrics)
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), ncol=len(methods))
+plt.ylim(0, 1.1)
+
+# Add value labels on bars
+for i, metric in enumerate(metrics):
+    for j, method in enumerate(methods):
+        value = comparison_results.loc[j, metric]
+        plt.text(i + width * j - width/2, value + 0.01, f'{value:.2f}', ha='center', va='bottom', fontsize=8)
+
+plt.grid(axis='y', alpha=0.3)
+plt.tight_layout()
+plt.savefig('performance_comparison.png', dpi=300, bbox_inches='tight')
+plt.show()
+
+# Plot confusion matrix for the best method (iterative clustering)
+def plot_confusion_matrix(cm, classes, title):
+    """
+    Plot confusion matrix with normalized values.
+    """
+    plt.figure(figsize=(8, 6))
+    plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
+    plt.title(title)
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes)
+    plt.yticks(tick_marks, classes)
+
+    # Add text annotations
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, f'{cm[i, j]}',
+                 horizontalalignment="center",
+                 color="white" if cm[i, j] > thresh else "black")
+
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+    plt.tight_layout()
+
+# Import itertools for product function
+import itertools
+
+# Confusion matrix for the best method
+best_method = comparison_results.sort_values('accuracy', ascending=False).iloc[0]['method']
+best_index = methods.index(best_method)
+best_cm = confusion_matrix(y_true, all_labels[best_index])
+
+plot_confusion_matrix(best_cm, classes=['PU', 'PUEA'], 
+                     title=f'Confusion Matrix - {best_method}')
+plt.savefig('best_confusion_matrix.png', dpi=300, bbox_inches='tight')
+plt.show()
+\end{lstlisting}
+
+\section{Experimental Scenarios}
+To thoroughly evaluate our proposed approach, we conducted experiments under various scenarios to assess the robustness and effectiveness of the clustering-based PUEA detection methods.
+
+\subsection{Varying Signal-to-Noise Ratio (SNR)}
+We tested the performance of our detection methods under different signal-to-noise ratio conditions by adding varying levels of Gaussian noise to the received power values:
+
+\begin{lstlisting}[language=Python, caption=SNR Experiment Implementation]
+def add_noise(X, snr_db):
+    """
+    Add Gaussian noise to the data based on signal-to-noise ratio
+    
+    Parameters:
+        X (array): Input data
+        snr_db (float): Signal-to-noise ratio in dB
+    
+    Returns:
+        array: Data with added noise
+    """
+    # Convert SNR from dB to linear scale
+    snr_linear = 10 ** (snr_db / 10)
+    
+    # Calculate signal power
+    signal_power = np.mean(X ** 2)
+    
+    # Calculate noise power
+    noise_power = signal_power / snr_linear
+    
+    # Generate Gaussian noise
+    noise = np.random.normal(0, np.sqrt(noise_power), X.shape)
+    
+    # Add noise to the signal
+    noisy_X = X + noise
+    
+    return noisy_X
+
+# Test different SNR levels
+snr_levels = [30, 20, 10, 0, -10]  # in dB
+snr_results = []
+
+for snr in snr_levels:
+    # Add noise to the scaled data
+    noisy_data = add_noise(X_scaled, snr)
+    
+    # Apply each clustering method
+    
+    # K-means
+    kmeans = KMeans(n_clusters=2, random_state=42, n_init=10)
+    kmeans_noisy_labels = kmeans.fit_predict(noisy_data)
+    if (kmeans_noisy_labels == y_true).mean() < 0.5:
+        kmeans_noisy_labels = 1 - kmeans_noisy_labels
+    kmeans_noisy_accuracy = accuracy_score(y_true, kmeans_noisy_labels)
+    
+    # DBSCAN
+    dbscan = DBSCAN(eps=0.5, min_samples=5)
+    dbscan_noisy_labels = dbscan.fit_predict(noisy_data)
+    dbscan_noisy_mapped = np.where(dbscan_noisy_labels == -1, 1, 0)
+    if (dbscan_noisy_mapped == y_true).mean() < 0.5:
+        dbscan_noisy_mapped = 1 - dbscan_noisy_mapped
+    dbscan_noisy_accuracy = accuracy_score(y_true, dbscan_noisy_mapped)
+    
+    # Agglomerative
+    agg = AgglomerativeClustering(n_clusters=2, linkage='ward')
+    agg_noisy_labels = agg.fit_predict(noisy_data)
+    if (agg_noisy_labels == y_true).mean() < 0.5:
+        agg_noisy_labels = 1 - agg_noisy_labels
+    agg_noisy_accuracy = accuracy_score(y_true, agg_noisy_labels)
+    
+    # Iterative (using best combination)
+    iterative_noisy_labels, iterative_noisy_metrics = iterative_clustering(
+        noisy_data, y_true, best_init_method, best_refine_method)
+    iterative_noisy_accuracy = iterative_noisy_metrics['accuracy']
+    
+    snr_results.append({
+        'SNR (dB)': snr,
+        'K-means': kmeans_noisy_accuracy,
+        'DBSCAN': dbscan_noisy_accuracy,
+        'Agglomerative': agg_noisy_accuracy,
+        'Iterative': iterative_noisy_accuracy
+    })
+
+# Create DataFrame from results
+snr_df = pd.DataFrame(snr_results)
+print(snr_df)
+
+# Plot SNR vs. Accuracy for each method
+plt.figure(figsize=(12, 8))
+for method in ['K-means', 'DBSCAN', 'Agglomerative', 'Iterative']:
+    plt.plot(snr_df['SNR (dB)'], snr_df[method], marker='o', label=method)
+
+plt.xlabel('Signal-to-Noise Ratio (dB)')
+plt.ylabel('Accuracy')
+plt.title('Detection Performance vs. SNR')
+plt.grid(True, alpha=0.3)
+plt.legend()
+plt.tight_layout()
+plt.savefig('snr_performance.png', dpi=300, bbox_inches='tight')
+plt.show()
+\end{lstlisting}
+
+\subsection{Varying PUEA Percentage}
+We also evaluated how the detection performance varies with different proportions of PUEAs in the dataset:
+
+\begin{lstlisting}[language=Python, caption=PUEA Percentage Experiment Implementation]
+def generate_dataset_with_puea_ratio(num_samples=450, puea_ratio=0.33):
+    """
+    Generate dataset with specified PUEA ratio
+    
+    Parameters:
+        num_samples (int): Total number of samples
+        puea_ratio (float): Ratio of PUEA samples (between 0 and 1)
+    
+    Returns:
+        tuple: (X, y) - features and labels
+    """
+    num_puea = int(num_samples * puea_ratio)
+    num_pu = num_samples - num_puea
+    
+    # Parameters for legitimate PU signals
+    pu_transmit_power = np.random.normal(30, 1, num_pu)
+    pu_distance = np.random.normal(500, 100, num_pu)
+    pu_path_loss_exponent = np.random.normal(3.0, 0.2, num_pu)
+    pu_shadowing = np.random.normal(0, 4, num_pu)
+    
+    # Calculate received power for legitimate PU signals
+    pu_received_power = np.array([calculate_received_power(pt, d, alpha, 4) 
+                                 for pt, d, alpha in zip(pu_transmit_power, pu_distance, pu_path_loss_exponent)])
+    
+    # Parameters for PUEA signals
+    puea_transmit_power = np.random.normal(35, 2, num_puea)
+    puea_distance = np.random.normal(450, 120, num_puea)
+    puea_path_loss_exponent = np.random.normal(2.8, 0.3, num_puea)
+    puea_shadowing = np.random.normal(0, 5, num_puea)
+    
+    # Calculate received power for PUEA signals
+    puea_received_power = np.array([calculate_received_power(pt, d, alpha, 5) 
+                                   for pt, d, alpha in zip(puea_transmit_power, puea_distance, puea_path_loss_exponent)])
+    
+    # Create dataframes for PU and PUEA signals
+    pu_df = pd.DataFrame({
+        'transmit_power': pu_transmit_power,
+        'distance': pu_distance,
+        'path_loss_exponent': pu_path_loss_exponent,
+        'shadowing_effect': pu_shadowing,
+        'received_power': pu_received_power,
+        'label': 0  # 0 for legitimate PU
+    })
+    
+    puea_df = pd.DataFrame({
+        'transmit_power': puea_transmit_power,
+        'distance': puea_distance,
+        'path_loss_exponent': puea_path_loss_exponent,
+        'shadowing_effect': puea_shadowing,
+        'received_power': puea_received_power,
+        'label': 1  # 1 for PUEA
+    })
+    
+    # Combine the dataframes
+    dataset = pd.concat([pu_df, puea_df], ignore_index=True)
+    
+    # Shuffle the dataset
+    dataset = dataset.sample(frac=1, random_state=42).reset_index(drop=True)
+    
+    # Return features and labels
+    X = dataset.drop('label', axis=1)
+    y = dataset['label']
+    
+    # Standardize features
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+    
+    return X_scaled, y
+
+# Test different PUEA ratios
+puea_ratios = [0.1, 0.2, 0.3, 0.4, 0.5]
+ratio_results = []
+
+for ratio in puea_ratios:
+    # Generate dataset with specified PUEA ratio
+    X_ratio, y_ratio = generate_dataset_with_puea_ratio(450, ratio)
+    
+    # Apply each clustering method
+    
+    # K-means
+    kmeans = KMeans(n_clusters=2, random_state=42, n_init=10)
+    kmeans_ratio_labels = kmeans.fit_predict(X_ratio)
+    if (kmeans_ratio_labels == y_ratio).mean() < 0.5:
+        kmeans_ratio_labels = 1 - kmeans_ratio_labels
+    kmeans_ratio_accuracy = accuracy_score(y_ratio, kmeans_ratio_labels)
+    
+    # DBSCAN
+    dbscan = DBSCAN(eps=0.5, min_samples=5)
+    dbscan_ratio_labels = dbscan.fit_predict(X_ratio)
+    dbscan_ratio_mapped = np.where(dbscan_ratio_labels == -1, 1, 0)
+    if (dbscan_ratio_mapped == y_ratio).mean() < 0.5:
+        dbscan_ratio_mapped = 1 - dbscan_ratio_mapped
+    dbscan_ratio_accuracy = accuracy_score(y_ratio, dbscan_ratio_mapped)
+    
+    # Agglomerative
+    agg = AgglomerativeClustering(n_clusters=2, linkage='ward')
+    agg_ratio_labels = agg.fit_predict(X_ratio)
+    if (agg_ratio_labels == y_ratio).mean() < 0.5:
+        agg_ratio_labels = 1 - agg_ratio_labels
+    agg_ratio_accuracy = accuracy_score(y_ratio, agg_ratio_labels)
+    
+    # Iterative (using best combination)
+    iterative_ratio_labels, iterative_ratio_metrics = iterative_clustering(
+        X_ratio, y_ratio, best_init_method, best_refine_method)
+    iterative_ratio_accuracy = iterative_ratio_metrics['accuracy']
+    
+    ratio_results.append({
+        'PUEA Ratio': ratio,
+        'K-means': kmeans_ratio_accuracy,
+        'DBSCAN': dbscan_ratio_accuracy,
+        'Agglomerative': agg_ratio_accuracy,
+        'Iterative': iterative_ratio_accuracy
+    })
+
+# Create DataFrame from results
+ratio_df = pd.DataFrame(ratio_results)
+print(ratio_df)
+
+# Plot PUEA Ratio vs. Accuracy for each method
+plt.figure(figsize=(12, 8))
+for method in ['K-means', 'DBSCAN', 'Agglomerative', 'Iterative']:
+    plt.plot(ratio_df['PUEA Ratio'], ratio_df[method], marker='o', label=method)
+
+plt.xlabel('PUEA Ratio')
+plt.ylabel('Accuracy')
+plt.title('Detection Performance vs. PUEA Ratio')
+plt.grid(True, alpha=0.3)
+plt.legend()
+plt.tight_layout()
+plt.savefig('puea_ratio_performance.png', dpi=300, bbox_inches='tight')
+plt.show()
+\end{lstlisting}
+
+\section{Summary}
+In this chapter, we described the implementation and experimental setup for our PUEA detection approach. We detailed the software environment, dataset generation process, preprocessing techniques, and the implementation of three clustering algorithms—K-means, DBSCAN, and Agglomerative Hierarchical Clustering—as well as our proposed iterative clustering method.
+
+We conducted extensive experiments to evaluate the performance of these clustering algorithms under different scenarios, including varying signal-to-noise ratios and different proportions of PUEAs in the dataset. The implementation and experimental setup described in this chapter provide a solid foundation for the results and analysis presented in the next chapter.
+
+% Add references section if needed
+\begin{thebibliography}{99}
+\end{thebibliography}

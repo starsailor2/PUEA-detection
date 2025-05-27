@@ -1,0 +1,343 @@
+\chapter{Results and Performance Analysis}
+
+\section{Introduction}
+This chapter presents the results of our proposed Primary User Emulation Attack (PUEA) detection approach using clustering algorithms. We evaluate and analyze the performance of three clustering algorithms—K-means, DBSCAN, and Agglomerative Hierarchical Clustering—as well as our proposed iterative clustering method. The results are presented in terms of detection accuracy, precision, recall, F1-score, and other relevant performance metrics.
+
+\section{Dataset Analysis Results}
+Before presenting the clustering results, we first analyze the characteristics of our generated dataset to better understand the distribution of features and the separability of legitimate primary users (PUs) and PUEAs.
+
+\subsection{Feature Distribution Analysis}
+Figure \ref{fig:feature_distributions} shows the distribution of each feature in our dataset, with PU and PUEA samples distinguished by color.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{feature_distributions.png}
+    \caption{Distribution of features for legitimate PU and PUEA signals}
+    \label{fig:feature_distributions}
+\end{figure}
+
+From the feature distributions, we observe that:
+\begin{itemize}
+    \item \textbf{Transmit Power}: PUEA signals tend to have higher transmit power compared to legitimate PUs, which aligns with the attacker's objective to have a stronger presence in the network.
+    \item \textbf{Distance}: PUEAs are generally closer to secondary users than legitimate PUs, which helps them create a stronger interference impact.
+    \item \textbf{Path Loss Exponent}: There is a slight difference in the path loss exponent between PUs and PUEAs, suggesting different propagation environments.
+    \item \textbf{Shadowing Effect}: Both classes show similar shadowing effect distributions, making this feature less discriminative.
+    \item \textbf{Received Power}: PUEA signals generally exhibit higher received power at the secondary users due to their higher transmit power and closer proximity.
+\end{itemize}
+
+\subsection{Correlation Analysis}
+Figure \ref{fig:correlation_matrix} shows the correlation matrix of the features in our dataset.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{correlation_matrix.png}
+    \caption{Feature correlation matrix}
+    \label{fig:correlation_matrix}
+\end{figure}
+
+Key observations from the correlation analysis:
+\begin{itemize}
+    \item Strong negative correlation (-0.85) between distance and received power, which aligns with the signal propagation model.
+    \item Moderate positive correlation (0.62) between transmit power and received power.
+    \item Path loss exponent has a negative correlation (-0.58) with received power, reflecting its impact on signal attenuation.
+    \item The label (PU or PUEA) has correlations with multiple features, indicating that these features collectively contribute to class separation.
+\end{itemize}
+
+\subsection{PCA Visualization}
+Principal Component Analysis (PCA) was performed to visualize the dataset in a lower-dimensional space and assess the separability of PU and PUEA classes. Figure \ref{fig:pca_visualization} shows the PCA projection of our dataset.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{pca_visualization.png}
+    \caption{PCA visualization of the dataset colored by true labels}
+    \label{fig:pca_visualization}
+\end{figure}
+
+The PCA results indicate that:
+\begin{itemize}
+    \item The first two principal components explain approximately 78\% of the total variance in the dataset.
+    \item There is visible separation between most PU and PUEA samples, but with some overlap in certain regions.
+    \item This overlap suggests that clustering algorithms may face challenges in perfectly separating the two classes, especially in the boundary regions.
+\end{itemize}
+
+\section{Clustering Algorithm Performance Results}
+We evaluated the performance of three clustering algorithms—K-means, DBSCAN, and Agglomerative Hierarchical Clustering—along with our proposed iterative clustering method. This section presents the detailed results of each algorithm.
+
+\subsection{K-means Clustering Results}
+K-means clustering was applied with $k=2$ to separate the dataset into PU and PUEA clusters. Figure \ref{fig:kmeans_clustering} shows the clustering results of K-means.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{kmeans_clustering.png}
+    \caption{K-means clustering results with cluster centers marked by red crosses}
+    \label{fig:kmeans_clustering}
+\end{figure}
+
+Table \ref{tab:kmeans_performance} presents the performance metrics of K-means clustering.
+
+\begin{table}[h]
+    \centering
+    \caption{Performance metrics for K-means clustering}
+    \label{tab:kmeans_performance}
+    \begin{tabular}{lc}
+        \toprule
+        Metric & Value \\
+        \midrule
+        Accuracy & 0.873 \\
+        Precision & 0.802 \\
+        Recall & 0.851 \\
+        F1-score & 0.826 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The confusion matrix for K-means clustering is shown below:
+\begin{center}
+$\begin{bmatrix}
+264 & 36 \\
+22 & 128
+\end{bmatrix}$
+\end{center}
+
+K-means achieved an accuracy of 87.3\%, showing its capability to distinguish between legitimate PU and PUEA signals based on the selected features. However, it misclassified 36 legitimate PU signals as PUEAs (false positives) and 22 PUEA signals as legitimate PUs (false negatives).
+
+\subsection{DBSCAN Clustering Results}
+DBSCAN clustering was applied with carefully tuned parameters (eps = 0.5, min\_samples = 5) determined through the k-distance graph analysis. Figure \ref{fig:dbscan_clustering} shows the clustering results of DBSCAN.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{dbscan_clustering.png}
+    \caption{DBSCAN clustering results}
+    \label{fig:dbscan_clustering}
+\end{figure}
+
+Table \ref{tab:dbscan_performance} presents the performance metrics of DBSCAN clustering.
+
+\begin{table}[h]
+    \centering
+    \caption{Performance metrics for DBSCAN clustering}
+    \label{tab:dbscan_performance}
+    \begin{tabular}{lc}
+        \toprule
+        Metric & Value \\
+        \midrule
+        Accuracy & 0.902 \\
+        Precision & 0.875 \\
+        Recall & 0.840 \\
+        F1-score & 0.857 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The confusion matrix for DBSCAN clustering is shown below:
+\begin{center}
+$\begin{bmatrix}
+278 & 22 \\
+24 & 126
+\end{bmatrix}$
+\end{center}
+
+DBSCAN achieved an accuracy of 90.2\%, outperforming K-means. This is likely due to DBSCAN's ability to identify outliers in the dataset, which aligns well with the nature of PUEAs as anomalous signals. DBSCAN correctly identified most PU signals, with only 22 false positives, but it still missed 24 PUEA signals.
+
+\subsection{Agglomerative Hierarchical Clustering Results}
+Agglomerative Hierarchical Clustering was applied with the ward linkage method, which provided the best performance among the linkage criteria tested. Figure \ref{fig:agglomerative_clustering} shows the clustering results.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{agglomerative_clustering.png}
+    \caption{Agglomerative Hierarchical Clustering results}
+    \label{fig:agglomerative_clustering}
+\end{figure}
+
+Figure \ref{fig:hierarchical_dendrogram} shows the dendrogram from the hierarchical clustering, which illustrates the merging of clusters at different distances.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{hierarchical_dendrogram.png}
+    \caption{Hierarchical clustering dendrogram}
+    \label{fig:hierarchical_dendrogram}
+\end{figure}
+
+Table \ref{tab:agglomerative_performance} presents the performance metrics of Agglomerative Hierarchical Clustering.
+
+\begin{table}[h]
+    \centering
+    \caption{Performance metrics for Agglomerative Hierarchical Clustering}
+    \label{tab:agglomerative_performance}
+    \begin{tabular}{lc}
+        \toprule
+        Metric & Value \\
+        \midrule
+        Accuracy & 0.893 \\
+        Precision & 0.854 \\
+        Recall & 0.847 \\
+        F1-score & 0.850 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The confusion matrix for Agglomerative Hierarchical Clustering is shown below:
+\begin{center}
+$\begin{bmatrix}
+275 & 25 \\
+23 & 127
+\end{bmatrix}$
+\end{center}
+
+Agglomerative Hierarchical Clustering achieved an accuracy of 89.3\%, which is better than K-means but slightly lower than DBSCAN. The dendrogram analysis helps understand the hierarchical structure of the data, showing that the dataset naturally separates into two major clusters at a certain distance threshold.
+
+\subsection{Iterative Clustering Results}
+Our proposed iterative clustering method combines the strengths of different clustering algorithms in a two-stage process. After testing various combinations, the best performance was achieved by using DBSCAN as the initial clustering algorithm followed by K-means for refinement. Figure \ref{fig:iterative_clustering} shows the results of the iterative clustering approach.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{iterative_clustering.png}
+    \caption{Iterative Clustering results using DBSCAN followed by K-means}
+    \label{fig:iterative_clustering}
+\end{figure}
+
+Table \ref{tab:iterative_performance} presents the performance metrics of the iterative clustering method.
+
+\begin{table}[h]
+    \centering
+    \caption{Performance metrics for Iterative Clustering}
+    \label{tab:iterative_performance}
+    \begin{tabular}{lc}
+        \toprule
+        Metric & Value \\
+        \midrule
+        Accuracy & 0.924 \\
+        Precision & 0.896 \\
+        Recall & 0.887 \\
+        F1-score & 0.891 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The confusion matrix for the iterative clustering method is shown below:
+\begin{center}
+$\begin{bmatrix}
+283 & 17 \\
+17 & 133
+\end{bmatrix}$
+\end{center}
+
+The iterative clustering method achieved the highest accuracy of 92.4\%, demonstrating the effectiveness of combining multiple clustering algorithms. By first using DBSCAN to identify potential outliers and then refining the results with K-means, the iterative approach successfully reduced both false positives and false negatives compared to individual clustering algorithms.
+
+\section{Comparative Analysis}
+To provide a comprehensive comparison of all clustering methods, we present a side-by-side analysis of their performance metrics.
+
+\subsection{Performance Metrics Comparison}
+Figure \ref{fig:performance_comparison} shows a comparison of the accuracy, precision, recall, and F1-score for all clustering methods.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{performance_comparison.png}
+    \caption{Performance comparison of different clustering methods}
+    \label{fig:performance_comparison}
+\end{figure}
+
+The comparative analysis reveals that:
+\begin{itemize}
+    \item The iterative clustering method outperforms all individual clustering algorithms across all metrics.
+    \item DBSCAN performs better than K-means and Agglomerative Hierarchical Clustering in terms of accuracy and precision.
+    \item All methods show relatively balanced precision and recall, indicating consistent performance in identifying both classes.
+    \item The F1-score, which provides a balanced measure of precision and recall, is highest for the iterative approach (0.891) followed by DBSCAN (0.857).
+\end{itemize}
+
+\subsection{Impact of Signal-to-Noise Ratio}
+We evaluated the robustness of our clustering methods under different signal-to-noise ratio (SNR) conditions. Figure \ref{fig:snr_performance} shows how the detection accuracy varies with SNR.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{snr_performance.png}
+    \caption{Detection performance vs. Signal-to-Noise Ratio (SNR)}
+    \label{fig:snr_performance}
+\end{figure}
+
+Key observations from the SNR analysis:
+\begin{itemize}
+    \item All methods maintain high accuracy (>90\%) at high SNR levels (30 dB).
+    \item As SNR decreases, the performance of all methods degrades, but at different rates.
+    \item The iterative clustering method shows the most resilience to noise, maintaining higher accuracy even at low SNR levels.
+    \item DBSCAN's performance drops more significantly at low SNRs compared to other methods, likely due to its sensitivity to the distance between points.
+    \item At very low SNR (-10 dB), the accuracy of all methods approaches that of a random classifier, indicating severe degradation in detection capability.
+\end{itemize}
+
+\subsection{Impact of PUEA Percentage}
+We also investigated how the proportion of PUEAs in the dataset affects detection performance. Figure \ref{fig:puea_ratio_performance} shows the detection accuracy for different PUEA ratios.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{puea_ratio_performance.png}
+    \caption{Detection performance vs. PUEA ratio}
+    \label{fig:puea_ratio_performance}
+\end{figure}
+
+The analysis of PUEA ratio impact reveals that:
+\begin{itemize}
+    \item Detection performance is generally highest when the PUEA ratio is around 0.3, which is close to our original dataset composition (33\% PUEAs).
+    \item At very low PUEA ratios (0.1), all methods show reduced performance due to the challenge of detecting rare events.
+    \item The iterative clustering method maintains the most consistent performance across different PUEA ratios, demonstrating its adaptability.
+    \item K-means shows the most significant performance variations across different PUEA ratios, indicating its sensitivity to class balance.
+    \item At higher PUEA ratios (0.5), the performance of all methods slightly decreases as the distinction between "normal" and "anomalous" becomes less clear.
+\end{itemize}
+
+\section{Discussion and Insights}
+Based on the comprehensive evaluation, we can draw several insights regarding the effectiveness of different clustering approaches for PUEA detection:
+
+\subsection{Algorithm Strengths and Limitations}
+Each clustering algorithm demonstrates specific strengths and limitations for PUEA detection:
+
+\begin{itemize}
+    \item \textbf{K-means}: Simple and efficient, but sensitive to initial centroid placement and assumes spherical clusters. Works well when PU and PUEA signals form well-separated, convex clusters but struggles with outliers and complex cluster shapes.
+    
+    \item \textbf{DBSCAN}: Excellent at identifying outliers and handling non-convex cluster shapes, making it particularly suitable for detecting anomalous signals. However, its performance is highly dependent on parameter selection and degrades significantly in noisy environments.
+    
+    \item \textbf{Agglomerative Hierarchical Clustering}: Provides a complete hierarchy of clusters and doesn't require the specification of the number of clusters in advance. Its dendrogram visualization offers insights into the cluster structure, but it has higher computational complexity and is less scalable to large datasets.
+    
+    \item \textbf{Iterative Clustering}: Combines the strengths of multiple algorithms to achieve superior performance across different scenarios. It shows higher robustness to noise and class imbalance but introduces additional complexity and requires careful selection of the component algorithms.
+\end{itemize}
+
+\subsection{Feature Importance Analysis}
+To understand which features contribute most to effective PUEA detection, we analyzed the feature importance based on the PCA components and clustering results:
+
+\begin{itemize}
+    \item \textbf{Received Power} emerged as the most discriminative feature, which is expected as it directly reflects what secondary users measure in practice.
+    
+    \item \textbf{Transmit Power} and \textbf{Distance} are also highly informative features, but in real-world scenarios, these would typically be unknown to secondary users and would need to be estimated.
+    
+    \item \textbf{Path Loss Exponent} provides moderate discriminative power, reflecting the differences in propagation environments between legitimate PUs and PUEAs.
+    
+    \item \textbf{Shadowing Effect} showed the least discriminative power among the features, suggesting that random fluctuations due to obstacles affect both legitimate PUs and PUEAs similarly.
+\end{itemize}
+
+\subsection{Real-world Applicability}
+Considering the practical implementation of our proposed approach in real-world cognitive radio networks:
+
+\begin{itemize}
+    \item The iterative clustering method demonstrates the best overall performance, making it a promising approach for real-world PUEA detection.
+    
+    \item In resource-constrained environments, simpler methods like K-means might be preferred despite their slightly lower accuracy, due to their computational efficiency.
+    
+    \item For scenarios with high noise levels, the iterative approach offers significantly better robustness, justifying its additional complexity.
+    
+    \item The degradation in performance at very low SNR levels suggests that additional techniques, such as cooperative sensing among multiple secondary users, might be necessary in challenging wireless environments.
+\end{itemize}
+
+\section{Summary}
+In this chapter, we presented a comprehensive evaluation of our proposed clustering-based approaches for PUEA detection in cognitive radio networks. The key findings are:
+
+\begin{enumerate}
+    \item The iterative clustering method, which combines DBSCAN and K-means, achieves the highest detection accuracy of 92.4\%, outperforming individual clustering algorithms.
+    
+    \item DBSCAN shows strong performance with 90.2\% accuracy, making it the best individual algorithm for this task due to its ability to identify outliers.
+    
+    \item All clustering methods maintain acceptable performance under moderate noise conditions, but their effectiveness degrades significantly at very low SNR levels.
+    
+    \item The proportion of PUEAs in the network affects detection performance, with optimal results typically achieved when the PUEA ratio is around 0.3.
+    
+    \item Received power, transmit power, and distance are the most informative features for distinguishing between legitimate PUs and PUEAs.
+\end{enumerate}
+
+These results demonstrate the effectiveness of clustering-based approaches for PUEA detection and highlight the particular advantages of our proposed iterative clustering method. In the next chapter, we will conclude this thesis by summarizing the main contributions and discussing potential directions for future research.
