@@ -1,0 +1,277 @@
+% Appendix A: Mathematical Derivations
+\chapter{Mathematical Derivations}
+\label{app:math}
+
+\section{Signal Model Derivations}
+\label{app:signal_model}
+
+This appendix provides detailed mathematical derivations for the signal models used in the thesis.
+
+\subsection{Primary User Signal Model}
+The received signal at the secondary user when the primary user is present can be expressed as:
+\begin{equation}
+y(t) = h_{pu}(t) \cdot s_{pu}(t) + n(t)
+\end{equation}
+where:
+\begin{itemize}
+    \item $y(t)$ is the received signal
+    \item $h_{pu}(t)$ is the channel gain from primary user to secondary user
+    \item $s_{pu}(t)$ is the primary user transmitted signal
+    \item $n(t)$ is the additive white Gaussian noise
+\end{itemize}
+
+\subsection{PUEA Signal Model}
+When a malicious user performs a PUEA, the received signal becomes:
+\begin{equation}
+y(t) = h_{att}(t) \cdot s_{att}(t) + n(t)
+\end{equation}
+where $h_{att}(t)$ and $s_{att}(t)$ represent the channel gain and signal from the attacker, respectively.
+
+\section{Clustering Algorithm Complexity Analysis}
+\label{app:complexity}
+
+\subsection{K-means Complexity}
+The time complexity of K-means algorithm is:
+\begin{equation}
+O(n \cdot k \cdot d \cdot i)
+\end{equation}
+where:
+\begin{itemize}
+    \item $n$ is the number of data points
+    \item $k$ is the number of clusters
+    \item $d$ is the dimensionality of data
+    \item $i$ is the number of iterations
+\end{itemize}
+
+\subsection{DBSCAN Complexity}
+The time complexity of DBSCAN algorithm is:
+\begin{equation}
+O(n \log n)
+\end{equation}
+when using spatial indexing structures like R*-tree.
+
+% Appendix B: Simulation Parameters
+\chapter{Simulation Parameters}
+\label{app:sim_params}
+
+\section{Network Configuration}
+\label{app:network_config}
+
+\begin{table}[h]
+\centering
+\caption{Simulation Network Parameters}
+\label{tab:network_params}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Parameter & Value \\
+\midrule
+Number of Primary Users & 5-20 \\
+Number of Secondary Users & 10-50 \\
+Number of Attackers & 1-5 \\
+Coverage Area & 1000m × 1000m \\
+Transmission Power (PU) & 1W \\
+Transmission Power (SU) & 0.1W \\
+Transmission Power (Attacker) & 0.5W \\
+Path Loss Exponent & 2.5 \\
+Shadowing Standard Deviation & 8 dB \\
+Noise Figure & 7 dB \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Feature Extraction Parameters}
+\label{app:feature_params}
+
+\begin{table}[h]
+\centering
+\caption{Feature Extraction Parameters}
+\label{tab:feature_params}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Parameter & Value \\
+\midrule
+Sampling Frequency & 2 MHz \\
+FFT Size & 1024 \\
+Window Type & Hamming \\
+Overlap & 50\% \\
+Feature Vector Dimension & 12 \\
+Observation Window & 100 ms \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Clustering Algorithm Parameters}
+\label{app:clustering_params}
+
+\subsection{K-means Parameters}
+\begin{table}[h]
+\centering
+\caption{K-means Algorithm Parameters}
+\label{tab:kmeans_params}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Parameter & Value \\
+\midrule
+Number of Clusters (k) & 2-10 \\
+Maximum Iterations & 300 \\
+Tolerance & $10^{-4}$ \\
+Initialization Method & k-means++ \\
+Distance Metric & Euclidean \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{DBSCAN Parameters}
+\begin{table}[h]
+\centering
+\caption{DBSCAN Algorithm Parameters}
+\label{tab:dbscan_params}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Parameter & Value \\
+\midrule
+Epsilon ($\epsilon$) & 0.1-1.0 \\
+Minimum Points (MinPts) & 3-10 \\
+Distance Metric & Euclidean \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Appendix C: Additional Results
+\chapter{Additional Experimental Results}
+\label{app:additional_results}
+
+\section{Performance Comparison Tables}
+\label{app:performance_tables}
+
+This section provides detailed numerical results for all experimental scenarios.
+
+\begin{table}[h]
+\centering
+\caption{Detection Accuracy Comparison (SNR = 5 dB)}
+\label{tab:accuracy_5db}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Algorithm & Precision & Recall & F1-Score & Accuracy \\
+\midrule
+K-means & 0.842 & 0.798 & 0.819 & 0.834 \\
+DBSCAN & 0.876 & 0.823 & 0.849 & 0.857 \\
+Hierarchical & 0.821 & 0.789 & 0.805 & 0.818 \\
+Enhanced K-means & 0.891 & 0.867 & 0.879 & 0.883 \\
+Enhanced DBSCAN & 0.923 & 0.894 & 0.908 & 0.912 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Detection Accuracy Comparison (SNR = 10 dB)}
+\label{tab:accuracy_10db}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Algorithm & Precision & Recall & F1-Score & Accuracy \\
+\midrule
+K-means & 0.887 & 0.842 & 0.864 & 0.876 \\
+DBSCAN & 0.912 & 0.878 & 0.895 & 0.901 \\
+Hierarchical & 0.856 & 0.834 & 0.845 & 0.851 \\
+Enhanced K-means & 0.934 & 0.908 & 0.921 & 0.926 \\
+Enhanced DBSCAN & 0.956 & 0.932 & 0.944 & 0.948 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Statistical Significance Tests}
+\label{app:statistical_tests}
+
+Statistical significance of the experimental results was verified using paired t-tests with $\alpha = 0.05$.
+
+\begin{table}[h]
+\centering
+\caption{P-values for Pairwise Algorithm Comparisons}
+\label{tab:pvalues}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Algorithm Pair & Detection Accuracy & False Alarm Rate \\
+\midrule
+Enhanced DBSCAN vs K-means & $< 0.001$ & $< 0.001$ \\
+Enhanced DBSCAN vs DBSCAN & $< 0.01$ & $< 0.01$ \\
+Enhanced K-means vs K-means & $< 0.001$ & $< 0.001$ \\
+DBSCAN vs K-means & $< 0.05$ & $< 0.05$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Appendix D: Source Code Structure
+\chapter{Implementation Details}
+\label{app:implementation}
+
+\section{Algorithm Pseudocode}
+\label{app:pseudocode}
+
+\subsection{Enhanced DBSCAN Algorithm}
+\begin{algorithm}[H]
+\caption{Enhanced DBSCAN for PUEA Detection}
+\label{alg:enhanced_dbscan}
+\begin{algorithmic}[1]
+\Require Feature matrix $X \in \mathbb{R}^{n \times d}$, parameters $\epsilon$, $MinPts$
+\Ensure Cluster labels $C = \{c_1, c_2, \ldots, c_n\}$
+\State Initialize all points as unvisited
+\State $C \leftarrow 0$ (cluster counter)
+\For{each point $p$ in $X$}
+    \If{$p$ is unvisited}
+        \State Mark $p$ as visited
+        \State $NeighborPts \leftarrow regionQuery(p, \epsilon)$
+        \If{$|NeighborPts| < MinPts$}
+            \State Mark $p$ as noise
+        \Else
+            \State $C \leftarrow C + 1$
+            \State $expandCluster(p, NeighborPts, C, \epsilon, MinPts)$
+        \EndIf
+    \EndIf
+\EndFor
+\State Apply post-processing for PUEA classification
+\State \Return $C$
+\end{algorithmic}
+\end{algorithm}
+
+\section{Performance Optimization Techniques}
+\label{app:optimization}
+
+The following optimization techniques were implemented to improve algorithm performance:
+
+\begin{itemize}
+    \item \textbf{Spatial Indexing}: Used KD-tree for efficient neighbor queries in DBSCAN
+    \item \textbf{Feature Normalization}: Applied z-score normalization to all features
+    \item \textbf{Dimensionality Reduction}: Used PCA when feature dimension > 10
+    \item \textbf{Parallel Processing}: Implemented multi-threading for distance calculations
+    \item \textbf{Memory Management}: Used efficient data structures to minimize memory usage
+\end{itemize}
+
+% Appendix E: Validation Data
+\chapter{Validation Dataset Description}
+\label{app:validation}
+
+\section{Dataset Characteristics}
+\label{app:dataset_chars}
+
+The validation dataset consists of:
+\begin{itemize}
+    \item 10,000 legitimate primary user signals
+    \item 5,000 PUEA signals with varying attack strategies
+    \item 2,000 noise-only samples
+    \item SNR range: -10 dB to 20 dB
+    \item Sampling rate: 2 MHz
+    \item Duration: 100 ms per sample
+\end{itemize}
+
+\section{Ground Truth Labels}
+\label{app:ground_truth}
+
+Each sample in the dataset is labeled as one of the following categories:
+\begin{enumerate}
+    \item \textbf{Legitimate PU (Class 0)}: Genuine primary user transmission
+    \item \textbf{PUEA (Class 1)}: Primary user emulation attack
+    \item \textbf{Noise (Class 2)}: No signal present (noise only)
+\end{enumerate}
+
+The distribution of classes in the validation dataset is designed to reflect realistic cognitive radio network scenarios.

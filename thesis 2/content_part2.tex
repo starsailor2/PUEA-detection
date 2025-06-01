@@ -1,0 +1,300 @@
+% CONTENT PART 2: System Model and Feature Extraction
+
+%=============================================================================
+%                    CHAPTER: SYSTEM MODEL AND PROBLEM FORMULATION
+%=============================================================================
+
+\chapter{System Model and Problem Formulation}
+
+\section{\texorpdfstring{\large\textbf{Network Architecture}}{Network Architecture}}
+
+The system model considers a cognitive radio network operating within a two-dimensional geographical area. The network consists of one Primary User (PU), one Primary User Emulation Attacker (PUEA), and multiple Secondary Users (SUs) distributed across the deployment region. Figure \ref{fig:network_architecture} illustrates the general network architecture used in this study.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[scale=1.0]
+        % Define styles for nodes with improved aesthetics
+        \tikzstyle{pu}=[circle, draw=blue!60!black, line width=1.5pt, fill=blue!40, minimum size=1.5cm, font=\small\bfseries, drop shadow={shadow xshift=0.07cm, shadow yshift=-0.07cm, opacity=0.7, fill=black!50}]
+        \tikzstyle{puea}=[circle, draw=red!60!black, line width=1.5pt, fill=red!40, minimum size=1.5cm, font=\small\bfseries, drop shadow={shadow xshift=0.07cm, shadow yshift=-0.07cm, opacity=0.7, fill=black!50}]
+        \tikzstyle{su}=[circle, draw=green!60!black, line width=1.2pt, fill=green!30, minimum size=1cm, font=\small, drop shadow={shadow xshift=0.05cm, shadow yshift=-0.05cm, opacity=0.7, fill=black!50}]
+        \tikzstyle{su_small}=[circle, draw=green!50!black, thick, fill=green!15, minimum size=0.7cm, font=\scriptsize, drop shadow={shadow xshift=0.03cm, shadow yshift=-0.03cm, opacity=0.5, fill=black!50}]
+        
+        % Background with grid for context
+        \fill[blue!5, rounded corners=1cm] (-6,-5.5) rectangle (8,6);
+        \draw[step=1cm, black!10, thin] (-6,-5.5) grid (8,6);
+        
+        % Primary User with transmission range indicator
+        \node[pu] (pu) at (0,0) {PU};
+        \draw[blue!30, fill=blue!10, opacity=0.3] (0,0) circle (3.5cm);
+        \draw[blue!50, dashed, thick] (0,0) circle (3.5cm);
+        \node[font=\footnotesize, blue!60!black] at (0,-4) {PU's Range};
+        
+        % Primary User Emulator Attacker with transmission range
+        \node[puea] (puea) at (5,3) {PUEA};
+        \draw[red!30, fill=red!10, opacity=0.3] (5,3) circle (2.8cm);
+        \draw[red!50, dashed, thick] (5,3) circle (2.8cm);
+        \node[font=\footnotesize, red!60!black] at (5,0) {PUEA's Range};
+        
+        % Secondary Users - larger ones represent sensing nodes
+        \node[su] (su1) at (1,2) {SU$_1$};
+        \node[su] (su2) at (2,-1) {SU$_2$};
+        \node[su] (su3) at (3,1) {SU$_3$};
+        \node[su] (su4) at (4,-2) {SU$_4$};
+        
+        % Add more smaller SUs throughout the network
+        \node[su_small] at (-1,-2) {SU$_5$};
+        \node[su_small] at (-2,1) {SU$_6$};
+        \node[su_small] at (0,3) {SU$_7$};
+        \node[su_small] at (3,-3) {SU$_8$};
+        \node[su_small] at (6,1) {SU$_9$};
+        \node[su_small] at (2,2.5) {SU$_{10}$};
+        \node[su_small] at (-1.5,-0.5) {SU$_{11}$};
+        \node[su_small] at (5,-1) {SU$_{12}$};
+        
+        % Add communication links
+        \draw[->, green!50!black, thick, >=stealth] (su1) -- (pu);
+        \draw[->, green!50!black, thick, >=stealth] (su2) -- (pu);
+        \draw[->, green!50!black, thick, >=stealth] (su3) -- (puea);
+        \draw[->, green!50!black, thick, >=stealth] (su4) -- (puea);
+        
+        % Add signal waves from PU and PUEA
+        \foreach \r in {1.0, 1.5, 2.0}
+            \draw[blue!50!black, thick, decorate, decoration={snake, amplitude=0.3mm, segment length=3mm}] (0,0) circle (\r cm);
+        \foreach \r in {0.8, 1.2, 1.6}
+            \draw[red!50!black, thick, decorate, decoration={snake, amplitude=0.3mm, segment length=3mm}] (5,3) circle (\r cm);
+        
+        % Add axes and coordinates
+        \draw[->, thick] (-5,-4.5) -- (-3,-4.5) node[right] {$x$};
+        \draw[->, thick] (-5,-4.5) -- (-5,-2.5) node[above] {$y$};
+        
+        % Add legend
+        \node[draw=black!30, fill=white!90, rounded corners, thick, minimum width=7cm, minimum height=4.0cm, anchor=north west] at (-4.3,-2.5) {};
+        \node[anchor=north west, font=\small\bfseries] at (-4,-2.7) {Legend:};
+        
+        % Legend items
+        \node[pu, scale=0.6] at (-3.7,-3.2) {PU};
+        \node[anchor=west, font=\small] at (-3.2,-3.2) {Primary User};
+        
+        \node[puea, scale=0.6] at (-3.7,-4.0) {PUEA};
+        \node[anchor=west, font=\small] at (-3.2,-4.0) {Primary User Emulation Attacker};
+        
+        \node[su, scale=0.6] at (-3.7,-4.8) {SU};
+        \node[anchor=west, font=\small] at (-3.2,-4.8) {Secondary User (Sensing Node)};
+        
+        % Title
+        \node[font=\LARGE\bfseries, text=blue!60!black, anchor=north] at (1,5.5) {Cognitive Radio Network System Model};
+        
+    \end{tikzpicture}
+    \caption{Network architecture of the cognitive radio system with PU, PUEA, and SUs. The PU and PUEA transmission ranges are indicated by dashed circles. Larger SUs represent sensing nodes that actively participate in cooperative spectrum sensing and attack detection.}
+    \label{fig:network_architecture}
+\end{figure}
+
+\section{Signal Propagation Model}
+
+The signal propagation between transmitters (PU or PUEA) and receivers (SUs) follows the log-normal shadowing model, which accounts for path loss and shadowing effects in wireless environments. The received power at an SU is given by:
+
+\begin{equation}
+    P_r(d) = P_t - 10\alpha\log_{10}\left(\frac{d}{d_0}\right) - \psi_{dB}
+\end{equation}
+
+Where:
+\begin{itemize}
+    \item $P_r(d)$ is the received power (dBm) at distance $d$ from the transmitter
+    \item $P_t$ is the transmission power (dBm)
+    \item $\alpha$ is the path loss exponent (typically between 2 and 4)
+    \item $d_0$ is the reference distance (typically 1 meter)
+    \item $\psi_{dB}$ represents the log-normal shadowing effect (dB)
+\end{itemize}
+
+The shadowing component $\psi_{dB}$ follows a Gaussian distribution with zero mean and standard deviation $\sigma_{\psi}$:
+
+\begin{equation}
+    \psi_{dB} \sim \mathcal{N}(0, \sigma_{\psi}^2)
+\end{equation}
+
+For this research, we set $\alpha = 3$ to represent a typical urban environment, and $\sigma_{\psi} = 4$ dB to capture moderate shadowing effects.
+
+\section{Attacker Model and Capabilities}
+
+The PUEA in our model possesses the following capabilities and constraints:
+
+\begin{itemize}
+    \item \textbf{Signal Characteristics:} The attacker can generate signals that mimic the PU's modulation type, center frequency, and bandwidth.
+    
+    \item \textbf{Transmission Power:} The PUEA has a maximum transmission power comparable to but not exceeding that of the legitimate PU (28 dBm vs. 30 dBm for the PU).
+    
+    \item \textbf{Location:} The PUEA is located at a fixed but unknown position within the network area, different from the PU's location.
+    
+    \item \textbf{Attack Pattern:} The PUEA transmits opportunistically, with an overall presence ratio of 40\% across all observed time slots.
+    
+    \item \textbf{Intelligence:} The attacker does not adapt its behavior based on detection attempts and maintains consistent transmission parameters.
+\end{itemize}
+
+The attacker's objective is to maximize the denial of service impact by causing SUs to erroneously identify its transmissions as legitimate PU signals, thereby vacating spectrum unnecessarily.
+
+\section{Problem Formulation}
+
+The PUEA detection problem can be formally defined as a binary hypothesis testing problem:
+
+\begin{equation}
+    H_0: \text{The transmitter is the legitimate PU}
+\end{equation}
+\begin{equation}
+    H_1: \text{The transmitter is the malicious PUEA}
+\end{equation}
+
+Given a received signal power measurement vector $X_t = \{x_{1,t}, x_{2,t}, ..., x_{30,t}\}$ collected from all 30 SUs at time slot $t$, the objective is to determine the true hypothesis with high accuracy.
+
+The performance metrics for evaluating detection mechanisms include:
+
+\begin{itemize}
+    \item \textbf{Detection Probability ($P_d$):} The probability of correctly identifying a PUEA transmission when one occurs.
+    \item \textbf{False Alarm Probability ($P_{fa}$):} The probability of incorrectly identifying a legitimate PU transmission as a PUEA transmission.
+    \item \textbf{Accuracy:} The overall proportion of correct decisions (both PU and PUEA transmissions correctly identified).
+    \item \textbf{Computational Complexity:} The computational resources required to make the detection decision.
+\end{itemize}
+
+The research challenge lies in developing detection methods that achieve high accuracy while maintaining reasonable computational complexity, even in the presence of significant shadowing effects that obscure the spatial patterns of received signal strength.
+
+\chapter{Statistical Feature Extraction Methodology}
+
+\section{Power Measurement Collection Process}
+
+The foundation of PUEA detection in this research is the collection of received signal strength (RSS) measurements from secondary users distributed across the network. The power measurement collection process occurs at regular intervals, creating a time series of observations for each SU. The process follows these steps:
+
+\begin{enumerate}
+    \item At the beginning of each time slot $t$, a transmission occurs from either the legitimate PU or the PUEA (depending on the simulation scenario and PUEA presence percentage).
+    
+    \item Each secondary user $SU_i$ measures the received signal power $P_{i,t}^r$ using energy detection over the band of interest.
+    
+    \item The measurements from all SUs are collected to form the measurement vector $X_t = \{x_{1,t}, x_{2,t}, ..., x_{30,t}\}$ for time slot $t$, where $x_{i,t} = P_{i,t}^r$.
+    
+    \item The process repeats for a total of 100 time slots, creating the complete measurement dataset $\{X_1, X_2, ..., X_{100}\}$.
+\end{enumerate}
+
+The received power at each SU depends on several factors including the transmitter's position, transmission power, path loss exponent, shadowing effects, and the SU's location. This spatial diversity in measurements provides the basis for distinguishing between legitimate and malicious transmissions through statistical pattern recognition.
+
+\section{Feature Extraction Function Details}
+
+Raw RSS measurements alone are insufficient for reliable PUEA detection due to their sensitivity to environmental variations and potential noise. To improve detection robustness, statistical features are extracted from these measurements to capture the underlying patterns that characterize different transmitters. The feature extraction process transforms the raw measurement vector $X_t$ into a feature vector $Y_t$ through function $F$:
+
+\begin{equation}
+    Y_t = F(X_t) = \{f_1(X_t), f_2(X_t), ..., f_m(X_t)\}
+\end{equation}
+
+Where $f_i$ represents the $i$-th feature extraction function. This research employs the following statistical features:
+
+\subsection{Central Tendency Measures}
+
+\begin{itemize}
+    \item \textbf{Mean ($\mu$):} The average of all received power measurements.
+    \begin{equation}
+        \mu_t = \frac{1}{n}\sum_{i=1}^{n}x_{i,t}
+    \end{equation}
+    
+    \item \textbf{Weighted Mean ($\mu_w$):} The average weighted by the inverse of the distance from each SU to the centroid of all SUs.
+    \begin{equation}
+        \mu_{w,t} = \frac{\sum_{i=1}^{n}w_i x_{i,t}}{\sum_{i=1}^{n}w_i}
+    \end{equation}
+    where $w_i$ is the weight for $SU_i$ based on its position relative to other SUs.
+    
+    \item \textbf{Median:} The middle value of the sorted measurements, robust against outliers.
+    \begin{equation}
+        \text{median}_t = 
+        \begin{cases}
+            x_{(n+1)/2,t} & \text{if $n$ is odd} \\
+            \frac{x_{n/2,t} + x_{n/2+1,t}}{2} & \text{if $n$ is even}
+        \end{cases}
+    \end{equation}
+\end{itemize}
+
+\subsection{Dispersion Measures}
+
+\begin{itemize}
+    \item \textbf{Standard Deviation ($\sigma$):} Measures the amount of variation or spread in the measurements.
+    \begin{equation}
+        \sigma_t = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(x_{i,t}-\mu_t)^2}
+    \end{equation}
+    
+    \item \textbf{Interquartile Range (IQR):} The difference between the third quartile ($Q3$) and the first quartile ($Q1$).
+    \begin{equation}
+        \text{IQR}_t = Q3_t - Q1_t
+    \end{equation}
+    
+    \item \textbf{Range:} The difference between the maximum and minimum values.
+    \begin{equation}
+        \text{Range}_t = \max(X_t) - \min(X_t)
+    \end{equation}
+\end{itemize}
+
+\subsection{Shape Measures}
+
+\begin{itemize}
+    \item \textbf{Skewness:} Measures the asymmetry of the probability distribution.
+    \begin{equation}
+        \text{Skewness}_t = \frac{\frac{1}{n}\sum_{i=1}^{n}(x_{i,t}-\mu_t)^3}{\sigma_t^3}
+    \end{equation}
+    
+    \item \textbf{Kurtosis:} Measures the "tailedness" of the probability distribution.
+    \begin{equation}
+        \text{Kurtosis}_t = \frac{\frac{1}{n}\sum_{i=1}^{n}(x_{i,t}-\mu_t)^4}{\sigma_t^4}
+    \end{equation}
+\end{itemize}
+
+\subsection{Spatial Distribution Features}
+
+\begin{itemize}
+    \item \textbf{Spatial Variance:} Variance of signal strengths weighted by spatial coordinates.
+    \begin{equation}
+        \text{Spatial Variance}_t = \frac{1}{n}\sum_{i=1}^{n}w_i(x_{i,t}-\mu_t)^2
+    \end{equation}
+    
+    \item \textbf{Signal Gradient:} Rate of change of signal strength across space.
+    \begin{equation}
+        \text{Gradient}_t = \frac{1}{n-1}\sum_{i=1}^{n-1}|x_{i+1,t}-x_{i,t}|
+    \end{equation}
+    where SUs are ordered based on their distance from the centroid.
+\end{itemize}
+
+\section{Feature Analysis and Selection}
+
+Not all extracted features contribute equally to discrimination between PU and PUEA transmissions. Feature selection is performed using the following methods:
+
+\subsection{Correlation Analysis}
+
+Feature correlation is analyzed to identify redundant features. For features with correlation coefficients above 0.85, only one feature from the highly correlated pair is retained to avoid multicollinearity.
+
+\subsection{Feature Importance Ranking}
+
+Features are ranked based on their discriminatory power using:
+
+\begin{itemize}
+    \item \textbf{Fisher's Score:} Measures the ratio of between-class variance to within-class variance.
+    \begin{equation}
+        F_j = \frac{(\mu_{j,H0}-\mu_{j,H1})^2}{\sigma_{j,H0}^2 + \sigma_{j,H1}^2}
+    \end{equation}
+    where $\mu_{j,H0}$ and $\sigma_{j,H0}^2$ are the mean and variance of the $j$-th feature under hypothesis $H_0$, respectively.
+    
+    \item \textbf{Information Gain:} Measures the reduction in entropy achieved by splitting the data on a given feature.
+\end{itemize}
+
+\subsection{Selected Feature Set}
+
+Based on the analyses, the final feature vector $Y_t$ consists of:
+\begin{equation}
+    Y_t = \{\mu_t, \sigma_t, \text{Skewness}_t, \text{IQR}_t, \text{Spatial Variance}_t\}
+\end{equation}
+
+These five features provide a compact yet comprehensive representation of the signal characteristics that effectively differentiate between legitimate PU and malicious PUEA transmissions while avoiding excessive computational overhead.
+
+\section{Feature Normalization}
+
+To ensure that features with different scales do not disproportionately influence the clustering algorithms, all features are normalized using min-max scaling:
+
+\begin{equation}
+    Y_{t,j}^{norm} = \frac{Y_{t,j} - \min_t(Y_{t,j})}{\max_t(Y_{t,j}) - \min_t(Y_{t,j})}
+\end{equation}
+
+where $Y_{t,j}$ represents the $j$-th feature at time $t$, and $Y_{t,j}^{norm}$ is its normalized value.
+
+This preprocessing step ensures that all features contribute proportionally to the distance calculations used in the subsequent clustering algorithms, enhancing the effectiveness of the detection mechanisms.

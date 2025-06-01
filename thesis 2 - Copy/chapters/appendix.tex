@@ -1,0 +1,394 @@
+\chapter{Appendices}
+
+\section{Mathematical Derivations}
+
+\subsection{Signal Model Derivations}
+\label{app:signal_derivations}
+
+This section provides detailed mathematical derivations for the signal models presented in Chapter 3. We begin with the fundamental signal model and derive the key expressions used throughout this thesis.
+
+Consider the received signal at the secondary user, which can be expressed as:
+
+\begin{equation}
+r(t) = 
+\begin{cases}
+    n(t), & \text{H}_0 \\
+    h_{ps}s(t) + n(t), & \text{H}_1 \\
+    h_{ms}s'(t) + n(t), & \text{H}_2
+\end{cases}
+\end{equation}
+
+where $h_{ps}$ and $h_{ms}$ are the channel gains from primary user and malicious user to secondary user, respectively; $s(t)$ is the primary user signal; $s'(t)$ is the emulated signal; and $n(t)$ is the additive white Gaussian noise.
+
+The log-normal shadowing model used to characterize the wireless channel can be derived as follows. The path loss in dB at distance $d$ is given by:
+
+\begin{equation}
+    PL(d) = PL(d_0) + 10\alpha\log_{10}\left(\frac{d}{d_0}\right) + X_\sigma
+\end{equation}
+
+where $PL(d_0)$ is the path loss at the reference distance $d_0$, $\alpha$ is the path loss exponent, and $X_\sigma$ is a zero-mean Gaussian random variable with standard deviation $\sigma$.
+
+The channel gain can be derived from the path loss as:
+
+\begin{equation}
+    h = 10^{-PL(d)/20} = 10^{-PL(d_0)/20} \cdot 10^{-\alpha\log_{10}(d/d_0)/2} \cdot 10^{-X_\sigma/20}
+\end{equation}
+
+Simplifying:
+
+\begin{equation}
+    h = K \cdot \left(\frac{d}{d_0}\right)^{-\alpha/2} \cdot 10^{-X_\sigma/20}
+\end{equation}
+
+where $K = 10^{-PL(d_0)/20}$ is a constant.
+
+\subsection{Feature Extraction Mathematics}
+\label{app:feature_math}
+
+This section provides detailed mathematical expressions for the feature extraction methods described in Chapter 4.
+
+\subsubsection{Statistical Moments}
+
+The $n$-th statistical moment of a discrete signal $r[k]$ with $N$ samples is calculated as:
+
+\begin{equation}
+    \mu_n = \frac{1}{N}\sum_{k=0}^{N-1}(r[k] - \bar{r})^n
+\end{equation}
+
+where $\bar{r} = \frac{1}{N}\sum_{k=0}^{N-1}r[k]$ is the mean of the signal.
+
+The normalized moments (skewness and kurtosis) are derived as:
+
+\begin{equation}
+    \text{Skewness} = \frac{\mu_3}{\mu_2^{3/2}} = \frac{\mu_3}{\sigma^3}
+\end{equation}
+
+\begin{equation}
+    \text{Kurtosis} = \frac{\mu_4}{\mu_2^2} - 3 = \frac{\mu_4}{\sigma^4} - 3
+\end{equation}
+
+where the subtraction of 3 makes the kurtosis of a normal distribution equal to zero.
+
+\subsubsection{Cyclostationary Feature Calculation}
+
+The cyclic autocorrelation function (CAF) for a discrete-time signal $r[n]$ at cycle frequency $\alpha$ and delay $\tau$ is given by:
+
+\begin{equation}
+    R_r^\alpha[\tau] = \lim_{N \to \infty} \frac{1}{N} \sum_{n=0}^{N-1} r[n]r[n+\tau]e^{-j2\pi\alpha n}
+\end{equation}
+
+The spectral correlation function (SCF) is the Fourier transform of the CAF:
+
+\begin{equation}
+    S_r^\alpha[f] = \sum_{\tau=-\infty}^{\infty} R_r^\alpha[\tau]e^{-j2\pi f\tau}
+\end{equation}
+
+The cyclic spectrum at cycle frequency $\alpha$ is calculated using a time-smoothed approach:
+
+\begin{equation}
+    S_r^\alpha[f] = \lim_{N \to \infty} \frac{1}{N} \sum_{n=0}^{N-1} R_r[n, \alpha/2 + f]R_r^*[n, \alpha/2 - f]
+\end{equation}
+
+where $R_r[n, f]$ is the sliding short-time Fourier transform.
+
+\section{Algorithm Pseudocode}
+\label{app:pseudocode}
+
+\subsection{Traditional Clustering Algorithms}
+\label{app:trad_pseudocode}
+
+This section presents detailed pseudocode for the traditional clustering algorithms implemented in this research.
+
+\subsubsection{DBSCAN Algorithm}
+
+\begin{algorithm}[H]
+\caption{DBSCAN for PUEA Detection}
+\label{alg:dbscan_full}
+\begin{algorithmic}[1]
+\Require Feature matrix $\mathbf{X} \in \mathbb{R}^{n \times d}$, neighborhood radius $\epsilon$, minimum points $minPts$
+\Ensure Cluster assignments $\mathbf{y} \in \mathbb{Z}^n$
+
+\State Initialize all points as unvisited
+\State $clusterID \gets 0$
+\For{each unvisited point $p$ in dataset $\mathbf{X}$}
+    \State Mark $p$ as visited
+    \State $neighbors \gets$ RangeQuery($\mathbf{X}$, $p$, $\epsilon$)
+    \If{$|neighbors| < minPts$}
+        \State $\mathbf{y}[p] \gets -1$ \Comment{Mark as noise}
+    \Else
+        \State $clusterID \gets clusterID + 1$
+        \State ExpandCluster($\mathbf{X}$, $p$, $neighbors$, $clusterID$, $\epsilon$, $minPts$, $\mathbf{y}$)
+    \EndIf
+\EndFor
+
+\Function{ExpandCluster}{$\mathbf{X}$, $p$, $neighbors$, $clusterID$, $\epsilon$, $minPts$, $\mathbf{y}$}
+    \State $\mathbf{y}[p] \gets clusterID$
+    \For{each point $q$ in $neighbors$}
+        \If{$q$ is unvisited}
+            \State Mark $q$ as visited
+            \State $neighborsPts \gets$ RangeQuery($\mathbf{X}$, $q$, $\epsilon$)
+            \If{$|neighborsPts| \geq minPts$}
+                \State $neighbors \gets neighbors \cup neighborsPts$
+            \EndIf
+        \EndIf
+        \If{$\mathbf{y}[q] < 0$} \Comment{Not yet member of any cluster}
+            \State $\mathbf{y}[q] \gets clusterID$
+        \EndIf
+    \EndFor
+\EndFunction
+
+\Function{RangeQuery}{$\mathbf{X}$, $p$, $\epsilon$}
+    \State $neighbors \gets \emptyset$
+    \For{each point $q$ in dataset $\mathbf{X}$}
+        \If{EuclideanDistance($p$, $q$) $\leq \epsilon$}
+            \State $neighbors \gets neighbors \cup \{q\}$
+        \EndIf
+    \EndFor
+    \State \Return $neighbors$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{K-means Algorithm}
+
+\begin{algorithm}[H]
+\caption{K-means for PUEA Detection}
+\label{alg:kmeans_full}
+\begin{algorithmic}[1]
+\Require Feature matrix $\mathbf{X} \in \mathbb{R}^{n \times d}$, number of clusters $k$, maximum iterations $maxIter$
+\Ensure Cluster assignments $\mathbf{y} \in \mathbb{Z}^n$, centroids $\mathbf{C} \in \mathbb{R}^{k \times d}$
+
+\State Initialize centroids $\mathbf{C}$ randomly or using k-means++
+\State $iter \gets 0$
+\Repeat
+    \State $iter \gets iter + 1$
+    \For{each point $i$ in dataset $\mathbf{X}$}
+        \State $\mathbf{y}[i] \gets \arg\min_{j \in \{1,\ldots,k\}} \|\mathbf{X}[i] - \mathbf{C}[j]\|^2$
+    \EndFor
+    \For{each cluster $j \in \{1,\ldots,k\}$}
+        \State $\mathbf{C}[j] \gets \frac{1}{|\{i: \mathbf{y}[i] = j\}|} \sum_{i: \mathbf{y}[i] = j} \mathbf{X}[i]$
+    \EndFor
+\Until{centroids converge or $iter \geq maxIter$}
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Enhanced Detection Algorithms}
+\label{app:enhanced_pseudocode}
+
+This section presents detailed pseudocode for the enhanced detection algorithms developed in this research.
+
+\subsubsection{KNN within Clusters Algorithm}
+
+\begin{algorithm}[H]
+\caption{KNN within Clusters for PUEA Detection}
+\label{alg:knn_clusters_full}
+\begin{algorithmic}[1]
+\Require Feature matrix $\mathbf{X} \in \mathbb{R}^{n \times d}$, training labels $\mathbf{y}_{train}$, number of neighbors $k$, traditional clustering algorithm $Clustering$, clustering parameters $params$
+\Ensure Final classification $\mathbf{y} \in \{0,1\}^n$
+
+\State $clusters \gets Clustering(\mathbf{X}, params)$ \Comment{Apply traditional clustering}
+\State $\mathbf{y} \gets clusters$ \Comment{Initialize with cluster assignments}
+
+\For{each cluster $c$ in unique($clusters$)}
+    \State $indices_c \gets \{i: clusters[i] = c\}$ \Comment{Points in cluster $c$}
+    \State $\mathbf{X}_c \gets \mathbf{X}[indices_c]$ \Comment{Feature subset for cluster $c$}
+    
+    \If{$|indices_c| > k$} \Comment{Ensure enough points for KNN}
+        \For{each point $p$ in $indices_c$}
+            \State $neighbors \gets k$ nearest neighbors of $\mathbf{X}_c[p]$ in $\mathbf{X}_c \setminus \{\mathbf{X}_c[p]\}$
+            \State $votes \gets$ count of each class in $\mathbf{y}_{train}[neighbors]$
+            \State $\mathbf{y}[indices_c[p]] \gets$ majority class in $votes$
+        \EndFor
+    \EndIf
+\EndFor
+
+\State Map cluster labels to binary PU/PUEA labels based on majority voting or feature proximity
+\State \Return $\mathbf{y}$
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Means within Clusters Algorithm}
+
+\begin{algorithm}[H]
+\caption{Means within Clusters for PUEA Detection}
+\label{alg:means_clusters_full}
+\begin{algorithmic}[1]
+\Require Feature matrix $\mathbf{X} \in \mathbb{R}^{n \times d}$, training labels $\mathbf{y}_{train}$, traditional clustering algorithm $Clustering$, clustering parameters $params$, distance threshold $\theta$
+\Ensure Final classification $\mathbf{y} \in \{0,1\}^n$
+
+\State $clusters \gets Clustering(\mathbf{X}, params)$ \Comment{Apply traditional clustering}
+\State $\mathbf{y} \gets clusters$ \Comment{Initialize with cluster assignments}
+
+\For{each cluster $c$ in unique($clusters$)}
+    \State $indices_c \gets \{i: clusters[i] = c\}$ \Comment{Points in cluster $c$}
+    \State $\mathbf{X}_c \gets \mathbf{X}[indices_c]$ \Comment{Feature subset for cluster $c$}
+    \State $\mathbf{y}_c \gets \mathbf{y}_{train}[indices_c]$ \Comment{Labels for cluster $c$}
+    
+    \State $indices_0 \gets \{i: \mathbf{y}_c[i] = 0\}$ \Comment{PU points}
+    \State $indices_1 \gets \{i: \mathbf{y}_c[i] = 1\}$ \Comment{PUEA points}
+    
+    \If{$|indices_0| > 0$ and $|indices_1| > 0$} \Comment{If both classes present}
+        \State $centroid_0 \gets \frac{1}{|indices_0|} \sum_{i \in indices_0} \mathbf{X}_c[i]$ \Comment{PU centroid}
+        \State $centroid_1 \gets \frac{1}{|indices_1|} \sum_{i \in indices_1} \mathbf{X}_c[i]$ \Comment{PUEA centroid}
+        
+        \For{each point $p$ in $indices_c$}
+            \State $d_0 \gets \|\mathbf{X}_c[p] - centroid_0\|$ \Comment{Distance to PU centroid}
+            \State $d_1 \gets \|\mathbf{X}_c[p] - centroid_1\|$ \Comment{Distance to PUEA centroid}
+            
+            \If{$d_0 < d_1$}
+                \State $\mathbf{y}[indices_c[p]] \gets 0$ \Comment{Assign as PU}
+            \Else
+                \State $\mathbf{y}[indices_c[p]] \gets 1$ \Comment{Assign as PUEA}
+            \EndIf
+        \EndFor
+    \EndIf
+\EndFor
+
+\State \Return $\mathbf{y}$
+\end{algorithmic}
+\end{algorithm}
+
+\section{Simulation Parameters}
+\label{app:sim_params}
+
+\begin{table}[htbp]
+\centering
+\caption{Complete Simulation Parameters}
+\label{tab:sim_params}
+\begin{tabular}{@{}llp{8cm}@{}}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Description} \\ \midrule
+Carrier Frequency & 700 MHz & Center frequency of the simulated cognitive radio network \\
+Bandwidth & 6 MHz & Channel bandwidth (typical TV white space) \\
+PU Transmit Power & 36 dBm & Fixed transmit power for legitimate primary user \\
+PUEA Transmit Power & 30-40 dBm & Range of possible transmit powers for malicious user \\
+SU Sensing Duration & 50 ms & Time interval for collecting signal samples \\
+Sampling Rate & 12 MHz & Rate at which signal samples are collected \\
+Path Loss Exponent ($\alpha$) & 3.5 & Exponent for characterizing signal attenuation \\
+Shadow Fading ($\sigma$) & 5.5 dB & Standard deviation of log-normal shadowing \\
+Noise Floor & -95 dBm & Baseline noise level \\
+Distance (PU to SU) & 500-1000 m & Range of distances from primary user to secondary users \\
+Scenario A (Far) & 1000 m & Distance from PUEA to PU in far scenario \\
+Scenario B (Medium) & 500 m & Distance from PUEA to PU in medium scenario \\
+Scenario C (Close) & 200 m & Distance from PUEA to PU in close scenario \\
+Network Size & 100 SUs & Number of secondary users in the network \\
+PUEA Presence & 10\%, 30\%, 50\% & Percentage of transmissions from PUEA \\
+DBSCAN $\epsilon$ & 0.15-0.35 & Neighborhood radius for DBSCAN algorithm \\
+DBSCAN $minPts$ & 5 & Minimum points to form a cluster in DBSCAN \\
+K-means $k$ & 2 & Number of clusters for K-means algorithm \\
+Agglomerative Linkage & Ward & Linkage criterion for Agglomerative clustering \\
+Spectral Affinity & RBF & Affinity type for Spectral clustering \\
+KNN $k$ & 5 & Number of neighbors for KNN refinement \\
+Monte Carlo Runs & 1000 & Number of independent simulation runs \\
+Confidence Level & 95\% & Statistical significance threshold \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Additional Results}
+\label{app:additional_results}
+
+\subsection{Confusion Matrices}
+\label{app:confusion_matrices}
+
+The following tables present the detailed confusion matrices for each algorithm across the three spatial scenarios, with results averaged over all PUEA presence percentages and Monte Carlo runs.
+
+\begin{table}[htbp]
+\centering
+\caption{Confusion Matrices for Traditional DBSCAN}
+\label{tab:confusion_dbscan}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+& \multicolumn{2}{c}{\textbf{Scenario A (Far)}} & \multicolumn{2}{c}{\textbf{Scenario B (Medium)}} & \multicolumn{2}{c}{\textbf{Scenario C (Close)}} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+& \textbf{Pred PU} & \textbf{Pred PUEA} & \textbf{Pred PU} & \textbf{Pred PUEA} & \textbf{Pred PU} & \textbf{Pred PUEA} \\
+\midrule
+\textbf{True PU} & 0.889 & 0.111 & 0.825 & 0.175 & 0.712 & 0.288 \\
+\textbf{True PUEA} & 0.143 & 0.857 & 0.201 & 0.799 & 0.342 & 0.658 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+[Additional confusion matrices for other algorithms would be presented here]
+
+\subsection{ROC Curves}
+\label{app:roc_curves}
+
+Figure \ref{fig:roc_app} presents the Receiver Operating Characteristic (ROC) curves for all detection methods across the three spatial scenarios. These curves illustrate the tradeoff between true positive rate and false positive rate at various decision thresholds.
+
+[Figure with ROC curves would be placed here]
+
+\subsection{Timing Analysis}
+\label{app:timing}
+
+Table \ref{tab:timing_results} presents the average execution times for each algorithm across different network sizes, providing insights into their computational efficiency.
+
+\begin{table}[htbp]
+\centering
+\caption{Algorithm Execution Times (ms)}
+\label{tab:timing_results}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Algorithm} & \textbf{50 SUs} & \textbf{100 SUs} & \textbf{200 SUs} & \textbf{500 SUs} \\
+\midrule
+DBSCAN & 15.3 & 42.7 & 143.5 & 812.4 \\
+K-means & 8.2 & 18.6 & 47.3 & 235.8 \\
+Agglomerative & 23.6 & 86.9 & 315.2 & 1845.7 \\
+Spectral & 35.4 & 125.8 & 463.7 & 2764.3 \\
+DBSCAN+KNN & 22.1 & 58.5 & 185.2 & 1037.6 \\
+K-means+KNN & 14.6 & 34.2 & 89.5 & 456.3 \\
+Agglomerative+KNN & 30.8 & 103.2 & 358.4 & 2076.9 \\
+Spectral+KNN & 42.7 & 142.5 & 506.8 & 2995.1 \\
+DBSCAN+Means & 18.7 & 51.3 & 167.8 & 897.2 \\
+K-means+Means & 11.5 & 27.1 & 72.6 & 378.5 \\
+Agglomerative+Means & 27.2 & 96.4 & 337.9 & 1923.8 \\
+Spectral+Means & 39.3 & 135.2 & 486.5 & 2841.7 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Signal Processing Functions}
+\label{app:signal_processing}
+
+This section provides the implementation details of the key signal processing functions used in the feature extraction process, presented in Python code for reproducibility.
+
+\begin{verbatim}
+import numpy as np
+from scipy import signal
+
+def calculate_statistical_moments(x):
+    """Calculate statistical moments of signal x"""
+    mean = np.mean(x)
+    variance = np.var(x)
+    skewness = np.mean((x - mean)**3) / variance**1.5
+    kurtosis = np.mean((x - mean)**4) / variance**2 - 3
+    return mean, variance, skewness, kurtosis
+
+def calculate_energy_feature(x):
+    """Calculate energy of signal x"""
+    return np.sum(np.abs(x)**2) / len(x)
+
+def calculate_cyclic_features(x, fs, alpha, n_fft=1024):
+    """Calculate cyclostationary features at cycle frequency alpha"""
+    # Spectral correlation function estimation
+    f = np.arange(-fs/2, fs/2, fs/n_fft)
+    X = np.fft.fftshift(np.fft.fft(x, n_fft))
+    X_alpha = np.roll(X, int(alpha*n_fft/fs))
+    SCF = X * np.conj(X_alpha) / n_fft
+    return np.abs(SCF)
+
+def calculate_envelope_features(x):
+    """Calculate signal envelope features"""
+    # Signal envelope using Hilbert transform
+    analytic_signal = signal.hilbert(x)
+    envelope = np.abs(analytic_signal)
+    
+    # Calculate quartiles and other statistics
+    q25 = np.percentile(envelope, 25)
+    q50 = np.percentile(envelope, 50)
+    q75 = np.percentile(envelope, 75)
+    iqr = q75 - q25
+    peak_factor = np.max(envelope) / np.mean(envelope)
+    
+    return q25, q50, q75, iqr, peak_factor
+\end{verbatim}

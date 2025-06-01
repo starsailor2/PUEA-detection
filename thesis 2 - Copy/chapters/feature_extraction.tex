@@ -1,0 +1,231 @@
+\chapter{Statistical Feature Extraction Methodology}
+
+\section{Power Measurement Collection Process}
+
+The foundation of PUEA detection in this research is the collection of received signal strength (RSS) measurements from secondary users distributed across the network. The power measurement collection process occurs at regular intervals, creating a time series of observations for each SU. The process follows these steps:
+
+\begin{enumerate}
+    \item At the beginning of each time slot $t$, a transmission occurs from either the legitimate PU or the PUEA (depending on the simulation scenario and PUEA presence percentage).
+    
+    \item Each secondary user $SU_i$ measures the received signal power $P_{i,t}^r$ using energy detection over the band of interest.
+    
+    \item The measurements from all SUs are collected to form the measurement vector $X_t = \{x_{1,t}, x_{2,t}, ..., x_{30,t}\}$ for time slot $t$, where $x_{i,t} = P_{i,t}^r$.
+    
+    \item The process repeats for a total of 100 time slots, creating the complete measurement dataset $\{X_1, X_2, ..., X_{100}\}$.
+\end{enumerate}
+
+The received power at each SU depends on several factors including the transmitter's position, transmission power, path loss exponent, shadowing effects, and the SU's location. This spatial diversity in measurements provides the basis for distinguishing between legitimate and malicious transmissions through statistical pattern recognition.
+
+\section{Feature Extraction Function Details}
+
+Raw RSS measurements alone are insufficient for reliable PUEA detection due to their sensitivity to environmental variations and potential noise. To improve detection robustness, statistical features are extracted from these measurements to capture the underlying patterns that characterize different transmitters. The feature extraction process transforms the raw measurement vector $X_t$ into a feature vector $Y_t$ through function $F$:
+
+\begin{equation}
+    Y_t = F(X_t) = [f_1(X_t), f_2(X_t), \ldots, f_n(X_t)]
+\end{equation}
+
+where $f_i$ represents individual feature extraction functions and $n$ is the total number of features. This research employs five statistical features selected for their ability to characterize signal distributions effectively.
+
+\subsection{Mean Calculation}
+
+The mean RSS value provides a measure of the central tendency of power measurements across all SUs during a time slot. For time slot $t$, the mean feature is calculated as:
+
+\begin{equation}
+    f_{\text{mean}}(X_t) = \mu_t = \frac{1}{N} \sum_{i=1}^{N} x_{i,t}
+\end{equation}
+
+where $N = 30$ is the number of secondary users.
+
+The mean value captures the average signal strength across the network and is influenced by the transmitter's power and position. Since the PUEA typically transmits at higher power (35 dBm) compared to the legitimate PU (15 dBm), the mean feature provides initial discrimination capability, although this difference diminishes in close-proximity scenarios.
+
+\subsection{Variance Calculation}
+
+The variance of RSS measurements quantifies the spread or dispersion of power values received across different SUs during a time slot. This feature is particularly valuable because the spatial distribution of power from different transmitter locations creates distinctive variance patterns. For time slot $t$, the variance feature is calculated as:
+
+\begin{equation}
+    f_{\text{var}}(X_t) = \sigma_t^2 = \frac{1}{N} \sum_{i=1}^{N} (x_{i,t} - \mu_t)^2
+\end{equation}
+
+Variance proves especially useful in distinguishing transmitter locations, as signals from different spatial positions create different power distribution patterns across the network, even when the mean values might be similar.
+
+\subsection{Median Calculation}
+
+The median provides a robust measure of central tendency that is less sensitive to extreme values or outliers than the mean. For time slot $t$, the median feature is calculated by arranging the measurements in ascending order and selecting the middle value:
+
+\begin{equation}
+    f_{\text{median}}(X_t) = 
+    \begin{cases}
+        x_{(N+1)/2, t}, & \text{if $N$ is odd} \\
+        \frac{x_{N/2, t} + x_{(N/2)+1, t}}{2}, & \text{if $N$ is even}
+    \end{cases}
+\end{equation}
+
+where $x_{(i), t}$ represents the $i$-th ordered statistic of the measurement set $X_t$.
+
+The median feature offers complementary information to the mean, particularly in scenarios with asymmetric power distributions or when some SUs receive abnormally high or low power levels due to localized shadowing effects.
+
+\subsection{Lower Quartile Calculation}
+
+The lower quartile (Q1) represents the 25th percentile of the RSS measurements and helps characterize the lower end of the power distribution. For time slot $t$, the lower quartile is calculated as:
+
+\begin{equation}
+    f_{\text{Q1}}(X_t) = Q1_t
+\end{equation}
+
+where $Q1_t$ is the value below which 25\% of the measurements in $X_t$ fall when arranged in ascending order.
+
+The lower quartile is particularly useful for capturing the behavior of SUs receiving weaker signals, which often occur at greater distances from the transmitter or in areas with higher shadowing.
+
+\subsection{Upper Quartile Calculation}
+
+The upper quartile (Q3) represents the 75th percentile of the RSS measurements and characterizes the upper end of the power distribution. For time slot $t$, the upper quartile is calculated as:
+
+\begin{equation}
+    f_{\text{Q3}}(X_t) = Q3_t
+\end{equation}
+
+where $Q3_t$ is the value below which 75\% of the measurements in $X_t$ fall when arranged in ascending order.
+
+The upper quartile effectively captures the behavior of SUs receiving stronger signals, typically those in closer proximity to the transmitter or in areas with favorable propagation conditions.
+
+The complete feature vector for time slot $t$ is therefore:
+
+\begin{equation}
+    Y_t = [f_{\text{mean}}(X_t), f_{\text{var}}(X_t), f_{\text{median}}(X_t), f_{\text{Q1}}(X_t), f_{\text{Q3}}(X_t)]
+\end{equation}
+
+\section{Feature Normalization and Standardization}
+
+To ensure that no single feature dominates the clustering process due to differences in scale, feature normalization is applied. The Z-score standardization technique is used to transform each feature to have zero mean and unit variance across all time slots:
+
+\begin{equation}
+    Y_{t,j}^{\text{norm}} = \frac{Y_{t,j} - \mu_j}{\sigma_j}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $Y_{t,j}$ is the $j$-th feature value for time slot $t$
+    \item $\mu_j$ is the mean value of feature $j$ across all time slots: $\mu_j = \frac{1}{T} \sum_{t=1}^{T} Y_{t,j}$
+    \item $\sigma_j$ is the standard deviation of feature $j$ across all time slots: $\sigma_j = \sqrt{\frac{1}{T} \sum_{t=1}^{T} (Y_{t,j} - \mu_j)^2}$
+    \item $T = 100$ is the total number of time slots
+\end{itemize}
+
+Standardization ensures that each feature contributes proportionately to the distance calculations used in clustering algorithms, preventing features with larger numerical ranges from dominating the clustering process.
+
+\section{Feature Significance Analysis}
+
+To understand the relative importance of each feature in distinguishing between PU and PUEA transmissions, a feature significance analysis was conducted. This analysis quantifies the discriminative power of each feature across different scenarios.
+
+\subsection{Discriminative Power Assessment}
+
+For each feature $j$, the discriminative power is assessed by calculating the separation between feature distributions for PU and PUEA transmissions:
+
+\begin{equation}
+    D_j = \frac{|\mu_j^{PU} - \mu_j^{PUEA}|}{\sqrt{(\sigma_j^{PU})^2 + (\sigma_j^{PUEA})^2}}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $\mu_j^{PU}$ is the mean value of feature $j$ across time slots with PU transmissions
+    \item $\mu_j^{PUEA}$ is the mean value of feature $j$ across time slots with PUEA transmissions
+    \item $\sigma_j^{PU}$ is the standard deviation of feature $j$ across time slots with PU transmissions
+    \item $\sigma_j^{PUEA}$ is the standard deviation of feature $j$ across time slots with PUEA transmissions
+\end{itemize}
+
+A higher value of $D_j$ indicates better separation between PU and PUEA distributions for feature $j$, suggesting higher discriminative power.
+
+\subsection{Scenario-Dependent Feature Importance}
+
+The discriminative power of each feature varies across the three spatial scenarios, as shown in Table \ref{tab:feature_importance}.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Feature discriminative power across different scenarios}
+    \label{tab:feature_importance}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Feature} & \textbf{Scenario A} & \textbf{Scenario B} & \textbf{Scenario C} \\
+        & \textbf{(Far)} & \textbf{(Medium)} & \textbf{(Close)} \\
+        \midrule
+        Mean & High (2.83) & Medium (1.62) & Low (0.84) \\
+        Variance & Very High (3.47) & High (2.73) & Medium (1.51) \\
+        Median & High (2.76) & Medium (1.58) & Low (0.79) \\
+        Lower Quartile & Medium (1.93) & Medium (1.44) & Low (0.72) \\
+        Upper Quartile & High (2.91) & High (2.17) & Medium (1.13) \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Key observations from the feature significance analysis:
+
+\begin{itemize}
+    \item Variance consistently shows the highest discriminative power across all scenarios, making it the most reliable feature for PUEA detection
+    \item The upper quartile feature maintains relatively high discriminative power even in challenging scenarios
+    \item All features show decreasing discriminative power as the distance between PU and PUEA decreases (from Scenario A to C)
+    \item In Scenario C (close proximity), no single feature achieves high discriminative power, highlighting the need for multi-feature approaches
+\end{itemize}
+
+\section{Feature Weighting Approach}
+
+Based on the feature significance analysis, a weighted feature approach is implemented to optimize detection performance. The distance calculations in clustering algorithms are modified to incorporate feature weights reflecting their discriminative power:
+
+\begin{equation}
+    d_{weighted}(Y_t, Y_{t'}) = \sqrt{\sum_{j=1}^{n} w_j (Y_{t,j}^{\text{norm}} - Y_{t',j}^{\text{norm}})^2}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $d_{weighted}(Y_t, Y_{t'})$ is the weighted distance between feature vectors for time slots $t$ and $t'$
+    \item $w_j$ is the weight assigned to feature $j$ based on its discriminative power
+    \item $Y_{t,j}^{\text{norm}}$ is the normalized value of feature $j$ for time slot $t$
+\end{itemize}
+
+The weights are determined using the normalized discriminative power values for each scenario:
+
+\begin{equation}
+    w_j = \frac{D_j}{\sum_{k=1}^{n} D_k}
+\end{equation}
+
+This weighting scheme ensures that features with higher discriminative power have greater influence on the clustering process, enhancing the separation between legitimate and malicious transmission clusters.
+
+Table \ref{tab:feature_weights} shows the calculated feature weights for each scenario based on the discriminative power analysis.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Feature weights used in clustering algorithms across scenarios}
+    \label{tab:feature_weights}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Feature} & \textbf{Scenario A} & \textbf{Scenario B} & \textbf{Scenario C} \\
+        & \textbf{(Far)} & \textbf{(Medium)} & \textbf{(Close)} \\
+        \midrule
+        Mean & 0.20 & 0.17 & 0.17 \\
+        Variance & 0.25 & 0.29 & 0.30 \\
+        Median & 0.20 & 0.17 & 0.16 \\
+        Lower Quartile & 0.14 & 0.15 & 0.14 \\
+        Upper Quartile & 0.21 & 0.23 & 0.23 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Additional Feature Considerations}
+
+While this research focuses on statistical features derived from RSS measurements, several additional features were considered and evaluated during preliminary studies:
+
+\subsection{Interquartile Range (IQR)}
+
+The IQR, calculated as the difference between the upper and lower quartiles (Q3 - Q1), was evaluated as a potential feature. However, it was found to be highly correlated with variance and did not provide significant additional discriminative power. To avoid redundancy and maintain computational efficiency, IQR was excluded from the final feature set.
+
+\subsection{Skewness}
+
+Skewness measures the asymmetry of the probability distribution of RSS measurements. Initial analysis showed that skewness provided moderate discriminative power, particularly in Scenario A. However, its calculation is computationally intensive and its discriminative power decreased significantly in challenging scenarios. The cost-benefit analysis led to its exclusion from the final feature set.
+
+\subsection{Temporal Features}
+
+Temporal features capturing the evolution of RSS measurements across consecutive time slots (e.g., first-order differences) were explored. While these features showed promise in scenarios with predictable transmission patterns, they were sensitive to random variations in PUEA presence and did not consistently improve detection performance. Moreover, they required buffering of past measurements, increasing memory requirements. Therefore, temporal features were not included in the final implementation.
+
+\subsection{Spatial Distribution Features}
+
+Features capturing the spatial distribution of power across different regions of the network (e.g., power gradients, directional statistics) were considered. These features showed potential for enhancing detection in scenarios with specific network topologies. However, they required knowledge of SU positions and introduced significant complexity in feature extraction. For general applicability and computational efficiency, these features were not incorporated into the final methodology.
+
+The final selected feature set—mean, variance, median, lower quartile, and upper quartile—provides a good balance between discriminative power, computational efficiency, and general applicability across different scenarios. These features collectively capture the essential characteristics of RSS distributions while maintaining reasonable computational requirements suitable for practical deployment in cognitive radio networks.

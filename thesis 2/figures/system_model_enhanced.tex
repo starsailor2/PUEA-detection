@@ -1,0 +1,78 @@
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[scale=1.0]
+        % Define styles for nodes with improved aesthetics
+        \tikzstyle{pu}=[circle, draw=blue!60!black, line width=1.5pt, fill=blue!40, minimum size=1.5cm, font=\small\bfseries, drop shadow={shadow xshift=0.07cm, shadow yshift=-0.07cm, opacity=0.7, fill=black!50}]
+        \tikzstyle{puea}=[circle, draw=red!60!black, line width=1.5pt, fill=red!40, minimum size=1.5cm, font=\small\bfseries, drop shadow={shadow xshift=0.07cm, shadow yshift=-0.07cm, opacity=0.7, fill=black!50}]
+        \tikzstyle{su}=[circle, draw=green!60!black, line width=1.2pt, fill=green!30, minimum size=1cm, font=\small, drop shadow={shadow xshift=0.05cm, shadow yshift=-0.05cm, opacity=0.7, fill=black!50}]
+        \tikzstyle{su_small}=[circle, draw=green!50!black, thick, fill=green!15, minimum size=0.7cm, font=\scriptsize, drop shadow={shadow xshift=0.03cm, shadow yshift=-0.03cm, opacity=0.5, fill=black!50}]
+        
+        % Background with grid for context
+        \fill[blue!5, rounded corners=1cm] (-6,-5.5) rectangle (8,6);
+        \draw[step=1cm, black!10, thin] (-6,-5.5) grid (8,6);
+        
+        % Primary User with transmission range indicator
+        \node[pu] (pu) at (0,0) {PU};
+        \draw[blue!30, fill=blue!10, opacity=0.3] (0,0) circle (3.5cm);
+        \draw[blue!50, dashed, thick] (0,0) circle (3.5cm);
+        \node[font=\footnotesize, blue!60!black] at (0,-4) {PU's Range};
+        
+        % Primary User Emulator Attacker with transmission range
+        \node[puea] (puea) at (5,3) {PUEA};
+        \draw[red!30, fill=red!10, opacity=0.3] (5,3) circle (2.8cm);
+        \draw[red!50, dashed, thick] (5,3) circle (2.8cm);
+        \node[font=\footnotesize, red!60!black] at (5,0) {PUEA's Range};
+        
+        % Secondary Users - larger ones represent sensing nodes
+        \node[su] (su1) at (1,2) {SU$_1$};
+        \node[su] (su2) at (2,-1) {SU$_2$};
+        \node[su] (su3) at (3,1) {SU$_3$};
+        \node[su] (su4) at (4,-2) {SU$_4$};
+        
+        % Add more smaller SUs throughout the network
+        \node[su_small] at (-1,-2) {SU$_5$};
+        \node[su_small] at (-2,1) {SU$_6$};
+        \node[su_small] at (0,3) {SU$_7$};
+        \node[su_small] at (3,-3) {SU$_8$};
+        \node[su_small] at (6,1) {SU$_9$};
+        \node[su_small] at (2,2.5) {SU$_{10}$};
+        \node[su_small] at (-1.5,-0.5) {SU$_{11}$};
+        \node[su_small] at (5,-1) {SU$_{12}$};
+        
+        % Add communication links
+        \draw[->, green!50!black, thick, >=stealth] (su1) -- (pu);
+        \draw[->, green!50!black, thick, >=stealth] (su2) -- (pu);
+        \draw[->, green!50!black, thick, >=stealth] (su3) -- (puea);
+        \draw[->, green!50!black, thick, >=stealth] (su4) -- (puea);
+        
+        % Add signal waves from PU and PUEA
+        \foreach \r in {1.0, 1.5, 2.0}
+            \draw[blue!50!black, thick, decorate, decoration={snake, amplitude=0.3mm, segment length=3mm}] (0,0) circle (\r cm);
+        \foreach \r in {0.8, 1.2, 1.6}
+            \draw[red!50!black, thick, decorate, decoration={snake, amplitude=0.3mm, segment length=3mm}] (5,3) circle (\r cm);
+        
+        % Add axes and coordinates
+        \draw[->, thick] (-5,-4.5) -- (-3,-4.5) node[right] {$x$};
+        \draw[->, thick] (-5,-4.5) -- (-5,-2.5) node[above] {$y$};
+        
+        % Add legend
+        \node[draw=black!30, fill=white!90, rounded corners, thick, minimum width=7cm, minimum height=4.0cm, anchor=north west] at (-4.3,-2.5) {};
+        \node[anchor=north west, font=\small\bfseries] at (-4,-2.7) {Legend:};
+        
+        % Legend items
+        \node[pu, scale=0.6] at (-3.7,-3.2) {PU};
+        \node[anchor=west, font=\small] at (-3.2,-3.2) {Primary User};
+        
+        \node[puea, scale=0.6] at (-3.7,-4.0) {PUEA};
+        \node[anchor=west, font=\small] at (-3.2,-4.0) {Primary User Emulation Attacker};
+        
+        \node[su, scale=0.6] at (-3.7,-4.8) {SU};
+        \node[anchor=west, font=\small] at (-3.2,-4.8) {Secondary User (Sensing Node)};
+        
+        % Title
+        \node[font=\LARGE\bfseries, text=blue!60!black, anchor=north] at (1,5.5) {Cognitive Radio Network System Model};
+        
+    \end{tikzpicture}
+    \caption{System model of the cognitive radio network showing the Primary User (PU), Primary User Emulation Attacker (PUEA), and Secondary Users (SUs). The PU and PUEA transmission ranges are indicated by dashed circles. Larger SUs represent sensing nodes that actively participate in cooperative spectrum sensing and attack detection.}
+    \label{fig:system_model_enhanced}
+\end{figure}

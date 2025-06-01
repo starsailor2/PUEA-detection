@@ -1,0 +1,68 @@
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        box/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=1.2cm, align=center, fill=blue!10},
+        arrow/.style={thick,->,>=stealth},
+        processing/.style={rectangle, draw, rounded corners, minimum width=3cm, minimum height=1.2cm, align=center, fill=green!10},
+        decision/.style={diamond, draw, aspect=2, minimum width=3cm, minimum height=1.5cm, align=center, fill=orange!10},
+        cloud/.style={ellipse, draw, minimum width=3cm, minimum height=1.2cm, align=center, fill=red!10},
+        ]
+        
+        % Nodes
+        \node[box] (signal) at (0,0) {Signal Reception};
+        \node[processing] (feature) at (0,-2) {Feature Extraction};
+        \node[processing] (trad) at (0,-4) {Traditional Clustering\\(First Stage)};
+        \node[decision] (deciding) at (0,-6) {Clusters\\Detected?};
+        \node[processing] (enhanced) at (0,-8) {Enhanced Detection\\(Second Stage)};
+        \node[box] (decision) at (0,-10) {Final Classification};
+        
+        % Sub-nodes for feature extraction
+        \node[box, minimum width=2cm, minimum height=0.8cm] (stat) at (-4.5,-2) {Statistical\\Features};
+        \node[box, minimum width=2cm, minimum height=0.8cm] (cyclo) at (-1.5,-2) {Cyclic\\Features};
+        \node[box, minimum width=2cm, minimum height=0.8cm] (energy) at (1.5,-2) {Energy\\Features};
+        \node[box, minimum width=2cm, minimum height=0.8cm] (envelope) at (4.5,-2) {Envelope\\Features};
+        
+        % Sub-nodes for Traditional Clustering
+        \node[box, minimum width=2cm, minimum height=0.8cm] (dbscan) at (-3,-4) {DBSCAN};
+        \node[box, minimum width=2cm, minimum height=0.8cm] (kmeans) at (-1,-4) {K-means};
+        \node[box, minimum width=2cm, minimum height=0.8cm] (agg) at (1,-4) {Agglomerative};
+        \node[box, minimum width=2cm, minimum height=0.8cm] (spectral) at (3,-4) {Spectral};
+        
+        % Sub-nodes for Enhanced Detection
+        \node[box, minimum width=2cm, minimum height=0.8cm] (knn) at (-2,-8) {KNN within\\Clusters};
+        \node[box, minimum width=2cm, minimum height=0.8cm] (means) at (2,-8) {Means within\\Clusters};
+        
+        % Main flow arrows
+        \draw[arrow] (signal) -- (feature);
+        \draw[arrow] (feature) -- (trad);
+        \draw[arrow] (trad) -- (deciding);
+        \draw[arrow] (deciding) -- node[right] {Yes} (enhanced);
+        \draw[arrow] (enhanced) -- (decision);
+        \draw[arrow] (deciding) -- ++(4,0) -- ++(0,-4) -- node[above] {No} (decision);
+        
+        % Feature extraction connections
+        \draw[arrow] (stat) -- (feature);
+        \draw[arrow] (cyclo) -- (feature);
+        \draw[arrow] (energy) -- (feature);
+        \draw[arrow] (envelope) -- (feature);
+        
+        % Clustering connections
+        \path[arrow] (trad) -- (dbscan);
+        \path[arrow] (trad) -- (kmeans);
+        \path[arrow] (trad) -- (agg);
+        \path[arrow] (trad) -- (spectral);
+        
+        % Enhanced detection connections
+        \path[arrow] (enhanced) -- (knn);
+        \path[arrow] (enhanced) -- (means);
+        
+        % System components
+        \node[cloud, minimum width=3.5cm] at (-6,0) {Cognitive Radio\\Network};
+        \node[cloud, minimum width=3.5cm] at (6,0) {Signal Sources\\(PU/PUEA)};
+        \draw[arrow] (-4.5,0) -- (signal);
+        \draw[arrow] (4.5,0) -- (signal);
+        
+    \end{tikzpicture}
+    \caption{Overall PUEA detection framework with traditional clustering as first stage and enhanced detection as second stage}
+    \label{fig:detection_framework}
+\end{figure}

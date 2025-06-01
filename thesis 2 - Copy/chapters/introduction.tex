@@ -1,0 +1,122 @@
+\chapter{Introduction}
+
+\section{Background on Cognitive Radio Networks}
+
+Cognitive Radio Networks (CRNs) have emerged as a promising solution to address the critical challenge of spectrum scarcity in wireless communications. The fundamental concept of cognitive radio, first introduced by Mitola and Maguire \cite{mitola1999cognitive}, involves intelligent radio systems capable of dynamically accessing available spectrum bands, adapting their transmission parameters, and learning from the radio environment. This adaptive capability allows secondary users (SUs) to utilize spectrum holes or white spaces temporarily vacant by primary users (PUs), thereby significantly enhancing spectrum efficiency \cite{akyildiz2006next}.
+
+The core functionality of CRNs relies on spectrum sensing, which enables SUs to detect the presence or absence of PUs and make informed decisions about spectrum access. This cognitive capability creates a hierarchical access structure where licensed PUs have priority over opportunistic SUs. The technology has gained significant attention from regulatory bodies, industry stakeholders, and academic researchers due to its potential to revolutionize wireless communication paradigms and alleviate the growing pressure on limited spectrum resources \cite{haykin2005cognitive}.
+
+\section{Security Vulnerabilities and Challenges}
+
+Despite their promising benefits, CRNs introduce unique security vulnerabilities absent in traditional wireless networks. The dynamic nature of spectrum access and the dependency on accurate sensing create attack surfaces that malicious entities can exploit \cite{clancy2007security, wang2010security}. Among these vulnerabilities, attacks targeting the spectrum sensing mechanism are particularly concerning as they compromise the fundamental functionality of cognitive radios.
+
+Security challenges in CRNs span multiple layers of the network architecture:
+
+\begin{itemize}
+    \item \textbf{Physical Layer:} Jamming attacks, primary user emulation attacks, and spectrum sensing data falsification
+    \item \textbf{MAC Layer:} Control channel saturation, selfish behavior, and unfair resource allocation
+    \item \textbf{Network Layer:} Routing disruption, sinkhole attacks, and Sybil attacks
+    \item \textbf{Application Layer:} Malware, trust exploitation, and privacy violations
+\end{itemize}
+
+Among these security threats, the Primary User Emulation Attack (PUEA) stands out as particularly damaging because it directly targets the core principle of cognitive radio: the priority access of primary users \cite{chen2008defense}.
+
+\section{Primary User Emulation Attacks and Their Impact}
+
+In a PUEA, a malicious entity transmits signals with characteristics that mimic legitimate primary users, deceiving SUs into vacating the spectrum unnecessarily. This attack is especially concerning because:
+
+\begin{itemize}
+    \item It exploits the fundamental design principle of CRNs (PU priority)
+    \item It requires relatively low technical sophistication to execute
+    \item It can cause widespread denial of service across the network
+    \item Detection is challenging due to the inherent uncertainty in distinguishing between legitimate PU signals and sophisticated emulations
+\end{itemize}
+
+The impact of successful PUEAs includes:
+
+\begin{itemize}
+    \item \textbf{Spectrum Underutilization:} SUs abandon usable spectrum, negating the efficiency benefits of cognitive radio
+    \item \textbf{Service Disruption:} Legitimate users experience frequent disconnections and reduced quality of service
+    \item \textbf{Resource Waste:} Energy and computational resources are expended in unnecessary band switching
+    \item \textbf{Trust Degradation:} Reduced confidence in the reliability of spectrum sensing mechanisms
+\end{itemize}
+
+These consequences illustrate why developing robust PUEA detection mechanisms is critical for the practical deployment and adoption of CRN technology \cite{jin2010advanced}.
+
+\section{Research Motivation and Objectives}
+
+The motivation for this research stems from several critical observations in the current state of CRN security:
+
+\begin{itemize}
+    \item Existing PUEA detection methods often struggle with the inherent trade-off between detection accuracy and false alarm rates
+    \item Most approaches perform inconsistently across varying network conditions, particularly when the spatial separation between PUs and attackers decreases
+    \item The integration of clustering techniques with additional refinement methods remains largely unexplored
+    \item There is insufficient understanding of how feature extraction methodologies impact detection performance across different scenarios
+\end{itemize}
+
+Based on these observations, this research pursues the following objectives:
+
+\begin{enumerate}
+    \item To develop and evaluate traditional clustering-based approaches for PUEA detection across varied spatial scenarios
+    \item To propose an enhanced detection framework that applies KNN and Means algorithms within established clusters
+    \item To quantify the performance improvement offered by the enhanced approach compared to traditional clustering methods
+    \item To identify optimal algorithm combinations for different network scenarios and attacker presence levels
+    \item To provide evidence-based recommendations for practical implementation of PUEA detection in CRNs
+\end{enumerate}
+
+\section{Overview of Clustering-based Detection Methods}
+
+Clustering-based approaches offer promising solutions for PUEA detection due to their ability to:
+
+\begin{itemize}
+    \item Identify natural groupings in signal characteristics without extensive prior knowledge
+    \item Adapt to changing network conditions through unsupervised learning
+    \item Incorporate multiple features simultaneously for more robust detection
+    \item Operate with reasonable computational complexity suitable for resource-constrained devices
+\end{itemize}
+
+This research explores four traditional clustering algorithms:
+
+\begin{itemize}
+    \item \textbf{DBSCAN:} Density-Based Spatial Clustering of Applications with Noise, capable of identifying clusters of arbitrary shapes and detecting outliers
+    \item \textbf{K-means:} A partition-based algorithm that minimizes within-cluster variance
+    \item \textbf{Agglomerative Clustering:} A hierarchical approach that progressively merges similar clusters
+    \item \textbf{Spectral Clustering:} A technique that leverages eigenvalues of similarity matrices to reduce dimensionality before clustering
+\end{itemize}
+
+Building on these algorithms, the research introduces an enhanced approach that applies KNN and Means algorithms within established clusters to further refine the detection process and improve performance.
+
+\section{Contributions of this Research}
+
+This thesis makes several significant contributions to the field of CRN security:
+
+\begin{enumerate}
+    \item A comprehensive comparative analysis of traditional clustering algorithms for PUEA detection across diverse network scenarios
+    \item A novel enhanced detection framework that combines clustering with KNN/Means algorithms for improved accuracy
+    \item Detailed characterization of detection performance across varying spatial scenarios, path loss conditions, and attack intensities
+    \item Statistical validation of performance improvements and identification of optimal algorithm combinations
+    \item Mathematical formulation of feature extraction and algorithm adaptation specifically for PUEA detection
+    \item Practical guidelines for implementing effective PUEA detection in realistic CRN deployments
+\end{enumerate}
+
+\section{Thesis Organization}
+
+The remainder of this thesis is organized as follows:
+
+\textbf{Chapter 2} reviews relevant literature on CRN security, existing PUEA detection techniques, and clustering applications in wireless security.
+
+\textbf{Chapter 3} presents the system model and problem formulation, detailing the network architecture, spatial scenarios, and attack detection framework.
+
+\textbf{Chapter 4} describes the statistical feature extraction methodology used to characterize signals for attack detection.
+
+\textbf{Chapter 5} details the traditional clustering-based detection approaches, including algorithm adaptations and parameter optimization strategies.
+
+\textbf{Chapter 6} introduces the enhanced detection approach using KNN and Means algorithms within clusters, along with mathematical formulations and implementation details.
+
+\textbf{Chapter 7} outlines the experimental setup, including simulation environment, dataset generation, performance metrics, and testing methodology.
+
+\textbf{Chapter 8} presents comprehensive results and analysis across different scenarios, comparing traditional and enhanced detection approaches.
+
+\textbf{Chapter 9} discusses the implications of findings, practical considerations, and limitations of the study.
+
+\textbf{Chapter 10} concludes the thesis with a summary of contributions, key findings, and directions for future research.

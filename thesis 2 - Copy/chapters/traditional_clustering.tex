@@ -1,0 +1,393 @@
+\chapter{Traditional Clustering Based Detection}
+
+\section{Distance Matrix Calculation Using Manhattan Distance}
+
+The foundation of clustering-based PUEA detection is the quantification of similarity between feature vectors extracted from different time slots. This similarity is measured through a distance matrix that captures the pairwise distances between all feature vectors. While Euclidean distance is commonly used in clustering applications, this research employs the Manhattan distance (L1 norm) due to its robustness to outliers and computational efficiency.
+
+For any two feature vectors $Y_t$ and $Y_{t'}$ corresponding to time slots $t$ and $t'$, the Manhattan distance is calculated as:
+
+\begin{equation}
+    d_{Manhattan}(Y_t, Y_{t'}) = \sum_{j=1}^{n} |Y_{t,j}^{\text{norm}} - Y_{t',j}^{\text{norm}}|
+\end{equation}
+
+where $Y_{t,j}^{\text{norm}}$ represents the normalized value of the $j$-th feature for time slot $t$, and $n$ is the number of features.
+
+The complete distance matrix $D$ is then constructed as:
+
+\begin{equation}
+    D = \begin{bmatrix}
+        d_{1,1} & d_{1,2} & \cdots & d_{1,T} \\
+        d_{2,1} & d_{2,2} & \cdots & d_{2,T} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        d_{T,1} & d_{T,2} & \cdots & d_{T,T}
+    \end{bmatrix}
+\end{equation}
+
+where $d_{t,t'} = d_{Manhattan}(Y_t, Y_{t'})$ and $T = 100$ is the total number of time slots.
+
+This distance matrix serves as input to all clustering algorithms evaluated in this research, providing a consistent basis for comparison between different methods.
+
+\section{DBSCAN Clustering}
+
+Density-Based Spatial Clustering of Applications with Noise (DBSCAN) is a density-based clustering algorithm that groups points that are closely packed together while marking points in low-density regions as outliers. DBSCAN is particularly advantageous for PUEA detection because:
+
+\begin{itemize}
+    \item It does not require a predefined number of clusters
+    \item It can identify clusters of arbitrary shape
+    \item It has built-in outlier detection capability
+    \item It is robust to noise in the feature space
+\end{itemize}
+
+\subsection{Parameter Optimization Methodology}
+
+DBSCAN requires two critical parameters: the neighborhood radius ($\epsilon$) and the minimum number of points required to form a dense region (MinPoints). Optimal parameter selection is crucial for effective clustering and subsequent PUEA detection.
+
+\subsubsection{Epsilon Calculation Based on Maximum Distance}
+
+The $\epsilon$ parameter defines the radius within which points are considered neighbors. An adaptive approach is used to determine $\epsilon$ based on the distribution of distances in the dataset:
+
+\begin{equation}
+    \epsilon = \beta \cdot \frac{\sum_{i=1}^{T} \sum_{j=1}^{T} d_{i,j}}{T \cdot (T-1)}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $d_{i,j}$ is the Manhattan distance between feature vectors for time slots $i$ and $j$
+    \item $T$ is the total number of time slots
+    \item $\beta$ is a scaling factor determined empirically for each scenario
+\end{itemize}
+
+Through extensive experimentation, the optimal scaling factors were determined to be:
+\begin{itemize}
+    \item Scenario A (Far): $\beta = 0.65$
+    \item Scenario B (Medium): $\beta = 0.58$
+    \item Scenario C (Close): $\beta = 0.52$
+\end{itemize}
+
+The decreasing trend in scaling factors across scenarios reflects the need for tighter clustering in more challenging scenarios with closer proximity between PU and PUEA.
+
+\subsubsection{MinPoints Selection Approach}
+
+The MinPoints parameter determines the minimum cluster size and influences the algorithm's sensitivity to noise. It is set according to:
+
+\begin{equation}
+    \text{MinPoints} = \max(k, \lfloor \alpha \cdot T \rfloor)
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $k$ is a minimum threshold value (set to 5 in this study)
+    \item $\alpha$ is a fraction of the total time slots (set to 0.05)
+    \item $T$ is the total number of time slots
+\end{itemize}
+
+For the experimental setup with $T = 100$ time slots, MinPoints is calculated as $\max(5, \lfloor 0.05 \cdot 100 \rfloor) = 5$.
+
+\subsection{DBSCAN Algorithm for PUEA Detection}
+
+Algorithm \ref{alg:dbscan} presents the pseudocode for DBSCAN-based PUEA detection.
+
+\begin{algorithm}
+\caption{DBSCAN-based PUEA Detection}
+\label{alg:dbscan}
+\begin{algorithmic}[1]
+\Require Feature vectors $Y_1, Y_2, \ldots, Y_T$, parameters $\epsilon$ and MinPoints
+\Ensure Cluster assignments indicating PU or PUEA transmissions
+
+\State Calculate distance matrix $D$ using Manhattan distance
+\State Apply DBSCAN clustering with parameters $\epsilon$ and MinPoints
+\State $C \gets $ resulting cluster assignments
+\State $N_c \gets $ number of identified clusters
+
+\If{$N_c = 1$} \Comment{If only one cluster is found}
+    \For{each time slot $t$}
+        \State $C_t \gets$ "PU" \Comment{Assign all to the same class}
+    \EndFor
+\Else \Comment{Multiple clusters found}
+    \State Calculate mean feature vector $\mu_c$ for each cluster $c$
+    \State Calculate mean RSS value $\bar{R}_c$ for each cluster $c$
+    \State $c_{max} \gets \arg\max_c \bar{R}_c$ \Comment{Cluster with highest mean RSS}
+    \For{each cluster $c$}
+        \If{$c = c_{max}$}
+            \State Assign all time slots in cluster $c$ as "PUEA"
+        \Else
+            \State Assign all time slots in cluster $c$ as "PU"
+        \EndIf
+    \EndFor
+    \For{each time slot $t$ marked as noise}
+        \State Find nearest cluster $c_{nearest}$ to $Y_t$
+        \State Assign time slot $t$ to the same class as $c_{nearest}$
+    \EndFor
+\EndIf
+\end{algorithmic}
+\end{algorithm}
+
+The cluster interpretation for PUEA detection is based on the principle that the PUEA generally transmits at higher power than the legitimate PU. Therefore, the cluster with the highest mean RSS value is classified as containing PUEA transmissions, while the remaining clusters are classified as containing legitimate PU transmissions.
+
+\section{K-means Clustering}
+
+K-means is a partition-based clustering algorithm that aims to partition the observations into $k$ clusters such that each observation belongs to the cluster with the nearest mean. While simpler than DBSCAN, K-means has advantages including:
+
+\begin{itemize}
+    \item Computational efficiency
+    \item Simplicity of implementation
+    \item Ability to enforce a predefined number of clusters
+    \item Scalability to large datasets
+\end{itemize}
+
+\subsection{Initialization Strategy}
+
+K-means is sensitive to initialization of cluster centers. To mitigate this sensitivity and improve clustering quality, this research employs the K-means++ initialization strategy:
+
+\begin{enumerate}
+    \item Choose the first centroid randomly from the data points
+    \item For each remaining data point, compute the distance to the nearest existing centroid
+    \item Select the next centroid with probability proportional to the squared distance to the nearest existing centroid
+    \item Repeat steps 2-3 until $k$ centroids are selected
+\end{enumerate}
+
+This strategy ensures that initial centroids are well-separated, leading to more stable and effective clustering.
+
+\subsection{Distance-aware Modifications}
+
+Standard K-means uses Euclidean distance as the similarity measure. For consistency with other algorithms in this study, the K-means implementation is modified to use Manhattan distance:
+
+\begin{equation}
+    d(Y_t, \mu_c) = \sum_{j=1}^{n} |Y_{t,j}^{\text{norm}} - \mu_{c,j}|
+\end{equation}
+
+where $\mu_c$ is the centroid of cluster $c$.
+
+Additionally, the feature weighting scheme described in Chapter 4 is incorporated into the distance calculation:
+
+\begin{equation}
+    d_{weighted}(Y_t, \mu_c) = \sum_{j=1}^{n} w_j |Y_{t,j}^{\text{norm}} - \mu_{c,j}|
+\end{equation}
+
+where $w_j$ is the weight assigned to feature $j$ based on its discriminative power.
+
+\subsection{K-means Algorithm for PUEA Detection}
+
+Algorithm \ref{alg:kmeans} presents the pseudocode for K-means-based PUEA detection.
+
+\begin{algorithm}
+\caption{K-means-based PUEA Detection}
+\label{alg:kmeans}
+\begin{algorithmic}[1]
+\Require Feature vectors $Y_1, Y_2, \ldots, Y_T$, number of clusters $k=2$
+\Ensure Cluster assignments indicating PU or PUEA transmissions
+
+\State Initialize $k$ centroids using K-means++ strategy
+\Repeat
+    \State Assign each feature vector to the nearest centroid:
+    \State $c_t = \arg\min_{c} d_{weighted}(Y_t, \mu_c)$
+    \State Update centroids:
+    \State $\mu_c = \frac{1}{|C_c|} \sum_{t \in C_c} Y_t$
+\Until{centroids converge or maximum iterations reached}
+
+\State Calculate mean RSS value $\bar{R}_c$ for each cluster $c$
+\State $c_{max} \gets \arg\max_c \bar{R}_c$ \Comment{Cluster with highest mean RSS}
+\For{each cluster $c$}
+    \If{$c = c_{max}$}
+        \State Assign all time slots in cluster $c$ as "PUEA"
+    \Else
+        \State Assign all time slots in cluster $c$ as "PU"
+    \EndIf
+\EndFor
+
+\end{algorithmic}
+\end{algorithm}
+
+For PUEA detection, the number of clusters is set to $k=2$, corresponding to the expectation of two transmission sources (PU and PUEA). Similar to DBSCAN, the cluster with the highest mean RSS value is classified as containing PUEA transmissions.
+
+\section{Agglomerative Clustering}
+
+Agglomerative clustering is a hierarchical clustering approach that builds a hierarchy of clusters by progressively merging clusters. It starts with each data point as a separate cluster and merges the closest clusters until a stopping criterion is met. Advantages of agglomerative clustering include:
+
+\begin{itemize}
+    \item No assumption about the number of clusters (though it can be specified)
+    \item Hierarchical structure providing insights at different levels of granularity
+    \item Flexibility in defining cluster proximity through different linkage methods
+    \item No assumptions about cluster shapes
+\end{itemize}
+
+\subsection{Linkage Methods Comparison}
+
+A critical aspect of agglomerative clustering is the linkage method, which defines how the distance between clusters is computed. This research evaluates four common linkage methods:
+
+\begin{enumerate}
+    \item \textbf{Single Linkage:} Distance between clusters is the minimum distance between any member of one cluster and any member of the other cluster
+    \begin{equation}
+        d(C_i, C_j) = \min_{x \in C_i, y \in C_j} d(x, y)
+    \end{equation}
+    
+    \item \textbf{Complete Linkage:} Distance between clusters is the maximum distance between any member of one cluster and any member of the other cluster
+    \begin{equation}
+        d(C_i, C_j) = \max_{x \in C_i, y \in C_j} d(x, y)
+    \end{equation}
+    
+    \item \textbf{Average Linkage:} Distance between clusters is the average distance between all pairs of members
+    \begin{equation}
+        d(C_i, C_j) = \frac{1}{|C_i| \cdot |C_j|} \sum_{x \in C_i} \sum_{y \in C_j} d(x, y)
+    \end{equation}
+    
+    \item \textbf{Ward Linkage:} Minimizes the increase in the sum of squared distances when merging clusters
+    \begin{equation}
+        d(C_i, C_j) = \sqrt{\frac{2 |C_i| |C_j|}{|C_i| + |C_j|}} \| \mu_i - \mu_j \|_2
+    \end{equation}
+    where $\mu_i$ and $\mu_j$ are the centroids of clusters $C_i$ and $C_j$
+\end{enumerate}
+
+\subsection{Optimal Linkage Selection}
+
+Extensive experimentation across different scenarios revealed the following performance ranking of linkage methods:
+
+\begin{enumerate}
+    \item \textbf{Ward Linkage:} Consistently produced the most well-defined clusters with clear separation between PU and PUEA transmissions
+    \item \textbf{Complete Linkage:} Performed well in Scenarios A and B but struggled with close proximity in Scenario C
+    \item \textbf{Average Linkage:} Showed moderate performance across all scenarios
+    \item \textbf{Single Linkage:} Performed poorly due to chaining effects, particularly in close proximity scenarios
+\end{enumerate}
+
+Based on these results, Ward linkage was selected as the optimal method for PUEA detection across all scenarios.
+
+\subsection{Agglomerative Clustering Algorithm for PUEA Detection}
+
+Algorithm \ref{alg:agglomerative} presents the pseudocode for agglomerative clustering-based PUEA detection.
+
+\begin{algorithm}
+\caption{Agglomerative Clustering-based PUEA Detection}
+\label{alg:agglomerative}
+\begin{algorithmic}[1]
+\Require Feature vectors $Y_1, Y_2, \ldots, Y_T$, number of clusters $k=2$, linkage method
+\Ensure Cluster assignments indicating PU or PUEA transmissions
+
+\State Initialize each time slot as a separate cluster
+\While{number of clusters $> k$}
+    \State Find pair of clusters $(C_i, C_j)$ with minimum distance according to selected linkage
+    \State Merge $C_i$ and $C_j$ into a new cluster
+\EndWhile
+
+\State Calculate mean RSS value $\bar{R}_c$ for each cluster $c$
+\State $c_{max} \gets \arg\max_c \bar{R}_c$ \Comment{Cluster with highest mean RSS}
+\For{each cluster $c$}
+    \If{$c = c_{max}$}
+        \State Assign all time slots in cluster $c$ as "PUEA"
+    \Else
+        \State Assign all time slots in cluster $c$ as "PU"
+    \EndIf
+\EndFor
+
+\end{algorithmic}
+\end{algorithm}
+
+Similar to K-means, agglomerative clustering is configured to produce two clusters corresponding to PU and PUEA transmissions, and classification is based on mean RSS values.
+
+\section{Spectral Clustering}
+
+Spectral clustering leverages the eigenvalues of similarity matrices to perform dimensionality reduction before clustering. This approach has advantages for PUEA detection:
+
+\begin{itemize}
+    \item Ability to identify non-convex clusters
+    \item Robustness to noise and outliers when properly configured
+    \item Incorporation of global dataset structure
+    \item Effectiveness in revealing underlying manifold structure in the data
+\end{itemize}
+
+\subsection{Affinity Matrix Creation}
+
+Spectral clustering begins by constructing an affinity matrix that represents the similarity between data points. Given the distance matrix $D$, the affinity matrix $A$ is computed using a Gaussian kernel:
+
+\begin{equation}
+    A_{i,j} = \exp\left(-\frac{D_{i,j}^2}{2\sigma^2}\right)
+\end{equation}
+
+where $\sigma$ is a scaling parameter that controls the width of the Gaussian kernel.
+
+The value of $\sigma$ is adaptively determined based on the distribution of distances:
+
+\begin{equation}
+    \sigma = \gamma \cdot \frac{1}{T^2} \sum_{i=1}^{T} \sum_{j=1}^{T} D_{i,j}
+\end{equation}
+
+where $\gamma$ is a scaling factor determined empirically for each scenario:
+\begin{itemize}
+    \item Scenario A (Far): $\gamma = 0.28$
+    \item Scenario B (Medium): $\gamma = 0.24$
+    \item Scenario C (Close): $\gamma = 0.20$
+\end{itemize}
+
+\subsection{Implementation Details}
+
+The spectral clustering implementation follows these steps:
+
+\begin{enumerate}
+    \item Construct the affinity matrix $A$ as described above
+    \item Compute the normalized Laplacian matrix:
+    \begin{equation}
+        L = I - D^{-1/2} A D^{-1/2}
+    \end{equation}
+    where $D$ is a diagonal matrix with $D_{ii} = \sum_j A_{ij}$
+    
+    \item Compute the $k$ smallest eigenvectors of $L$
+    \item Form a matrix $X$ containing these eigenvectors as columns
+    \item Normalize each row of $X$ to have unit length
+    \item Apply K-means clustering to the rows of $X$
+\end{enumerate}
+
+\subsection{Spectral Clustering Algorithm for PUEA Detection}
+
+Algorithm \ref{alg:spectral} presents the pseudocode for spectral clustering-based PUEA detection.
+
+\begin{algorithm}
+\caption{Spectral Clustering-based PUEA Detection}
+\label{alg:spectral}
+\begin{algorithmic}[1]
+\Require Feature vectors $Y_1, Y_2, \ldots, Y_T$, number of clusters $k=2$
+\Ensure Cluster assignments indicating PU or PUEA transmissions
+
+\State Calculate distance matrix $D$ using Manhattan distance
+\State Construct affinity matrix $A$ with $A_{i,j} = \exp\left(-\frac{D_{i,j}^2}{2\sigma^2}\right)$
+\State Construct diagonal matrix $\hat{D}$ with $\hat{D}_{ii} = \sum_j A_{ij}$
+\State Calculate normalized Laplacian $L = I - \hat{D}^{-1/2} A \hat{D}^{-1/2}$
+\State Compute the $k$ smallest eigenvectors of $L$ and form matrix $X$
+\State Normalize each row of $X$ to have unit length
+\State Apply K-means to the rows of $X$ to obtain cluster assignments
+
+\State Calculate mean RSS value $\bar{R}_c$ for each cluster $c$
+\State $c_{max} \gets \arg\max_c \bar{R}_c$ \Comment{Cluster with highest mean RSS}
+\For{each cluster $c$}
+    \If{$c = c_{max}$}
+        \State Assign all time slots in cluster $c$ as "PUEA"
+    \Else
+        \State Assign all time slots in cluster $c$ as "PU"
+    \EndIf
+\EndFor
+
+\end{algorithmic}
+\end{algorithm}
+
+As with the other algorithms, the cluster with the highest mean RSS value is classified as containing PUEA transmissions.
+
+\section{Cluster Interpretation for Attack Detection}
+
+The core principle for interpreting clustering results for PUEA detection is based on the power differential between legitimate PUs and attackers. Since the PUEA typically transmits at higher power (35 dBm compared to 15 dBm for the PU), the cluster with the highest mean RSS value is classified as containing PUEA transmissions.
+
+This interpretation strategy is applied consistently across all clustering algorithms to ensure fair comparison. The classification process follows these steps:
+
+\begin{enumerate}
+    \item Calculate the mean RSS value for each identified cluster
+    \item Determine the cluster with the maximum mean RSS value
+    \item Classify time slots in this cluster as containing PUEA transmissions
+    \item Classify time slots in all other clusters as containing legitimate PU transmissions
+\end{enumerate}
+
+In cases where clustering fails to produce multiple clusters (e.g., when all points are assigned to a single cluster or when all points are classified as noise), a fallback strategy is employed:
+
+\begin{itemize}
+    \item If all points form a single cluster, compare the cluster's mean RSS to a predefined threshold based on the expected PU signal strength
+    \item If a significant portion of points are classified as noise (more than 50\%), apply a secondary clustering with relaxed parameters
+    \item If clustering still fails to produce meaningful results, default to a conservative approach and classify all time slots as containing legitimate PU transmissions to minimize false alarms
+\end{itemize}
+
+The interpretation strategy is validated through comparison with ground truth labels available in the experimental setup, allowing for comprehensive performance evaluation of each clustering algorithm.

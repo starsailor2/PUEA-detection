@@ -1,0 +1,353 @@
+\documentclass[12pt,a4paper,twoside]{report}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{subcaption}
+\usepackage[font=small,labelfont=bf,format=hang]{caption}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{siunitx}
+\usepackage[numbers,square,sort&compress]{natbib}
+\usepackage[printonlyused,withpage]{acronym}
+\usepackage{listings}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{textcomp}
+\usepackage{setspace}
+\usepackage{enumitem}
+
+% TikZ libraries
+\usetikzlibrary{arrows,shapes,positioning,shadows,trees,calc,decorations.pathmorphing,patterns}
+
+% Mathematical notation styling
+\newcommand{\vectorsym}[1]{\boldsymbol{#1}}
+\newcommand{\matrixsym}[1]{\mathbf{#1}}
+\newcommand{\variable}[1]{\textcolor{variablecolor}{#1}}
+\newcommand{\parameter}[1]{\textcolor{parametercolor}{#1}}
+\newcommand{\vector}[1]{\textcolor{vectorcolor}{\vectorsym{#1}}}
+\newcommand{\matrix}[1]{\textcolor{matrixcolor}{\matrixsym{#1}}}
+\newcommand{\formula}[1]{\textcolor{formulacolor}{#1}}
+
+% Redefine math operators for consistency
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+
+% Enhanced equation display
+\newcommand{\eqnfboxed}[1]{\begin{tcolorbox}[enhanced, colback=blue!5, colframe=blue!75!black, 
+arc=0pt, outer arc=0pt, boxrule=1pt, left=5pt, right=5pt, top=6pt, bottom=6pt]
+#1
+\end{tcolorbox}}
+
+% Page layout
+\geometry{
+    a4paper,
+    top=25mm,
+    bottom=25mm,
+    left=30mm,
+    right=20mm
+}
+
+% Colors
+\definecolor{linkcolor}{RGB}{0,0,180}
+\definecolor{citecolor}{RGB}{0,90,0}
+\definecolor{urlcolor}{RGB}{0,90,90}
+\definecolor{chaptercolor}{RGB}{0,60,110}
+\definecolor{formulacolor}{RGB}{70,30,100}
+\definecolor{variablecolor}{RGB}{0,20,120}
+\definecolor{parametercolor}{RGB}{180,50,50}
+\definecolor{vectorcolor}{RGB}{0,100,0}
+\definecolor{matrixcolor}{RGB}{120,60,0}
+\definecolor{sectioncolor}{RGB}{0,90,120}
+
+% Formatting for chapter and section titles
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{chaptercolor}}
+  {}
+  {0pt}
+  {\begin{tikzpicture}
+    \draw[line width=1.5pt, color=chaptercolor] (0,0.25) -- (15,0.25);
+    \node[right] at (0,0) {\chaptertitlename\ \thechapter};
+    \draw[line width=1.5pt, color=chaptercolor] (0,-0.75) -- (15,-0.75);
+    \node[right, font=\Huge] at (0,-2.25) {\color{chaptercolor}#1};
+   \end{tikzpicture}}
+\titlespacing*{\chapter}{0pt}{50pt}{60pt}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{sectioncolor}}
+  {\thesection}
+  {1em}
+  {\begin{tikzpicture}
+    \draw[line width=0.8pt, color=sectioncolor] (0,-0.3) -- (15,-0.3);
+    \node[text width=15cm] at (7.5,0) {\centering\Large\bfseries\color{sectioncolor}#1};
+   \end{tikzpicture}}
+\titlespacing*{\section}{0pt}{4.5ex plus 1ex minus .2ex}{3.3ex plus .2ex}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {\thesubsection}
+  {1em}
+  {#1}
+\titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+% Set spacing
+\onehalfspacing
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{1.5em}
+
+% Better list formatting
+\setlist{noitemsep, topsep=6pt, parsep=0pt, partopsep=0pt}
+
+% Figure and table formatting
+\captionsetup[figure]{font=small,labelfont={bf,sf},format=hang,justification=centering,margin=10pt}
+\captionsetup[table]{font=small,labelfont={bf,sf},format=hang,justification=centering,margin=10pt}
+
+% Custom table style
+\definecolor{tableheadcolor}{RGB}{230,240,255}
+\definecolor{tablerowcolor}{RGB}{245,250,255}
+
+% Command for creating beautiful tables
+\newcommand{\beautifultable}[1]{%
+    \arrayrulecolor{chaptercolor}%
+    \renewcommand{\arraystretch}{1.4}%
+    \setlength{\tabcolsep}{12pt}%
+    #1%
+}
+
+% Define custom theorem environments
+\newtheoremstyle{mytheoremstyle}
+  {12pt}   % Space above
+  {12pt}   % Space below
+  {\itshape}  % Body font
+  {}       % Indent amount
+  {\bfseries\sffamily} % Theorem head font
+  {.}      % Punctuation after theorem head
+  {.5em}   % Space after theorem head
+  {}       % Theorem head spec
+
+\theoremstyle{mytheoremstyle}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{Assumption}
+
+% Custom algorithm style
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+\algrenewcommand\algorithmiccomment[1]{\hfill\textcolor{gray!80}{// #1}}
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkcolor,
+    citecolor=citecolor,
+    urlcolor=urlcolor,
+    bookmarks=true,
+    bookmarksnumbered=true,
+    breaklinks=true,
+    pdftitle={Primary User Emulation Attack Detection in Cognitive Radio Networks},
+    pdfauthor={Thesis Author},
+    pdfsubject={Cognitive Radio Security},
+    pdfkeywords={Cognitive Radio Networks, PUEA, Security, Clustering}
+}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\textit{\leftmark}}
+\fancyhead[LO]{\textit{\rightmark}}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.3pt}
+\fancyfoot[C]{\textit{Primary User Emulation Attack Detection in Cognitive Radio Networks}}
+
+% Define a special style for chapter pages
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyfoot[C]{\textit{Primary User Emulation Attack Detection in Cognitive Radio Networks}}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0.3pt}
+  \fancyfoot[R]{\thepage}
+}
+
+% Title information
+\title{Optimized Primary User Emulation Attack Detection in Cognitive Radio Networks: A Comparative Analysis of Traditional Clustering and Enhanced Detection Methods}
+\author{Your Full Name}
+\date{\today}
+
+% Begin document
+\begin{document}
+
+% Front matter
+\frontmatter
+
+%% Title Page
+\begin{titlepage}
+    \begin{center}
+        \vspace*{0.5cm}
+        
+        % Decorative line
+        \begin{tikzpicture}
+            \draw[line width=2pt, color=chaptercolor] (0,0) -- (15,0);
+        \end{tikzpicture}
+        
+        \vspace{1cm}
+        
+        \Huge
+        \textcolor{chaptercolor}{\textbf{Optimized Primary User}}\\[0.3cm]
+        \Huge
+        \textcolor{chaptercolor}{\textbf{Emulation Attack Detection}}\\[0.3cm]
+        \Huge
+        \textcolor{chaptercolor}{\textbf{in Cognitive Radio Networks}}
+        
+        \vspace{0.5cm}
+        
+        \Large
+        A Comparative Analysis of Traditional Clustering\\
+        and Enhanced Detection Methods
+        
+        \vspace{1.5cm}
+        
+        \begin{tikzpicture}
+            \draw[line width=1pt, color=sectioncolor] (0,0) -- (10,0);
+        \end{tikzpicture}
+        
+        \vspace{1cm}
+        
+        \Large
+        A thesis submitted in partial fulfillment\\
+        of the requirements for the degree of\\
+        \textbf{[Your Degree, e.g., Master of Science in Computer Engineering]}
+        
+        \vspace{1.5cm}
+        
+        \Large
+        By:\\
+        \textbf{[Your Full Name]}
+        
+        \vfill
+        
+        % If you have a logo, uncomment this and replace with your university logo
+        % \includegraphics[width=0.3\textwidth]{university_logo.png}
+        
+        \Large
+        Department of [Your Department]\\
+        Faculty of [Your Faculty]\\
+        [Your University]\\
+        [University City, Country]
+        
+        \vspace{0.8cm}
+        
+        \Large
+        [Month, Year]
+        
+        \vspace{0.5cm}
+        
+        % Bottom decorative line
+        \begin{tikzpicture}
+            \draw[line width=2pt, color=chaptercolor] (0,0) -- (15,0);
+        \end{tikzpicture}
+        
+    \end{center}
+\end{titlepage}
+
+%% Abstract
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+Cognitive Radio Networks (CRNs) represent a significant advancement in wireless communication, enabling dynamic spectrum access and efficient resource utilization. However, these networks face critical security vulnerabilities, particularly Primary User Emulation Attacks (PUEA) where malicious entities mimic primary user signals to disrupt legitimate spectrum access. This thesis addresses the critical challenge of accurately detecting PUEAs in CRNs through innovative clustering-based methodologies.
+
+The research presents a comprehensive comparative analysis between traditional clustering algorithms (DBSCAN, K-means, Agglomerative, and Spectral clustering) and an enhanced approach that applies K-Nearest Neighbors (KNN) and Means algorithms within established clusters. This novel two-stage detection methodology significantly improves detection accuracy by refining cluster-based outlier identification. The study evaluates these approaches across three distinct spatial scenarios with varying distances between primary users and attackers (84.85, 42.43, and 21.21 units), under different path loss exponents (2-6), shadowing values (4-12), and varying attacker presence percentages (10\%-50\%).
+
+Experimental results demonstrate that the enhanced detection approach consistently outperforms traditional clustering methods, particularly in challenging scenarios with close proximity between legitimate users and attackers. Statistical significance tests confirm the substantial improvements in detection rates, false alarm rates, and overall accuracy. The research shows that applying KNN within clusters yields optimal results in most scenarios, with performance improvements of up to 18\% in detection accuracy and 22\% reduction in false alarms compared to the best-performing traditional clustering method.
+
+This thesis contributes valuable insights into PUEA detection optimization and provides practical recommendations for implementing robust security measures in cognitive radio networks. The findings emphasize the importance of context-aware detection methods that can adapt to varying network conditions and threat levels, paving the way for more secure and reliable cognitive radio deployments.
+
+\vspace{1cm}
+\noindent\textbf{Keywords:} Cognitive Radio Networks, Security, Primary User Emulation Attack, Clustering Algorithms, K-Nearest Neighbors, Detection Performance, Wireless Security
+
+%% Acknowledgments
+\chapter*{Acknowledgments}
+\addcontentsline{toc}{chapter}{Acknowledgments}
+
+I would like to express my sincere gratitude to my advisor, [Professor Name], for their invaluable guidance, support, and encouragement throughout this research journey. Their expertise in wireless communication security and machine learning has been instrumental in shaping this thesis.
+
+I am deeply thankful to the members of my thesis committee, [Committee Member Names], for their constructive feedback and insights that significantly improved the quality of this work.
+
+Special thanks to my colleagues in the [Research Lab/Group Name] for the stimulating discussions, technical assistance, and collaborative environment that fostered creativity and innovation.
+
+I am grateful to [University Name] for providing the necessary resources, facilities, and financial support that made this research possible.
+
+I extend my appreciation to [Any Specific Individuals or Organizations] who contributed to this work through technical discussions, dataset provision, or review of preliminary results.
+
+Finally, I would like to express my heartfelt gratitude to my family and friends for their unwavering support, patience, and encouragement throughout my academic pursuits. Their belief in me has been a constant source of motivation.
+
+[Your Name]\\
+[Date]
+
+%% List of Acronyms
+\chapter*{List of Acronyms}
+\addcontentsline{toc}{chapter}{List of Acronyms}
+
+\begin{acronym}[DBSCAN] % Width of the acronym column based on longest acronym
+    \acro{ARI}{Adjusted Rand Index}
+    \acro{CR}{Cognitive Radio}
+    \acro{CRN}{Cognitive Radio Network}
+    \acro{DBSCAN}{Density-Based Spatial Clustering of Applications with Noise}
+    \acro{DSA}{Dynamic Spectrum Access}
+    \acro{KNN}{K-Nearest Neighbors}
+    \acro{MAC}{Medium Access Control}
+    \acro{MPKC}{Mean-based Probability of K Closest}
+    \acro{PU}{Primary User}
+    \acro{PUEA}{Primary User Emulation Attack}
+    \acro{RF}{Radio Frequency}
+    \acro{ROC}{Receiver Operating Characteristic}
+    \acro{RSS}{Received Signal Strength}
+    \acro{SU}{Secondary User}
+    \acro{SNR}{Signal-to-Noise Ratio}
+\end{acronym}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+% Main matter
+\mainmatter
+
+\input{content_part1.tex}
+\input{content_part2.tex}
+\input{content_part3.tex}
+\input{content_part4.tex}
+
+% Back matter
+\backmatter
+\bibliographystyle{abbrvnat}
+\bibliography{references}
+\appendix
+\input{appendix.tex}
+
+\end{document}

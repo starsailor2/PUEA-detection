@@ -1,0 +1,413 @@
+% =============================================================================
+% CONTENT PART 2: CHAPTERS 3-4
+% =============================================================================
+
+% =============================================================================
+% CHAPTER 3: SYSTEM MODEL AND PROBLEM FORMULATION
+% =============================================================================
+\chapter{System Model and Problem Formulation}
+
+\section{Network Architecture}
+The cognitive radio network considered in this research consists of multiple secondary users operating in a geographical region where primary users have licensed spectrum access rights. The network architecture incorporates both infrastructure-based and ad-hoc elements to provide flexibility in deployment scenarios.
+
+\subsection{Network Components}
+The network architecture comprises the following key components:
+
+\begin{enumerate}
+\item \textbf{Primary Users (PUs):} Licensed spectrum holders with priority access rights
+\item \textbf{Secondary Users (SUs):} Cognitive radio devices seeking opportunistic spectrum access
+\item \textbf{Primary User Emulation Attackers (PUEAs):} Malicious entities mimicking primary user characteristics
+\item \textbf{Spectrum Sensing Infrastructure:} Distributed sensing nodes for signal detection and measurement
+\item \textbf{Central Processing Unit:} Coordination node for decision making and attack detection
+\end{enumerate}
+
+\subsection{Network Topology}
+The network topology is characterized by:
+\begin{itemize}
+\item Heterogeneous node distribution with varying sensing capabilities
+\item Dynamic spectrum access patterns based on primary user activity
+\item Cooperative sensing protocols for improved detection reliability
+\item Distributed decision-making with centralized coordination for attack detection
+\end{itemize}
+
+% [Placeholder for embedded figure]
+% Figure 3.1: Network architecture diagram showing PUs, SUs, PUEAs, and sensing infrastructure
+
+\subsection{Communication Protocols}
+The cognitive radio network implements a hierarchical communication protocol stack:
+
+\begin{description}
+\item[Physical Layer:] Adaptive modulation and coding, spectrum sensing capabilities
+\item[MAC Layer:] Dynamic spectrum access protocols, cooperative sensing coordination
+\item[Network Layer:] Routing protocols adapted for dynamic spectrum availability
+\item[Application Layer:] QoS-aware applications with spectrum handoff tolerance
+\end{description}
+
+\section{Signal Propagation Model}
+Accurate modeling of signal propagation is essential for realistic PUEA detection algorithm evaluation. The propagation model incorporates multiple physical phenomena that affect signal characteristics in wireless environments.
+
+\subsection{Path Loss Model}
+The large-scale path loss is modeled using the log-distance propagation model:
+
+\begin{equation}
+PL(d) = PL(d_0) + 10n \log_{10}\left(\frac{d}{d_0}\right) + X_\sigma
+\end{equation}
+
+where:
+\begin{itemize}
+\item $PL(d)$ is the path loss at distance $d$
+\item $PL(d_0)$ is the path loss at reference distance $d_0$
+\item $n$ is the path loss exponent
+\item $X_\sigma$ is a zero-mean Gaussian random variable with standard deviation $\sigma$
+\end{itemize}
+
+\subsection{Small-scale Fading}
+Small-scale fading effects are modeled using Rayleigh fading for non-line-of-sight scenarios:
+
+\begin{equation}
+|h|^2 \sim \text{Exponential}(\lambda)
+\end{equation}
+
+where $h$ represents the complex channel coefficient and $\lambda$ is the rate parameter.
+
+\subsection{Shadowing Effects}
+Log-normal shadowing accounts for obstacles and environmental variations:
+
+\begin{equation}
+S_{dB} \sim \mathcal{N}(0, \sigma_s^2)
+\end{equation}
+
+where $S_{dB}$ is the shadowing component in decibels and $\sigma_s$ is the shadowing standard deviation.
+
+\subsection{Received Signal Power}
+The received signal power at a cognitive radio node is given by:
+
+\begin{equation}
+P_r = P_t - PL(d) - S_{dB} + |h|^2_{dB} + n(t)
+\end{equation}
+
+where:
+\begin{itemize}
+\item $P_t$ is the transmitted power
+\item $n(t)$ is additive white Gaussian noise
+\end{itemize}
+
+\section{Attacker Model and Capabilities}
+The attacker model defines the capabilities and constraints of primary user emulation attackers, providing a framework for evaluating detection algorithm performance against realistic attack scenarios.
+
+\subsection{Attacker Types}
+Two primary attacker types are considered:
+
+\begin{description}
+\item[Type I - Selfish Attackers:] Motivated by personal spectrum access gains, these attackers aim to maximize their own spectrum utilization by forcing legitimate secondary users to vacate spectrum bands.
+
+\item[Type II - Malicious Attackers:] Motivated by network disruption, these attackers seek to degrade overall network performance without necessarily benefiting from spectrum access.
+\end{description}
+
+\subsection{Attacker Capabilities}
+The attacker capabilities include:
+
+\begin{enumerate}
+\item \textbf{Signal Generation:} Ability to generate signals with characteristics similar to legitimate primary users
+\item \textbf{Power Control:} Capability to adjust transmission power to mimic primary user signal strength
+\item \textbf{Location Flexibility:} Mobility to transmit from various geographical positions
+\item \textbf{Timing Control:} Ability to coordinate attack timing with network conditions
+\item \textbf{Limited Information:} Partial knowledge of primary user signal characteristics and network protocols
+\end{enumerate}
+
+\subsection{Attacker Constraints}
+Realistic attacker constraints include:
+
+\begin{itemize}
+\item Imperfect knowledge of legitimate primary user signal characteristics
+\item Limited ability to replicate complex signal features (e.g., cyclostationary properties)
+\item Hardware limitations affecting signal generation fidelity
+\item Energy and computational resource constraints
+\item Potential for detection and countermeasures
+\end{itemize}
+
+\subsection{Attack Scenarios}
+Multiple attack scenarios are considered:
+
+\begin{description}
+\item[Single Attacker:] One PUEA operating in the network
+\item[Multiple Attackers:] Coordinated or independent multiple PUEAs
+\item[Adaptive Attackers:] PUEAs that modify behavior based on detection attempts
+\item[Power-varying Attackers:] PUEAs with dynamic power control capabilities
+\end{description}
+
+\section{Problem Formulation}
+The primary user emulation attack detection problem is formulated as a binary classification challenge within an unsupervised learning framework.
+
+\subsection{Problem Statement}
+Given a set of signal measurements from cognitive radio nodes, the objective is to distinguish between legitimate primary user transmissions and primary user emulation attacks without prior labeled training data.
+
+Let $\mathcal{X} = \{x_1, x_2, \ldots, x_N\}$ represent the set of feature vectors extracted from signal measurements, where each $x_i \in \mathbb{R}^d$ represents a $d$-dimensional feature vector. The goal is to partition $\mathcal{X}$ into two subsets:
+\begin{itemize}
+\item $\mathcal{X}_{PU}$: Feature vectors corresponding to legitimate primary user transmissions
+\item $\mathcal{X}_{PUEA}$: Feature vectors corresponding to primary user emulation attacks
+\end{itemize}
+
+\subsection{Mathematical Formulation}
+The detection problem can be formulated as an optimization problem:
+
+\begin{align}
+\min_{C_1, C_2} &\quad J(C_1, C_2) \\
+\text{subject to} &\quad C_1 \cup C_2 = \mathcal{X} \\
+&\quad C_1 \cap C_2 = \emptyset
+\end{align}
+
+where $C_1$ and $C_2$ represent the two clusters corresponding to legitimate PU and PUEA transmissions, respectively, and $J(C_1, C_2)$ is an objective function that measures cluster quality.
+
+\subsection{Performance Metrics}
+The detection performance is evaluated using standard binary classification metrics:
+
+\begin{description}
+\item[Detection Probability:] $P_d = \frac{\text{True Positives}}{\text{True Positives} + \text{False Negatives}}$
+
+\item[False Alarm Probability:] $P_f = \frac{\text{False Positives}}{\text{False Positives} + \text{True Negatives}}$
+
+\item[Accuracy:] $Acc = \frac{\text{True Positives} + \text{True Negatives}}{\text{Total Samples}}$
+
+\item[F1-Score:] $F1 = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$
+\end{description}
+
+\subsection{Design Objectives}
+The detection algorithm design objectives include:
+\begin{enumerate}
+\item Maximize detection probability while minimizing false alarm probability
+\item Maintain robust performance across varying channel conditions
+\item Ensure computational efficiency for real-time implementation
+\item Provide adaptability to evolving attack strategies
+\end{enumerate}
+
+% =============================================================================
+% CHAPTER 4: STATISTICAL FEATURE EXTRACTION METHODOLOGY
+% =============================================================================
+\chapter{Statistical Feature Extraction Methodology}
+
+\section{Power Measurement Collection Process}
+The foundation of effective PUEA detection lies in the systematic collection and processing of power measurements from distributed cognitive radio nodes. The measurement collection process is designed to capture the essential characteristics that distinguish legitimate primary user transmissions from emulation attacks.
+
+\subsection{Measurement Infrastructure}
+The measurement infrastructure consists of:
+
+\begin{enumerate}
+\item \textbf{Distributed Sensing Nodes:} Multiple cognitive radio devices equipped with wideband sensing capabilities
+\item \textbf{Synchronized Measurement:} Time-synchronized measurement collection across all sensing nodes
+\item \textbf{Multi-frequency Monitoring:} Simultaneous monitoring of multiple frequency bands
+\item \textbf{Data Aggregation:} Centralized collection and preprocessing of measurement data
+\end{enumerate}
+
+\subsection{Measurement Parameters}
+Key measurement parameters include:
+\begin{itemize}
+\item \textbf{Sampling Rate:} Sufficient to capture signal dynamics (typically $f_s \geq 2B$ where $B$ is the signal bandwidth)
+\item \textbf{Measurement Duration:} Long enough to capture statistical characteristics (typically 1-10 seconds)
+\item \textbf{Frequency Resolution:} Adequate for distinguishing between adjacent channels
+\item \textbf{Dynamic Range:} Sufficient to handle signal power variations due to fading and path loss
+\end{itemize}
+
+\subsection{Data Preprocessing}
+Raw measurement data undergoes several preprocessing steps:
+
+\begin{enumerate}
+\item \textbf{Noise Floor Estimation:} Background noise characterization and removal
+\item \textbf{Calibration:} Compensation for hardware-specific measurement biases
+\item \textbf{Synchronization:} Temporal alignment of measurements from multiple nodes
+\item \textbf{Outlier Removal:} Identification and removal of measurement anomalies
+\end{enumerate}
+
+\section{Feature Extraction Function Details}
+The feature extraction process transforms raw power measurements into meaningful descriptors that capture the essential differences between legitimate primary users and attackers.
+
+\subsection{Statistical Feature Categories}
+Four main categories of statistical features are extracted:
+
+\subsubsection{Central Tendency Features}
+These features characterize the typical values of power measurements:
+
+\begin{description}
+\item[Arithmetic Mean:] $\mu = \frac{1}{N} \sum_{i=1}^{N} p_i$
+\item[Geometric Mean:] $\mu_g = \left(\prod_{i=1}^{N} p_i\right)^{1/N}$
+\item[Harmonic Mean:] $\mu_h = \frac{N}{\sum_{i=1}^{N} \frac{1}{p_i}}$
+\item[Median:] The middle value when measurements are sorted in ascending order
+\item[Mode:] The most frequently occurring value in discretized measurements
+\end{description}
+
+\subsubsection{Dispersion Features}
+These features quantify the spread or variability of power measurements:
+
+\begin{description}
+\item[Variance:] $\sigma^2 = \frac{1}{N-1} \sum_{i=1}^{N} (p_i - \mu)^2$
+\item[Standard Deviation:] $\sigma = \sqrt{\sigma^2}$
+\item[Range:] $R = p_{\max} - p_{\min}$
+\item[Interquartile Range:] $IQR = Q_3 - Q_1$
+\item[Coefficient of Variation:] $CV = \frac{\sigma}{\mu}$
+\end{description}
+
+\subsubsection{Shape Features}
+These features describe the distributional shape of power measurements:
+
+\begin{description}
+\item[Skewness:] $\gamma_1 = \frac{\frac{1}{N} \sum_{i=1}^{N} (p_i - \mu)^3}{\sigma^3}$
+\item[Kurtosis:] $\gamma_2 = \frac{\frac{1}{N} \sum_{i=1}^{N} (p_i - \mu)^4}{\sigma^4} - 3$
+\item[Entropy:] $H = -\sum_{i=1}^{K} p(b_i) \log_2 p(b_i)$ where $p(b_i)$ is the probability of bin $i$
+\end{description}
+
+\subsubsection{Temporal Features}
+These features capture the time-varying characteristics of power measurements:
+
+\begin{description}
+\item[Autocorrelation:] $R_{xx}(\tau) = \frac{1}{N-\tau} \sum_{i=1}^{N-\tau} x_i x_{i+\tau}$
+\item[Power Spectral Density:] Frequency domain representation of temporal variations
+\item[Zero Crossing Rate:] Frequency of signal transitions across the mean value
+\item[Peak-to-Average Ratio:] $PAR = \frac{p_{\max}}{\mu}$
+\end{description}
+
+\subsection{Multi-dimensional Feature Construction}
+Advanced features are constructed by combining basic statistical measures:
+
+\begin{enumerate}
+\item \textbf{Moment Ratios:} Combinations of statistical moments for enhanced discrimination
+\item \textbf{Cross-correlation Features:} Correlations between measurements from different nodes
+\item \textbf{Temporal Gradients:} Rates of change in statistical measures over time
+\item \textbf{Spectral Features:} Frequency domain characteristics of power measurements
+\end{enumerate}
+
+\section{Feature Analysis and Selection}
+Not all extracted features contribute equally to PUEA detection performance. Feature analysis and selection processes identify the most discriminative features while reducing computational complexity.
+
+\subsection{Feature Importance Assessment}
+Several methods are employed to assess feature importance:
+
+\subsubsection{Statistical Significance Testing}
+Statistical tests determine whether features show significant differences between PU and PUEA classes:
+\begin{itemize}
+\item Student's t-test for normally distributed features
+\item Mann-Whitney U test for non-parametric comparisons
+\item Kolmogorov-Smirnov test for distribution differences
+\end{itemize}
+
+\subsubsection{Information-theoretic Measures}
+Information-theoretic measures quantify the discriminative power of features:
+\begin{description}
+\item[Mutual Information:] $I(X;Y) = \sum_{x,y} p(x,y) \log \frac{p(x,y)}{p(x)p(y)}$
+\item[Information Gain:] Reduction in entropy achieved by feature-based partitioning
+\item[Gini Impurity:] Measure of feature-based class separation capability
+\end{description}
+
+\subsubsection{Clustering-based Assessment}
+Since the primary application involves clustering algorithms, feature importance is also assessed based on clustering performance:
+\begin{itemize}
+\item Silhouette coefficient for cluster quality assessment
+\item Calinski-Harabasz index for cluster separation evaluation
+\item Davies-Bouldin index for within-cluster compactness assessment
+\end{itemize}
+
+\subsection{Feature Selection Strategies}
+Multiple feature selection strategies are implemented:
+
+\subsubsection{Filter Methods}
+Filter methods select features based on intrinsic characteristics:
+\begin{itemize}
+\item Correlation-based feature selection
+\item Chi-square test for categorical features
+\item Analysis of variance (ANOVA) for continuous features
+\end{itemize}
+
+\subsubsection{Wrapper Methods}
+Wrapper methods use clustering algorithm performance to guide feature selection:
+\begin{itemize}
+\item Forward selection: Iteratively adding best features
+\item Backward elimination: Iteratively removing worst features
+\item Bidirectional search: Combination of forward and backward approaches
+\end{itemize}
+
+\subsubsection{Embedded Methods}
+Embedded methods integrate feature selection within the clustering algorithm:
+\begin{itemize}
+\item L1-regularized clustering for automatic feature selection
+\item Feature weighting within distance calculations
+\item Adaptive feature importance during clustering iterations
+\end{itemize}
+
+\section{Feature Normalization}
+Feature normalization is crucial for clustering algorithms that rely on distance calculations, as features with different scales can dominate the clustering process.
+
+\subsection{Normalization Techniques}
+Several normalization techniques are evaluated:
+
+\subsubsection{Min-Max Normalization}
+Scales features to a fixed range [0,1]:
+\begin{equation}
+x_{norm} = \frac{x - x_{min}}{x_{max} - x_{min}}
+\end{equation}
+
+\subsubsection{Z-Score Normalization}
+Standardizes features to have zero mean and unit variance:
+\begin{equation}
+x_{norm} = \frac{x - \mu}{\sigma}
+\end{equation}
+
+\subsubsection{Robust Normalization}
+Uses median and interquartile range for robustness to outliers:
+\begin{equation}
+x_{norm} = \frac{x - \text{median}(x)}{IQR(x)}
+\end{equation}
+
+\subsubsection{Unit Vector Normalization}
+Normalizes feature vectors to unit length:
+\begin{equation}
+\vect{x}_{norm} = \frac{\vect{x}}{||\vect{x}||_2}
+\end{equation}
+
+\subsection{Normalization Strategy Selection}
+The choice of normalization technique depends on:
+\begin{itemize}
+\item Feature distribution characteristics (normal vs. skewed)
+\item Presence of outliers in the data
+\item Clustering algorithm requirements
+\item Computational efficiency considerations
+\end{itemize}
+
+\subsection{Dynamic Normalization}
+For real-time applications, dynamic normalization strategies are developed:
+\begin{itemize}
+\item Running statistics maintenance for online normalization
+\item Adaptive normalization parameters based on recent measurements
+\item Robust updating mechanisms resistant to attack-induced anomalies
+\end{itemize}
+
+\section{Feature Vector Construction}
+The final step in feature extraction involves constructing comprehensive feature vectors that effectively represent the characteristics of each transmission for clustering analysis.
+
+\subsection{Feature Vector Composition}
+The feature vector for each measurement instance is constructed as:
+\begin{equation}
+\vect{x} = [f_1, f_2, \ldots, f_d]^T
+\end{equation}
+
+where each $f_i$ represents a normalized feature value and $d$ is the total number of selected features.
+
+\subsection{Dimensionality Considerations}
+The dimensionality of feature vectors affects clustering performance:
+\begin{itemize}
+\item \textbf{Low Dimensionality:} May lack discriminative power
+\item \textbf{High Dimensionality:} Subject to curse of dimensionality
+\item \textbf{Optimal Dimensionality:} Balance between discrimination and computational efficiency
+\end{itemize}
+
+\subsection{Feature Vector Validation}
+Feature vectors are validated through:
+\begin{enumerate}
+\item Statistical analysis of feature distributions
+\item Correlation analysis to identify redundant features
+\item Clustering performance evaluation with different feature combinations
+\item Robustness testing under various attack scenarios
+\end{enumerate}
+
+% [Placeholder for embedded figures]
+% Figure 4.1: Feature extraction pipeline flowchart
+% Figure 4.2: Statistical feature importance analysis
+% Figure 4.3: Feature normalization impact comparison

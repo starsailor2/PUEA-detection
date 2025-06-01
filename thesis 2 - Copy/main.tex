@@ -1,0 +1,104 @@
+\documentclass[12pt,a4paper,twoside]{report}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{siunitx}
+\usepackage{natbib}
+\usepackage{acronym}
+\usepackage{listings}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+
+% Page layout
+\geometry{
+    a4paper,
+    top=25mm,
+    bottom=25mm,
+    left=30mm,
+    right=20mm
+}
+
+% Colors
+\definecolor{linkcolor}{RGB}{0,0,180}
+\definecolor{citecolor}{RGB}{0,90,0}
+\definecolor{urlcolor}{RGB}{0,90,90}
+
+% Hyperref setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkcolor,
+    citecolor=citecolor,
+    urlcolor=urlcolor,
+    bookmarks=true,
+    bookmarksnumbered=true,
+    breaklinks=true
+}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{\rightmark}
+\renewcommand{\headrulewidth}{0.5pt}
+
+% Title information
+\title{Optimized Primary User Emulation Attack Detection in Cognitive Radio Networks: A Comparative Analysis of Traditional Clustering and Enhanced Detection Methods}
+\author{Your Full Name}
+\date{\today}
+
+% Begin document
+\begin{document}
+
+% Front matter
+\frontmatter
+\include{chapters/titlepage}
+\include{chapters/abstract}
+\include{chapters/acknowledgments}
+\tableofcontents
+\listoffigures
+\listoftables
+\include{chapters/acronyms}
+
+% Main matter
+\mainmatter
+
+% Chapters
+\include{chapters/introduction}
+\include{chapters/literature_review}
+\include{chapters/system_model}
+\include{chapters/feature_extraction}
+\include{chapters/traditional_clustering}
+\include{chapters/enhanced_detection}
+\include{chapters/experimental_setup}
+\include{chapters/results}
+\include{chapters/discussion}
+\include{chapters/conclusion}
+
+% Back matter
+\backmatter
+\bibliographystyle{abbrvnat}
+\bibliography{references}
+\appendix
+\include{chapters/appendix}
+
+\end{document}

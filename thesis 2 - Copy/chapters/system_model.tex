@@ -1,0 +1,347 @@
+\chapter{System Model and Problem Formulation}
+
+\section{Network Architecture}
+
+The system model considers a cognitive radio network operating within a two-dimensional geographical area. The network consists of one Primary User (PU), one Primary User Emulation Attacker (PUEA), and 30 Secondary Users (SUs) distributed across the deployment region. Figure \ref{fig:network_architecture} illustrates the general network architecture used in this study.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        % Drawing the grid
+        \draw[step=10,gray!30,thin] (0,0) grid (100,100);
+        
+        % Axes
+        \draw[->] (0,0) -- (105,0) node[right] {$x$};
+        \draw[->] (0,0) -- (0,105) node[above] {$y$};
+        
+        % Primary User (example position)
+        \node[draw,circle,fill=blue!40,minimum size=12pt,label={above:PU}] (PU) at (25,25) {};
+        
+        % PUEA (example position)
+        \node[draw,circle,fill=red!60,minimum size=12pt,label={above:PUEA}] (PUEA) at (55,55) {};
+        
+        % Secondary Users (random positions)
+        \foreach \i in {1,...,30} {
+            \pgfmathsetmacro{\x}{10+80*rand()}
+            \pgfmathsetmacro{\y}{10+80*rand()}
+            \node[draw,circle,fill=green!30,minimum size=8pt] (SU\i) at (\x,\y) {};
+        }
+        
+        % Legend
+        \node[draw,rectangle,fill=white] at (80,90) {
+            \begin{tabular}{ll}
+                \textcolor{blue!40}{$\bullet$} & Primary User \\
+                \textcolor{red!60}{$\bullet$} & PUEA \\
+                \textcolor{green!30}{$\bullet$} & Secondary Users \\
+            \end{tabular}
+        };
+        
+        % Distance between PU and PUEA
+        \draw[dashed] (PU) -- (PUEA) 
+              node[midway,fill=white] {Distance};
+    \end{tikzpicture}
+    \caption{General cognitive radio network architecture with PU, PUEA, and SUs}
+    \label{fig:network_architecture}
+\end{figure}
+
+The cognitive radio network operates under the following assumptions:
+
+\begin{itemize}
+    \item All nodes operate within the same frequency band of interest
+    \item The PU has legitimate priority access to the spectrum
+    \item The PUEA aims to mimic the PU's signal characteristics to cause denial of service
+    \item SUs perform spectrum sensing and collect received signal strength (RSS) measurements
+    \item SUs can exchange information to facilitate cooperative detection
+    \item The network operates in discrete time slots for sensing and transmission activities
+\end{itemize}
+
+\section{Secondary Users Deployment}
+
+The network includes 30 secondary users deployed across the coverage area. These SUs are positioned randomly according to a uniform distribution within the deployment region. Each SU has the following capabilities:
+
+\begin{itemize}
+    \item Energy detection for measuring received signal strength
+    \item Local computation for feature extraction from signal measurements
+    \item Communication with other SUs for cooperative detection
+    \item Memory to store historical signal measurements for pattern analysis
+\end{itemize}
+
+The position of each secondary user is denoted as $SU_i = (x_i, y_i)$ where $i \in \{1, 2, ..., 30\}$ and $(x_i, y_i)$ represents the Cartesian coordinates in the deployment area.
+
+\section{Primary User and Emulation Attacker Positioning}
+
+To comprehensively evaluate detection performance under different spatial relationships, this study investigates three distinct scenarios with varying distances between the primary user and the attacker. These scenarios are carefully designed to represent practical deployment conditions ranging from ideal to challenging situations:
+
+\subsection{Scenario A: Far Distance}
+
+In Scenario A, the PU and PUEA are positioned at a substantial distance from each other:
+\begin{itemize}
+    \item Primary User position: $(20, 20)$
+    \item PUEA position: $(80, 80)$
+    \item Euclidean distance: $\sqrt{(80-20)^2 + (80-20)^2} = 84.85$ units
+\end{itemize}
+
+This scenario represents an ideal case where the spatial separation between legitimate and malicious transmitters is significant, providing favorable conditions for detection based on location-influenced signal characteristics.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        % Drawing the grid
+        \draw[step=10,gray!30,thin] (0,0) grid (100,100);
+        
+        % Axes
+        \draw[->] (0,0) -- (105,0) node[right] {$x$};
+        \draw[->] (0,0) -- (0,105) node[above] {$y$};
+        
+        % Primary User
+        \node[draw,circle,fill=blue!40,minimum size=12pt,label={above:PU}] (PU) at (20,20) {};
+        
+        % PUEA
+        \node[draw,circle,fill=red!60,minimum size=12pt,label={above:PUEA}] (PUEA) at (80,80) {};
+        
+        % Secondary Users (random positions)
+        \foreach \i in {1,...,30} {
+            \pgfmathsetmacro{\x}{10+80*rand()}
+            \pgfmathsetmacro{\y}{10+80*rand()}
+            \node[draw,circle,fill=green!30,minimum size=8pt] (SU\i) at (\x,\y) {};
+        }
+        
+        % Distance between PU and PUEA
+        \draw[dashed] (PU) -- (PUEA) 
+              node[midway,fill=white] {84.85 units};
+        
+        % Title
+        \node[font=\bfseries] at (50,105) {Scenario A: Far Distance};
+    \end{tikzpicture}
+    \caption{Network topology for Scenario A with far distance between PU and PUEA}
+    \label{fig:scenario_a}
+\end{figure}
+
+\subsection{Scenario B: Medium Distance}
+
+In Scenario B, the distance between PU and PUEA is reduced to an intermediate value:
+\begin{itemize}
+    \item Primary User position: $(25, 25)$
+    \item PUEA position: $(55, 55)$
+    \item Euclidean distance: $\sqrt{(55-25)^2 + (55-25)^2} = 42.43$ units
+\end{itemize}
+
+This scenario represents a moderate challenge where the spatial separation is sufficient to create distinguishable signal patterns but requires more sophisticated detection methods than Scenario A.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        % Drawing the grid
+        \draw[step=10,gray!30,thin] (0,0) grid (100,100);
+        
+        % Axes
+        \draw[->] (0,0) -- (105,0) node[right] {$x$};
+        \draw[->] (0,0) -- (0,105) node[above] {$y$};
+        
+        % Primary User
+        \node[draw,circle,fill=blue!40,minimum size=12pt,label={above:PU}] (PU) at (25,25) {};
+        
+        % PUEA
+        \node[draw,circle,fill=red!60,minimum size=12pt,label={above:PUEA}] (PUEA) at (55,55) {};
+        
+        % Secondary Users (random positions)
+        \foreach \i in {1,...,30} {
+            \pgfmathsetmacro{\x}{10+80*rand()}
+            \pgfmathsetmacro{\y}{10+80*rand()}
+            \node[draw,circle,fill=green!30,minimum size=8pt] (SU\i) at (\x,\y) {};
+        }
+        
+        % Distance between PU and PUEA
+        \draw[dashed] (PU) -- (PUEA) 
+              node[midway,fill=white] {42.43 units};
+              
+        % Title
+        \node[font=\bfseries] at (50,105) {Scenario B: Medium Distance};
+    \end{tikzpicture}
+    \caption{Network topology for Scenario B with medium distance between PU and PUEA}
+    \label{fig:scenario_b}
+\end{figure}
+
+\subsection{Scenario C: Close Distance}
+
+In Scenario C, the PU and PUEA are positioned in close proximity to each other:
+\begin{itemize}
+    \item Primary User position: $(40, 40)$
+    \item PUEA position: $(55, 55)$
+    \item Euclidean distance: $\sqrt{(55-40)^2 + (55-40)^2} = 21.21$ units
+\end{itemize}
+
+This scenario represents the most challenging case where the spatial separation is minimal, making it difficult to distinguish between legitimate and malicious transmissions based solely on location-influenced signal characteristics.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        % Drawing the grid
+        \draw[step=10,gray!30,thin] (0,0) grid (100,100);
+        
+        % Axes
+        \draw[->] (0,0) -- (105,0) node[right] {$x$};
+        \draw[->] (0,0) -- (0,105) node[above] {$y$};
+        
+        % Primary User
+        \node[draw,circle,fill=blue!40,minimum size=12pt,label={above:PU}] (PU) at (40,40) {};
+        
+        % PUEA
+        \node[draw,circle,fill=red!60,minimum size=12pt,label={above:PUEA}] (PUEA) at (55,55) {};
+        
+        % Secondary Users (random positions)
+        \foreach \i in {1,...,30} {
+            \pgfmathsetmacro{\x}{10+80*rand()}
+            \pgfmathsetmacro{\y}{10+80*rand()}
+            \node[draw,circle,fill=green!30,minimum size=8pt] (SU\i) at (\x,\y) {};
+        }
+        
+        % Distance between PU and PUEA
+        \draw[dashed] (PU) -- (PUEA) 
+              node[midway,fill=white] {21.21 units};
+              
+        % Title
+        \node[font=\bfseries] at (50,105) {Scenario C: Close Distance};
+    \end{tikzpicture}
+    \caption{Network topology for Scenario C with close distance between PU and PUEA}
+    \label{fig:scenario_c}
+\end{figure}
+
+\section{Signal Propagation Model}
+
+The signal propagation in the cognitive radio network is modeled using the log-normal shadowing path loss model, which accounts for both distance-dependent path loss and environmental shadowing effects. The received signal power at a secondary user $i$ from a transmitter $j$ (either PU or PUEA) is given by:
+
+\begin{equation}
+    P_{i,j}^r = P_j^t - 10 \cdot \alpha \cdot \log_{10}(d_{i,j}) - \psi_{i,j} + G_i + G_j
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $P_{i,j}^r$ is the received power at SU $i$ from transmitter $j$ in dBm
+    \item $P_j^t$ is the transmission power of transmitter $j$ in dBm
+    \item $\alpha$ is the path loss exponent
+    \item $d_{i,j}$ is the Euclidean distance between SU $i$ and transmitter $j$
+    \item $\psi_{i,j}$ is the log-normal shadowing component in dB
+    \item $G_i$ and $G_j$ are the antenna gains of SU $i$ and transmitter $j$ in dBi
+\end{itemize}
+
+The log-normal shadowing component $\psi_{i,j}$ follows a Gaussian distribution with zero mean and standard deviation $\sigma_{\psi}$:
+
+\begin{equation}
+    \psi_{i,j} \sim \mathcal{N}(0, \sigma_{\psi}^2)
+\end{equation}
+
+\subsection{Path Loss and Shadowing Parameters}
+
+To account for varying environmental conditions, this study investigates a range of path loss exponents and shadowing values:
+
+\begin{itemize}
+    \item Path loss exponents ($\alpha$): 2, 3, 4, 5, 6
+    \begin{itemize}
+        \item $\alpha = 2$: Free space propagation
+        \item $\alpha = 3$: Urban area cellular radio
+        \item $\alpha = 4$: Dense urban area
+        \item $\alpha = 5$: Indoor environment with obstructions
+        \item $\alpha = 6$: Indoor environment with severe obstructions
+    \end{itemize}
+    
+    \item Shadowing standard deviation ($\sigma_{\psi}$): 4, 6, 8, 10, 12 dB
+    \begin{itemize}
+        \item $\sigma_{\psi} = 4$ dB: Minimal environmental variation
+        \item $\sigma_{\psi} = 6$ dB: Moderate environmental variation
+        \item $\sigma_{\psi} = 8$ dB: Significant environmental variation
+        \item $\sigma_{\psi} = 10$ dB: High environmental variation
+        \item $\sigma_{\psi} = 12$ dB: Extreme environmental variation
+    \end{itemize}
+\end{itemize}
+
+\subsection{Power Settings}
+
+The transmission power settings for the primary user and the attacker are defined as:
+
+\begin{itemize}
+    \item Primary User transmission power: $P_{PU}^t = 15$ dBm
+    \item PUEA transmission power: $P_{PUEA}^t = 35$ dBm
+\end{itemize}
+
+The higher power setting for the PUEA reflects a realistic attack scenario where the malicious entity transmits at elevated power to maximize the impact of the attack and ensure wide coverage. This power difference also creates a detection opportunity based on received signal strength patterns.
+
+\section{PUEA Presence Percentages}
+
+To evaluate detection performance under varying attack intensities, this study considers different percentages of PUEA presence in the network:
+
+\begin{itemize}
+    \item 10\% PUEA presence: Attacker is active in 10 out of 100 time slots
+    \item 20\% PUEA presence: Attacker is active in 20 out of 100 time slots
+    \item 30\% PUEA presence: Attacker is active in 30 out of 100 time slots
+    \item 40\% PUEA presence: Attacker is active in 40 out of 100 time slots
+    \item 50\% PUEA presence: Attacker is active in 50 out of 100 time slots
+\end{itemize}
+
+These varying presence percentages allow for a comprehensive assessment of detection algorithms under different attack patterns, from occasional to frequent attack occurrences.
+
+\section{Attack Detection Problem Formulation}
+
+The PUEA detection problem can be formulated as a binary classification problem where each time slot must be classified as either containing a legitimate PU signal or a malicious PUEA signal. Given the received signal strength measurements collected by secondary users, the objective is to accurately identify the source of the transmission.
+
+Let $X_t = \{x_{1,t}, x_{2,t}, ..., x_{30,t}\}$ represent the set of received signal strength measurements collected by all 30 SUs during time slot $t$, where $x_{i,t}$ denotes the measurement at SU $i$ during time slot $t$. The detection problem can be formulated as:
+
+\begin{equation}
+    H(X_t) = 
+    \begin{cases}
+        H_0 & \text{if transmission is from legitimate PU} \\
+        H_1 & \text{if transmission is from malicious PUEA}
+    \end{cases}
+\end{equation}
+
+where $H(X_t)$ is the hypothesis testing function that determines the source of transmission based on the measurement set $X_t$.
+
+\subsection{Performance Metrics}
+
+The performance of the detection algorithm is evaluated using the following metrics:
+
+\begin{equation}
+    \text{Detection Rate} = \frac{\text{Number of correctly detected PUEA transmissions}}{\text{Total number of PUEA transmissions}}
+\end{equation}
+
+\begin{equation}
+    \text{False Alarm Rate} = \frac{\text{Number of PU transmissions incorrectly classified as PUEA}}{\text{Total number of PU transmissions}}
+\end{equation}
+
+\begin{equation}
+    \text{Accuracy} = \frac{\text{Number of correctly classified transmissions (both PU and PUEA)}}{\text{Total number of transmissions}}
+\end{equation}
+
+\begin{equation}
+    \text{F1-score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+\end{equation}
+
+\subsection{Feature Extraction}
+
+To enhance detection performance, statistical features are extracted from the raw RSS measurements. Let $F(X_t)$ denote the feature extraction function that transforms the raw measurements $X_t$ into a feature vector $Y_t$:
+
+\begin{equation}
+    Y_t = F(X_t)
+\end{equation}
+
+The feature vector $Y_t$ includes statistical measures such as mean, variance, median, and quartiles, which capture the distribution characteristics of the received signal strength across all SUs.
+
+\subsection{Classification Framework}
+
+The detection algorithms in this study operate within a two-phase framework:
+
+\begin{enumerate}
+    \item \textbf{Traditional Clustering Phase:} Apply clustering algorithms (DBSCAN, K-means, Agglomerative, or Spectral) to group time slots based on feature similarity
+    \begin{equation}
+        C = \text{Clustering}(Y_1, Y_2, ..., Y_T)
+    \end{equation}
+    
+    where $C$ represents the resulting clusters, and $T$ is the total number of time slots.
+    
+    \item \textbf{Enhanced Detection Phase (for enhanced approach):} Apply KNN or Means algorithms within established clusters for refined detection
+    \begin{equation}
+        H(X_t) = \text{EnhancedDetection}(Y_t, C)
+    \end{equation}
+\end{enumerate}
+
+This framework allows for a systematic comparison between traditional clustering-based detection and the proposed enhanced approach across different scenarios, path loss conditions, and attack intensities.

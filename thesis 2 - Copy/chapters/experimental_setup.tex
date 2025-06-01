@@ -1,0 +1,312 @@
+\chapter{Experimental Setup}
+
+\section{Simulation Environment Details}
+
+The experimental evaluation of PUEA detection algorithms was conducted in a carefully designed simulation environment that models the cognitive radio network and attack scenarios. The simulation framework was implemented in MATLAB R2021b, chosen for its robust signal processing capabilities, matrix operations efficiency, and visualization tools. All experiments were executed on a workstation with an Intel Core i9-11900K processor, 64GB RAM, and Windows 10 operating system.
+
+\subsection{Simulation Framework Architecture}
+
+The simulation framework consists of four primary modules, as illustrated in Figure \ref{fig:sim_architecture}:
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[node distance=2cm, auto, block/.style={rectangle, draw, fill=blue!10, rounded corners, minimum height=2cm, minimum width=3.5cm}]
+        % Nodes
+        \node [block] (network) {Network Topology Generator};
+        \node [block, below of=network] (signals) {Signal Propagation Model};
+        \node [block, below of=signals] (feature) {Feature Extraction Module};
+        \node [block, below of=feature] (detection) {Detection Algorithms Module};
+        \node [block, right=2cm of detection] (evaluation) {Performance Evaluation};
+        
+        % Connections
+        \draw [->] (network) -- (signals);
+        \draw [->] (signals) -- (feature);
+        \draw [->] (feature) -- (detection);
+        \draw [->] (detection) -- (evaluation);
+        
+        % Output from Network Topology Generator
+        \node [right=0.2cm of network] (out1) {};
+        \node [right=3cm of network] (out1_label) {SU, PU, PUEA positions};
+        \draw [->] (out1) -- (out1_label);
+        
+        % Output from Signal Propagation
+        \node [right=0.2cm of signals] (out2) {};
+        \node [right=3cm of signals] (out2_label) {RSS measurements};
+        \draw [->] (out2) -- (out2_label);
+        
+        % Output from Feature Extraction
+        \node [right=0.2cm of feature] (out3) {};
+        \node [right=3cm of feature] (out3_label) {Statistical features};
+        \draw [->] (out3) -- (out3_label);
+        
+        % Output from Detection Algorithms
+        \node [below right=0.5cm and 0.2cm of detection] (out4) {};
+        \node [below right=0.5cm and 2cm of detection] (out4_label) {Classification results};
+        \draw [->] (out4) -- (out4_label);
+        
+        % Input parameters
+        \node [left=2cm of network] (params) {Simulation Parameters};
+        \draw [->] (params) -- (network);
+        \draw [->] (params) |- (signals);
+        \draw [->] (params) |- (feature);
+        \draw [->] (params) |- (detection);
+        
+        % Ground truth
+        \node [above right=1cm and 3cm of detection] (ground) {Ground Truth Labels};
+        \draw [->] (ground) -- (evaluation);
+    \end{tikzpicture}
+    \caption{Simulation framework architecture}
+    \label{fig:sim_architecture}
+\end{figure}
+
+\begin{enumerate}
+    \item \textbf{Network Topology Generator:} Responsible for creating the network structure including:
+    \begin{itemize}
+        \item Positioning 30 SUs according to a uniform random distribution
+        \item Placing the PU and PUEA at specified locations based on the scenario
+        \item Implementing the three spatial scenarios described in Chapter 3
+    \end{itemize}
+    
+    \item \textbf{Signal Propagation Model:} Implements the log-normal shadowing model to calculate RSS at each SU:
+    \begin{itemize}
+        \item Applies path loss exponents ranging from 2 to 6
+        \item Introduces shadowing effects with standard deviations from 4 to 12 dB
+        \item Models transmission power (15 dBm for PU, 35 dBm for PUEA)
+    \end{itemize}
+    
+    \item \textbf{Feature Extraction Module:} Computes the statistical features from RSS measurements:
+    \begin{itemize}
+        \item Calculates mean, variance, median, lower quartile, and upper quartile
+        \item Performs feature normalization and weighting
+        \item Generates feature vectors for each time slot
+    \end{itemize}
+    
+    \item \textbf{Detection Algorithms Module:} Implements both traditional and enhanced detection approaches:
+    \begin{itemize}
+        \item Traditional clustering algorithms (DBSCAN, K-means, Agglomerative, Spectral)
+        \item Enhanced detection algorithms (KNN, Means)
+        \item Combined two-stage detection framework
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Software Implementation}
+
+The simulation framework was implemented using object-oriented programming principles to ensure modularity, extensibility, and code reuse. Key implementation details include:
+
+\begin{itemize}
+    \item \textbf{Clustering Algorithms:} Utilized MATLAB's Statistics and Machine Learning Toolbox for implementing K-means, Agglomerative, and Spectral clustering, while DBSCAN was custom-implemented to allow for parameter adaptations
+    
+    \item \textbf{Visualization:} Employed MATLAB's plotting functions and custom visualization routines to generate network topology diagrams, feature space visualizations, and performance comparison charts
+    
+    \item \textbf{Statistical Analysis:} Used MATLAB's statistical analysis functions for hypothesis testing and confidence interval calculations
+    
+    \item \textbf{Parallelization:} Leveraged MATLAB's Parallel Computing Toolbox to expedite simulations across multiple parameter combinations
+\end{itemize}
+
+\section{Dataset Generation Process}
+
+The dataset for evaluating PUEA detection algorithms was generated through simulation rather than using pre-existing datasets. This approach was chosen to ensure controlled experimental conditions and to systematically vary parameters of interest such as distances, path loss exponents, and PUEA presence percentages.
+
+\subsection{Time Slots Implementation}
+
+The simulation implements a time-slotted system with the following characteristics:
+
+\begin{itemize}
+    \item Total number of time slots: 100 per simulation run
+    \item Fixed time slot duration (conceptually, though not explicitly simulated)
+    \item Each time slot contains either a PU transmission or a PUEA transmission (mutual exclusivity)
+    \item The presence of PUEA transmissions follows specified percentages (10\%, 20\%, 30\%, 40\%, or 50\%)
+    \item Time slots for PUEA transmission are randomly selected according to the specified percentage
+\end{itemize}
+
+For example, in a simulation with 30\% PUEA presence, 30 randomly selected time slots out of the 100 total slots contain PUEA transmissions, while the remaining 70 slots contain legitimate PU transmissions.
+
+\subsection{Random Seed Management}
+
+To ensure reproducibility while also capturing the variability inherent in wireless environments, random seed management was carefully implemented:
+
+\begin{itemize}
+    \item A base random seed was established for each experimental configuration
+    \item For each replicate of an experiment, the seed was systematically varied
+    \item 30 independent simulation runs were performed for each parameter combination to ensure statistical significance
+    \item Results were averaged across these runs, and confidence intervals were calculated
+\end{itemize}
+
+\subsection{Parameter Combinations}
+
+The complete parameter space explored in this research includes:
+
+\begin{itemize}
+    \item 3 spatial scenarios (Far, Medium, Close distances between PU and PUEA)
+    \item 5 path loss exponents (2, 3, 4, 5, 6)
+    \item 5 shadowing standard deviations (4, 6, 8, 10, 12 dB)
+    \item 5 PUEA presence percentages (10\%, 20\%, 30\%, 40\%, 50\%)
+    \item 4 traditional clustering algorithms (DBSCAN, K-means, Agglomerative, Spectral)
+    \item 2 enhanced detection algorithms (KNN, Means)
+    \item 30 independent runs per configuration
+\end{itemize}
+
+This results in $3 \times 5 \times 5 \times 5 \times 4 \times 3 \times 30 = 67,500$ total simulation runs, where the third factor for algorithms includes the 4 traditional algorithms alone plus the 8 combinations with enhanced approaches.
+
+Due to space constraints, this thesis presents aggregated results and focuses on key parameter combinations that highlight the most significant findings. Complete results are available in the associated digital repository.
+
+\section{Performance Metrics}
+
+To comprehensively evaluate detection performance, multiple complementary metrics were calculated for each algorithm and parameter combination.
+
+\subsection{Detection Rate}
+
+The detection rate (DR), also known as true positive rate or recall, measures the algorithm's ability to correctly identify PUEA transmissions:
+
+\begin{equation}
+    \text{Detection Rate} = \frac{TP}{TP + FN}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $TP$ (True Positives): Number of PUEA transmissions correctly identified as PUEA
+    \item $FN$ (False Negatives): Number of PUEA transmissions incorrectly identified as PU
+\end{itemize}
+
+\subsection{False Alarm Rate}
+
+The false alarm rate (FAR) measures the algorithm's tendency to incorrectly classify legitimate PU transmissions as attacks:
+
+\begin{equation}
+    \text{False Alarm Rate} = \frac{FP}{FP + TN}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $FP$ (False Positives): Number of PU transmissions incorrectly identified as PUEA
+    \item $TN$ (True Negatives): Number of PU transmissions correctly identified as PU
+\end{itemize}
+
+\subsection{Precision, Recall, F1-score}
+
+Precision measures the accuracy of positive predictions:
+
+\begin{equation}
+    \text{Precision} = \frac{TP}{TP + FP}
+\end{equation}
+
+Recall is equivalent to the detection rate defined above. The F1-score combines precision and recall into a single metric, providing a balanced measure of detection performance:
+
+\begin{equation}
+    \text{F1-score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+\end{equation}
+
+\subsection{Accuracy}
+
+Accuracy measures the overall correctness of the algorithm across both classes:
+
+\begin{equation}
+    \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+\end{equation}
+
+\subsection{Adjusted Rand Index (ARI)}
+
+The Adjusted Rand Index measures the similarity between the algorithm's clustering and the ground truth clustering, adjusted for chance. It ranges from -1 to 1, with 1 indicating perfect agreement:
+
+\begin{equation}
+    \text{ARI} = \frac{\text{RI} - \text{Expected RI}}{\text{Max RI} - \text{Expected RI}}
+\end{equation}
+
+where RI is the Rand Index. ARI is particularly useful for evaluating clustering quality independent of the cluster interpretation strategy.
+
+\section{Testing Methodology across Scenarios and PUEA Percentages}
+
+The testing methodology was designed to systematically evaluate algorithm performance across the parameter space while maintaining statistical rigor.
+
+\subsection{Cross-Validation Approach}
+
+To prevent overfitting and ensure robust evaluation, a modified cross-validation approach was implemented:
+
+\begin{enumerate}
+    \item For each parameter combination, 30 independent simulation runs were conducted
+    \item Parameter optimization (e.g., DBSCAN $\epsilon$, KNN $k$ value) was performed on a subset of 10 runs
+    \item Performance evaluation was conducted on the remaining 20 runs
+    \item This process was repeated 3 times with different random seeds to ensure stability of results
+\end{enumerate}
+
+\subsection{Statistical Significance Testing}
+
+Statistical tests were employed to determine the significance of performance differences between algorithms:
+
+\begin{itemize}
+    \item Paired t-tests were used when comparing two algorithms across multiple runs
+    \item ANOVA with post-hoc Tukey HSD tests were used when comparing multiple algorithms
+    \item Wilcoxon signed-rank tests were used as non-parametric alternatives when normality assumptions were violated
+    \item All tests used a significance level of $\alpha = 0.05$
+\end{itemize}
+
+\subsection{Parameter Sensitivity Analysis}
+
+A sensitivity analysis was conducted to understand how algorithm performance varies with different parameters:
+
+\begin{itemize}
+    \item One-at-a-time parameter variation to isolate effects
+    \item Response surface methodology to understand parameter interactions
+    \item Identification of optimal parameter combinations for each scenario
+\end{itemize}
+
+\section{Visualization Methods}
+
+Various visualization techniques were employed to present the results effectively:
+
+\begin{itemize}
+    \item \textbf{Network Topology Diagrams:} TikZ-generated visualizations of the network configuration in each scenario
+    
+    \item \textbf{Feature Distribution Plots:} Kernel density estimations showing the distribution of each feature for PU and PUEA transmissions
+    
+    \item \textbf{Clustering Visualizations:} Dimensionality reduction (PCA or t-SNE) to visualize clustering results in two dimensions
+    
+    \item \textbf{ROC-like Space:} Plots of detection rate versus false alarm rate for different algorithms
+    
+    \item \textbf{Performance Bar Charts:} Comparative bar charts showing key metrics across algorithms
+    
+    \item \textbf{Radar Charts:} Multi-dimensional visualization of algorithm performance across multiple metrics
+    
+    \item \textbf{Heatmaps:} Visualization of performance across different parameter combinations
+    
+    \item \textbf{Box Plots:} Statistical distribution of performance metrics across multiple runs
+\end{itemize}
+
+\section{Implementation Challenges and Solutions}
+
+Several challenges were encountered during the experimental implementation, along with their respective solutions:
+
+\begin{itemize}
+    \item \textbf{Challenge:} Computational complexity with large parameter space\\
+    \textbf{Solution:} Implemented parallel computing across multiple cores and optimized code for efficiency
+    
+    \item \textbf{Challenge:} Determining optimal parameters for clustering algorithms\\
+    \textbf{Solution:} Developed adaptive parameter selection methods based on dataset characteristics
+    
+    \item \textbf{Challenge:} Handling variability in clustering outcomes due to random initializations\\
+    \textbf{Solution:} Implemented multiple runs with different initializations and selected the best result
+    
+    \item \textbf{Challenge:} Ensuring fair comparison between algorithms with different characteristics\\
+    \textbf{Solution:} Standardized feature preprocessing and used consistent evaluation metrics
+    
+    \item \textbf{Challenge:} Interpreting clusters for classification without prior knowledge\\
+    \textbf{Solution:} Developed the mean RSS-based interpretation strategy that consistently identifies PUEA clusters
+\end{itemize}
+
+\section{Reproducibility Considerations}
+
+To ensure reproducibility of the research, several measures were implemented:
+
+\begin{itemize}
+    \item \textbf{Code Repository:} Complete simulation code was documented and stored in a version-controlled repository
+    
+    \item \textbf{Random Seed Management:} Explicit control and documentation of random seeds for all stochastic processes
+    
+    \item \textbf{Parameter Documentation:} Detailed recording of all parameter values used in each experiment
+    
+    \item \textbf{Results Database:} Storage of raw results from all simulation runs in a structured database
+    
+    \item \textbf{Documentation:} Comprehensive documentation of the simulation framework, algorithms, and analysis methods
+\end{itemize}
+
+These measures ensure that other researchers can reproduce the results and build upon this work in future studies.

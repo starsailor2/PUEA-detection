@@ -1,0 +1,90 @@
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=15cm,
+            height=10cm,
+            xlabel={\Large \textbf{Feature 1} (normalized power)},
+            ylabel={\Large \textbf{Feature 2} (normalized envelope variation)},
+            xmin=-2.2, xmax=3.2,
+            ymin=-2.2, ymax=3.2,
+            xtick={-2,-1,0,1,2,3},
+            ytick={-2,-1,0,1,2,3},
+            legend pos=north east,
+            legend style={draw=black!30, fill=white!90, opacity=0.9, rounded corners, drop shadow},
+            ymajorgrids=true,
+            xmajorgrids=true,
+            grid style={dotted, gray!30},
+            title style={font=\LARGE\bfseries, text=blue!60!black},
+            title={Feature Space Visualization of Traditional vs. Enhanced Clustering},
+            axis background/.style={fill=blue!1},
+            ]
+            
+            % Background shading for PU and PUEA regions
+            \fill[blue!10, opacity=0.5, rounded corners=20pt] (-1.5,-1.5) rectangle (0.0,1.5);
+            \fill[red!10, opacity=0.5, rounded corners=20pt] (0.5,-0.5) rectangle (2.5,2.0);
+            
+            % Original data points
+            \addplot[only marks, mark=o, mark size=2.5pt, color=blue!80!black, thick, fill=blue!40, opacity=0.8, mark options={draw=blue!80!black}] 
+                coordinates {
+                (-0.2,0.3) (-0.5,0.6) (-0.8,0.2) (-0.6,-0.1) (-0.4,0.5) 
+                (-0.3,0.8) (-0.7,0.7) (-0.9,0.4) (-0.5,0.1) (-0.1,0.4)
+                (-0.2,0.6) (-0.6,0.3) (-0.8,-0.2) (-0.4,-0.3) (-0.2,-0.1)
+                (-0.3,0.1) (-0.5,-0.4) (-0.7,-0.5) (-0.9,-0.3) (-0.1,-0.2)
+                (0.0,0.2) (-0.2,-0.4) (-0.4,-0.6) (-0.6,-0.7) (-0.8,-0.6)
+            };
+            \addlegendentry{\textbf{True PU Transmissions}}
+            
+            \addplot[only marks, mark=square, mark size=2.5pt, color=red!80!black, thick, fill=red!40, opacity=0.8, mark options={draw=red!80!black}]
+                coordinates {
+                (1.2,1.3) (1.5,1.6) (1.8,1.2) (1.6,0.9) (1.4,1.5) 
+                (1.3,1.8) (1.7,1.7) (1.9,1.4) (1.5,1.1) (1.1,1.4)
+                (1.2,1.6) (1.6,1.3) (1.8,0.8) (1.4,0.7) (1.2,0.9)
+                (1.3,1.1) (1.5,0.6) (1.7,0.5) (1.9,0.7) (1.1,0.8)
+                (1.0,1.2) (1.2,0.6) (1.4,0.4) (1.6,0.3) (1.8,0.4)
+            };
+            \addlegendentry{\textbf{True PUEA Transmissions}}
+            
+            % Mislabeled points (with different markers)
+            \addplot[only marks, mark=x, mark size=4.5pt, color=red!80!black, opacity=0.9, line width=1.5pt]
+                coordinates {
+                (-0.1,-0.3) (-0.3,-0.5) (0.1,0.3) (-0.1,0.5) (-0.2,-0.6)
+            };
+            \addlegendentry{\textbf{Misclassified as PUEA}}
+            
+            \addplot[only marks, mark=+, mark size=4.5pt, color=blue!80!black, opacity=0.9, line width=1.5pt]
+                coordinates {
+                (1.1,0.9) (1.3,0.5) (0.9,1.1) (1.1,1.3) (1.2,0.4)
+            };
+            \addlegendentry{\textbf{Misclassified as PU}}
+            
+            % Traditional clustering boundary (less accurate)
+            \draw[very thick, purple!80!black, dashed, opacity=0.9] plot [smooth cycle, tension=0.8] coordinates {
+                (-1.5,1.5) (0.5,1) (0.8,-0.5) (0,-1) (-1.5,-0.5)
+            };
+            
+            % Enhanced clustering boundary (more accurate)
+            \draw[very thick, green!50!black, opacity=0.9] plot [smooth cycle, tension=0.7] coordinates {
+                (-1.2,1) (0.2,0.8) (0.4,-0.8) (-0.3,-1.2) (-1.2,-0.3)
+            };
+            
+            \draw[very thick, green!50!black, opacity=0.9] plot [smooth cycle, tension=0.7] coordinates {
+                (0.8,2) (2,1.8) (2.2,0) (1.2,-0.5) (0.6,0.6)
+            };
+            
+            % Add nodes with backgrounds for better visibility
+            \node[draw=purple!80!black, fill=white, text=purple!80!black, opacity=0.9, thick, rounded corners, font=\bfseries\small] at (-0.5,1.2) {Traditional Boundary};
+            \node[draw=green!50!black, fill=white, text=green!50!black, opacity=0.9, thick, rounded corners, font=\bfseries\small] at (-0.5,-0.9) {Enhanced Boundary};
+            \node[draw=green!50!black, fill=white, text=green!50!black, opacity=0.9, thick, rounded corners, font=\bfseries\small] at (1.5,0.3) {Enhanced Boundary};
+            
+            % Add centroids
+            \node[star, star points=5, star point ratio=2.25, draw=black, thick, fill=blue!60, minimum size=12pt] at (-0.45,0.1) {};
+            \node[star, star points=5, star point ratio=2.25, draw=black, thick, fill=red!60, minimum size=12pt] at (1.45,1.1) {};
+            \node[font=\scriptsize\bfseries] at (-0.8,0.1) {PU Centroid};
+            \node[font=\scriptsize\bfseries] at (1.9,1.1) {PUEA Centroid};
+            
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Feature space visualization comparing traditional clustering boundary (dashed purple line) with enhanced clustering boundary (solid green line). The enhanced approach reduces misclassifications by adapting to local data patterns and produces more precise decision boundaries. Centroids are indicated by star markers.}
+    \label{fig:clustering_vis_enhanced}
+\end{figure}

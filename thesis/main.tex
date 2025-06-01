@@ -1,81 +1,166 @@
 \documentclass[12pt,a4paper]{report}
+
+% Enhanced packages for professional typography and features
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{microtype} % Enhanced typography
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx}
 \usepackage{booktabs}
-\usepackage{hyperref}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{subcaption}
 \usepackage{url}
 \usepackage{listings}
-\usepackage[T1]{fontenc}
 \usepackage{setspace}
 \usepackage{fancyhdr}
+\usepackage{tcolorbox} % Enhanced table formatting
+\usepackage{xcolor}
+\usepackage{natbib} % For abbrvnat bibliography style
+\usepackage{acronym}
 
+% Custom color definitions
+\definecolor{chaptercolor}{RGB}{0,102,153}
+\definecolor{sectioncolor}{RGB}{51,102,153}
+\definecolor{mathcolor}{RGB}{153,51,102}
+
+% Enhanced hyperref setup
+\usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
-    linkcolor=blue,
+    linkcolor=chaptercolor,
     filecolor=magenta,      
     urlcolor=cyan,
+    citecolor=sectioncolor,
     pdftitle={Primary User Emulation Attack Detection in Cognitive Radio Networks},
+    pdfauthor={Your Name},
+    pdfsubject={Clustering-based Detection Methods},
+    pdfkeywords={Cognitive Radio, PUEA, Clustering, Security},
     pdfpagemode=FullScreen,
 }
 
+% Custom mathematical commands
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+\newcommand{\formula}[1]{\textcolor{mathcolor}{#1}}
+
+% Enhanced chapter and section formatting
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries\color{chaptercolor}}
+{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{sectioncolor}}
+{\thesection}{1em}{}
+
+% Title page information
 \title{Primary User Emulation Attack Detection in Cognitive Radio Networks\\
-\large Using Machine Learning Clustering Techniques}
+\large Using Enhanced Clustering-based Detection Methods}
 \author{Your Name}
 \date{\today}
 
 \begin{document}
 
-\maketitle
+% =============================================================================
+% FRONT MATTER
+% =============================================================================
+
+% Title Page
+\begin{titlepage}
+\centering
+\vspace*{1cm}
+{\huge\bfseries Primary User Emulation Attack Detection in Cognitive Radio Networks\par}
+\vspace{0.5cm}
+{\Large Using Enhanced Clustering-based Detection Methods\par}
+\vspace{2cm}
+{\Large Your Name\par}
+\vspace{1cm}
+{\large Submitted in partial fulfillment of the requirements\\
+for the degree of\\
+[Your Degree]\par}
+\vspace{1cm}
+{\large Department of [Your Department]\\
+[Your University]\par}
+\vspace{1cm}
+{\large \today\par}
+\vfill
+\end{titlepage}
+
+% Abstract
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+This thesis presents an enhanced clustering-based approach for detecting Primary User Emulation Attacks (PUEA) in Cognitive Radio Networks. The research develops novel feature extraction methodologies and implements both traditional and enhanced clustering algorithms to improve detection accuracy while minimizing false alarm rates.
+
+\textbf{Keywords:} Cognitive Radio Networks, Primary User Emulation Attack, Clustering Algorithms, Feature Extraction, Network Security, DBSCAN, K-means, Hierarchical Clustering
+
+% Acknowledgments
+\chapter*{Acknowledgments}
+\addcontentsline{toc}{chapter}{Acknowledgments}
+[Space for acknowledgments]
+
+% List of Acronyms
+\chapter*{List of Acronyms}
+\addcontentsline{toc}{chapter}{List of Acronyms}
+\begin{acronym}
+\acro{CRN}{Cognitive Radio Network}
+\acro{PUEA}{Primary User Emulation Attack}
+\acro{PU}{Primary User}
+\acro{SU}{Secondary User}
+\acro{DBSCAN}{Density-Based Spatial Clustering of Applications with Noise}
+\acro{KNN}{K-Nearest Neighbors}
+\acro{ML}{Machine Learning}
+\acro{DSA}{Dynamic Spectrum Access}
+\acro{MAC}{Medium Access Control}
+\acro{SNR}{Signal-to-Noise Ratio}
+\acro{ROC}{Receiver Operating Characteristic}
+\acro{AUC}{Area Under Curve}
+\end{acronym}
+
+% Table of Contents
 \tableofcontents
+
+% List of Figures
 \listoffigures
+
+% List of Tables
 \listoftables
 
-\chapter{Introduction}
-\section{Background}
-Cognitive Radio Networks (CRN) have emerged as a promising solution to address the spectrum scarcity issue by enabling dynamic spectrum access. In a CRN, secondary users (SUs) are allowed to opportunistically access the spectrum bands when the primary users (PUs) are not using them. However, this opportunistic access paradigm introduces new security challenges, one of which is the Primary User Emulation Attack (PUEA).
+% =============================================================================
+% MAIN CONTENT
+% =============================================================================
 
-A Primary User Emulation Attack occurs when a malicious entity mimics the signal characteristics of a legitimate primary user to deceive secondary users into vacating the spectrum. This attack can significantly degrade the performance of cognitive radio networks by denying service to legitimate SUs and disrupting the spectrum sensing process. Therefore, developing effective methods to detect and mitigate PUEA is crucial for the secure operation of cognitive radio networks.
+% Include content parts
+\include{content_part1}  % Chapters 1-2
+\include{content_part2}  % Chapters 3-4
+\include{content_part3}  % Chapters 5-6
+\include{content_part4}  % Chapters 7-10
 
-\section{Problem Statement}
-The accurate detection of Primary User Emulation Attackers presents several challenges due to the similarity between legitimate PU signals and PUEA signals. Traditional detection methods that rely solely on energy detection or signal features may not be sufficient to distinguish between legitimate PUs and PUEAs. Moreover, the dynamic nature of wireless environments, including shadowing, fading, and path loss effects, further complicates the detection process.
+% =============================================================================
+% BACK MATTER
+% =============================================================================
 
-This thesis addresses the challenge of effectively detecting PUEAs in cognitive radio networks by developing a machine learning-based approach that utilizes clustering algorithms to identify and separate PUEA signals from legitimate PU signals based on their transmission characteristics.
+% Bibliography
+\bibliographystyle{abbrvnat}
+\bibliography{references}
 
-\section{Research Objectives}
-The main objectives of this research are:
-\begin{enumerate}
-    \item To generate a realistic dataset of PU and PUEA signals considering various signal propagation factors.
-    \item To develop a detection model using clustering algorithms (DBSCAN, Agglomerative, K-means) to effectively identify PUEAs.
-    \item To evaluate and compare the performance of different clustering algorithms for PUEA detection.
-    \item To propose an iterative clustering method that improves detection accuracy.
-\end{enumerate}
-
-\section{Thesis Organization}
-The remainder of this thesis is organized as follows:
-\begin{itemize}
-    \item Chapter 2 presents a comprehensive literature review on cognitive radio networks, security threats, primary user emulation attacks, and existing detection techniques.
-    \item Chapter 3 details the methodology, including dataset generation, feature selection, and the proposed clustering-based detection approach.
-    \item Chapter 4 provides implementation details and experimental setup.
-    \item Chapter 5 presents the results and performance analysis.
-    \item Chapter 6 concludes the thesis with a summary of findings and suggestions for future work.
-\end{itemize}
-
-% Include the chapter files
-\include{chapter2}
-\include{chapter3}
-\include{chapter4}
-\include{chapter5}
-\include{chapter6}
-
+% Appendices
 \appendix
-\chapter{Appendix}
-% This is a placeholder for your appendix chapter
+\include{appendix}
 
-\bibliographystyle{plain}
-% If you want to use BibTeX, uncomment the following line and create a .bib file
-% \bibliography{references}
+% Symbol List
+\chapter*{Symbol List}
+\addcontentsline{toc}{chapter}{Symbol List}
+\begin{tabular}{cl}
+$P_d$ & Probability of detection \\
+$P_f$ & Probability of false alarm \\
+$\gamma$ & Received signal power \\
+$\sigma^2$ & Noise variance \\
+$\lambda$ & Threshold value \\
+$d_{ij}$ & Distance between data points $i$ and $j$ \\
+$\epsilon$ & DBSCAN neighborhood radius \\
+$k$ & Number of clusters in K-means \\
+$\vect{x}$ & Feature vector \\
+$\mat{D}$ & Distance matrix \\
+\end{tabular}
 
-\end{document} 
+\end{document}

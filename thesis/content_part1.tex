@@ -1,0 +1,287 @@
+% =============================================================================
+% CONTENT PART 1: CHAPTERS 1-2
+% =============================================================================
+
+% =============================================================================
+% CHAPTER 1: INTRODUCTION
+% =============================================================================
+\chapter{Introduction}
+
+\section{Background on Cognitive Radio Networks}
+Cognitive Radio Networks (CRNs) represent a paradigm shift in wireless communication systems, designed to address the growing spectrum scarcity challenge through intelligent and dynamic spectrum utilization. The fundamental principle of CRNs lies in enabling secondary users (SUs) to opportunistically access licensed spectrum bands when primary users (PUs) are not actively transmitting, thereby improving overall spectrum efficiency.
+
+The cognitive radio concept encompasses four primary functionalities: spectrum sensing, spectrum decision, spectrum sharing, and spectrum mobility. These capabilities work in concert to enable intelligent spectrum management while ensuring that primary users' communication rights remain protected.
+
+\section{Security Vulnerabilities and Challenges}
+The open and dynamic nature of cognitive radio networks introduces unique security vulnerabilities that differ significantly from traditional wireless networks. The distributed decision-making process, reliance on spectrum sensing, and the need for cooperation among cognitive radio users create multiple attack vectors that malicious entities can exploit.
+
+Key security challenges include:
+\begin{itemize}
+\item Spectrum sensing data falsification
+\item Primary user emulation attacks
+\item Jamming and interference attacks
+\item Selfish behavior in spectrum sharing
+\item Byzantine attacks in cooperative sensing
+\end{itemize}
+
+\section{Primary User Emulation Attacks and Their Impact}
+Primary User Emulation Attacks (PUEA) represent one of the most significant threats to cognitive radio networks. In a PUEA, a malicious secondary user mimics the signal characteristics of a legitimate primary user, causing other secondary users to falsely detect primary user activity and unnecessarily vacate the spectrum.
+
+The impact of PUEA extends beyond simple spectrum denial:
+\begin{enumerate}
+\item \textbf{Spectrum Utilization Degradation:} False primary user detection reduces available spectrum for legitimate secondary users
+\item \textbf{Network Performance Impact:} Unnecessary spectrum handoffs cause service disruptions and increased latency
+\item \textbf{Energy Consumption:} Frequent spectrum sensing and handoffs drain device batteries
+\item \textbf{Quality of Service (QoS) Deterioration:} Service interruptions affect real-time applications
+\end{enumerate}
+
+\section{Research Motivation and Objectives}
+The detection of primary user emulation attacks presents unique challenges due to the inherent similarity between legitimate primary user signals and PUEA signals. Traditional detection methods often suffer from high false alarm rates or inadequate detection performance, particularly in dynamic wireless environments characterized by fading, shadowing, and path loss variations.
+
+\subsection{Research Motivation}
+Current PUEA detection approaches face several limitations:
+\begin{itemize}
+\item Limited adaptability to changing channel conditions
+\item High computational complexity for real-time implementation
+\item Insufficient discrimination between legitimate PU and PUEA signals
+\item Vulnerability to sophisticated attack strategies
+\end{itemize}
+
+\subsection{Research Objectives}
+This research aims to address these limitations through the following objectives:
+\begin{enumerate}
+\item Develop a comprehensive system model that accurately represents cognitive radio network behavior under PUEA conditions
+\item Design novel statistical feature extraction methods that enhance the discriminative power between legitimate and malicious transmissions
+\item Implement and evaluate traditional clustering algorithms for PUEA detection
+\item Propose enhanced detection approaches that improve upon traditional methods
+\item Conduct comprehensive performance analysis across various attack scenarios
+\end{enumerate}
+
+\section{Overview of Clustering-based Detection Methods}
+Clustering algorithms offer promising solutions for PUEA detection due to their ability to identify natural groupings in data without requiring labeled training sets. The unsupervised nature of clustering makes it particularly suitable for cognitive radio environments where obtaining labeled attack data may be challenging.
+
+Key advantages of clustering-based detection include:
+\begin{itemize}
+\item No requirement for pre-labeled training data
+\item Adaptability to unknown attack patterns
+\item Computational efficiency for real-time implementation
+\item Robustness to noise and measurement uncertainties
+\end{itemize}
+
+\section{Contributions of this Research}
+This thesis makes several novel contributions to the field of cognitive radio network security:
+
+\begin{enumerate}
+\item \textbf{Enhanced System Modeling:} Development of a comprehensive network model that incorporates realistic signal propagation effects and attacker capabilities
+
+\item \textbf{Novel Feature Extraction:} Introduction of statistical feature extraction methods optimized for PUEA detection in various channel conditions
+
+\item \textbf{Comparative Analysis:} Systematic evaluation of multiple clustering algorithms (DBSCAN, K-means, Hierarchical) for PUEA detection
+
+\item \textbf{Enhanced Detection Framework:} Proposal of improved clustering-based detection methods that integrate K-nearest neighbors (KNN) and means algorithms within cluster analysis
+
+\item \textbf{Comprehensive Evaluation:} Extensive performance analysis across multiple scenarios, attack percentages, and evaluation metrics
+\end{enumerate}
+
+\section{Thesis Organization}
+This thesis is organized into ten chapters, structured to provide a comprehensive understanding of the research problem, methodology, implementation, and results:
+
+\begin{itemize}
+\item \textbf{Chapter 2} presents a detailed literature review covering cognitive radio security, existing PUEA detection techniques, and clustering algorithms in wireless security applications
+
+\item \textbf{Chapter 3} describes the system model and problem formulation, including network architecture and attacker models
+
+\item \textbf{Chapter 4} details the statistical feature extraction methodology and feature analysis techniques
+
+\item \textbf{Chapter 5} covers traditional clustering-based detection methods and their comparative analysis
+
+\item \textbf{Chapter 6} introduces the enhanced detection approach with improved clustering techniques
+
+\item \textbf{Chapter 7} outlines the experimental setup and testing methodology
+
+\item \textbf{Chapter 8} presents comprehensive results and performance analysis
+
+\item \textbf{Chapter 9} provides detailed discussion and interpretation of findings
+
+\item \textbf{Chapter 10} concludes with research summary, contributions, limitations, and future research directions
+\end{itemize}
+
+% =============================================================================
+% CHAPTER 2: LITERATURE REVIEW
+% =============================================================================
+\chapter{Literature Review}
+
+\section{Cognitive Radio Networks Security Landscape}
+The security landscape of cognitive radio networks has evolved significantly since the introduction of the cognitive radio concept. Early research focused primarily on spectrum efficiency and technical implementation challenges, while security considerations received limited attention. However, as cognitive radio technology has matured and deployment scenarios have become more realistic, the importance of comprehensive security measures has become increasingly apparent.
+
+\subsection{Evolution of Security Research}
+Security research in cognitive radio networks has progressed through several phases:
+\begin{enumerate}
+\item \textbf{Initial Phase (2005-2008):} Basic security threat identification and preliminary vulnerability assessments
+\item \textbf{Development Phase (2009-2012):} Detailed threat modeling and initial detection method proposals
+\item \textbf{Maturation Phase (2013-2016):} Sophisticated attack strategies and advanced detection algorithms
+\item \textbf{Current Phase (2017-present):} Machine learning integration and practical implementation considerations
+\end{enumerate}
+
+\subsection{Security Architecture Frameworks}
+Several security architecture frameworks have been proposed for cognitive radio networks, each addressing different aspects of the security challenge. These frameworks typically incorporate multiple layers of defense, including physical layer security, MAC layer protocols, and network layer authentication mechanisms.
+
+\section{Existing PUEA Detection Techniques}
+Primary User Emulation Attack detection has been approached from multiple perspectives, each with distinct advantages and limitations. The evolution of detection techniques reflects the increasing sophistication of both attack strategies and defense mechanisms.
+
+\subsection{Energy-based Detection Methods}
+Energy detection represents one of the earliest approaches to PUEA detection. These methods analyze the received signal energy characteristics to distinguish between legitimate primary users and attackers.
+
+\subsubsection{Simple Energy Detection}
+Basic energy detection compares received signal energy against predetermined thresholds. While computationally efficient, this approach suffers from poor performance in low signal-to-noise ratio (SNR) conditions and is vulnerable to power control attacks.
+
+\subsubsection{Advanced Energy Analysis}
+More sophisticated energy-based methods incorporate temporal and spatial energy pattern analysis, improving detection performance but increasing computational complexity.
+
+\subsection{Location-based Detection Approaches}
+Location-based detection techniques exploit the physical locations of transmitters to identify potential attackers. These methods rely on the assumption that legitimate primary users transmit from known, fixed locations.
+
+\subsubsection{Received Signal Strength (RSS) Localization}
+RSS-based localization estimates transmitter positions using signal strength measurements from multiple cognitive radio nodes. Location verification then determines whether detected transmissions originate from legitimate primary user locations.
+
+\subsubsection{Time Difference of Arrival (TDOA) Methods}
+TDOA techniques use timing information from synchronized cognitive radio nodes to estimate transmitter locations with higher accuracy than RSS methods, though they require precise time synchronization across the network.
+
+\subsection{Signal Feature-based Detection}
+Signal feature-based detection analyzes various characteristics of received signals to identify anomalies indicative of primary user emulation attacks.
+
+\subsubsection{Cyclostationary Feature Detection}
+Cyclostationary analysis exploits the cyclic properties inherent in legitimate primary user signals. Attackers often struggle to perfectly replicate these cyclic characteristics, making this approach effective for certain signal types.
+
+\subsubsection{Modulation Classification}
+Modulation classification techniques identify the modulation scheme of received signals and compare them against known primary user modulation patterns. Discrepancies may indicate the presence of an attacker.
+
+\section{Clustering Algorithms in Wireless Security}
+Clustering algorithms have found extensive application in wireless security due to their ability to identify patterns and anomalies in complex, high-dimensional data sets without requiring supervised training.
+
+\subsection{Density-based Clustering}
+Density-based clustering algorithms, particularly DBSCAN (Density-Based Spatial Clustering of Applications with Noise), have shown promise for anomaly detection in wireless networks.
+
+\subsubsection{DBSCAN Algorithm}
+DBSCAN groups data points based on local density, automatically determining the number of clusters and identifying outliers as noise. This characteristic makes it particularly suitable for detecting anomalous behavior in cognitive radio networks.
+
+\subsubsection{Advantages and Limitations}
+DBSCAN offers several advantages for wireless security applications:
+\begin{itemize}
+\item Automatic cluster number determination
+\item Noise point identification
+\item Robustness to cluster shape variations
+\end{itemize}
+
+However, it also has limitations:
+\begin{itemize}
+\item Parameter sensitivity (eps and minPts)
+\item Difficulty with varying density clusters
+\item Computational complexity in high dimensions
+\end{itemize}
+
+\subsection{Hierarchical Clustering}
+Hierarchical clustering algorithms create tree-like cluster structures that can reveal multi-level patterns in wireless security data.
+
+\subsubsection{Agglomerative Clustering}
+Agglomerative clustering builds hierarchies bottom-up, starting with individual data points and iteratively merging the closest clusters. This approach provides insights into data structure at multiple granularity levels.
+
+\subsubsection{Applications in Security}
+Hierarchical clustering has been applied to:
+\begin{itemize}
+\item Intrusion detection in wireless sensor networks
+\item Anomaly detection in mobile ad-hoc networks
+\item Behavioral analysis in cognitive radio networks
+\end{itemize}
+
+\subsection{Partitioning-based Clustering}
+Partitioning algorithms, such as K-means, divide data into a predetermined number of clusters based on similarity metrics.
+
+\subsubsection{K-means Algorithm}
+K-means clustering minimizes within-cluster sum of squares by iteratively updating cluster centroids and reassigning data points. Its simplicity and efficiency make it attractive for real-time security applications.
+
+\subsubsection{Enhanced K-means Variants}
+Several enhanced K-means variants have been developed for improved performance:
+\begin{itemize}
+\item K-means++ for better initialization
+\item Mini-batch K-means for large datasets
+\item Fuzzy C-means for soft clustering
+\end{itemize}
+
+\section{Feature Extraction Methods for Attack Detection}
+Effective feature extraction is crucial for successful clustering-based attack detection. The choice of features significantly impacts the discrimination capability between legitimate and malicious behavior.
+
+\subsection{Statistical Features}
+Statistical features capture the distributional characteristics of signal measurements and have proven effective for PUEA detection.
+
+\subsubsection{First-order Statistics}
+First-order statistical features include:
+\begin{itemize}
+\item Mean signal power
+\item Signal variance
+\item Signal standard deviation
+\item Signal range and extremes
+\end{itemize}
+
+\subsubsection{Higher-order Statistics}
+Higher-order statistical features provide additional discrimination capability:
+\begin{itemize}
+\item Skewness (third moment)
+\item Kurtosis (fourth moment)
+\item Higher-order cumulants
+\end{itemize}
+
+\subsection{Temporal Features}
+Temporal features capture the time-varying characteristics of cognitive radio transmissions.
+
+\subsubsection{Autocorrelation Features}
+Autocorrelation analysis reveals temporal dependencies in signal measurements, which may differ between legitimate primary users and attackers due to different transmission patterns.
+
+\subsubsection{Spectral Features}
+Spectral analysis in the time domain can identify periodic patterns and anomalies that indicate the presence of primary user emulation attacks.
+
+\subsection{Spatial Features}
+Spatial features exploit the geographical distribution of signal measurements across multiple cognitive radio nodes.
+
+\subsubsection{Signal Strength Gradients}
+Spatial gradients in received signal strength can reveal inconsistencies between expected and observed propagation patterns, potentially indicating the presence of attackers.
+
+\subsubsection{Multi-node Correlation}
+Correlation analysis across multiple cognitive radio nodes can identify spatially inconsistent behavior patterns characteristic of primary user emulation attacks.
+
+\section{Limitations of Current Approaches}
+Despite significant progress in PUEA detection research, current approaches face several limitations that motivate the need for enhanced detection methods.
+
+\subsection{Adaptability Challenges}
+Most existing detection methods are designed for specific attack scenarios or channel conditions, limiting their effectiveness in dynamic wireless environments. The lack of adaptability to evolving attack strategies represents a significant vulnerability.
+
+\subsection{Computational Complexity}
+Many sophisticated detection algorithms require substantial computational resources, making real-time implementation challenging for resource-constrained cognitive radio devices.
+
+\subsection{Feature Selection Issues}
+The selection of appropriate features for attack detection often relies on domain expertise and may not generalize well across different deployment scenarios or attack types.
+
+\subsection{Performance Trade-offs}
+Current methods often face trade-offs between detection accuracy and false alarm rates, making it difficult to achieve simultaneously high detection performance and low false positive rates.
+
+\section{Research Gaps Addressed by This Work}
+This research addresses several critical gaps in existing PUEA detection literature:
+
+\subsection{Integrated Clustering Framework}
+While individual clustering algorithms have been applied to PUEA detection, there has been limited systematic comparison and integration of multiple clustering approaches within a unified framework.
+
+\subsection{Enhanced Feature Engineering}
+Current feature extraction methods often overlook the potential for combining statistical, temporal, and spatial features in ways that maximize discriminative power for PUEA detection.
+
+\subsection{Adaptive Detection Mechanisms}
+Most existing approaches lack mechanisms for adapting to changing attack patterns or channel conditions, limiting their practical effectiveness in dynamic environments.
+
+\subsection{Comprehensive Performance Evaluation}
+Many studies evaluate detection performance under limited scenarios, lacking comprehensive analysis across varied attack percentages, channel conditions, and performance metrics.
+
+This thesis addresses these gaps by developing an enhanced clustering-based detection framework that integrates multiple algorithms, employs sophisticated feature extraction, and provides comprehensive performance evaluation across diverse scenarios.
+
+% [Placeholder for embedded figures]
+% Figure 2.1: Evolution of PUEA detection techniques timeline
+% Figure 2.2: Taxonomy of clustering algorithms for wireless security
+% Figure 2.3: Feature extraction methodology comparison
